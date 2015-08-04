@@ -14,3 +14,14 @@
 a {
     display: block;
 }
+
+.tinytext {
+    font-size: 10px;
+}
+
+.pgpkey {
+    white-space: pre;
+    background-color: #555555;
+    font-family: monospace;
+    color: #00FF00;
+}
