@@ -1,0 +1,16 @@
+.centerblock {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.titletext {
+    font-size: 32px;
+}
+
+.subtitletext {
+    font-size: 25px;
+}
+
+a {
+    display: block;
+}
