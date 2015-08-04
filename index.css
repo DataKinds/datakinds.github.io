@@ -27,7 +27,7 @@ a {
 }
 
 .fractalimage {
-    transform: scale(0.3);
+    transform: scale(0.7);
 }
 
 .fractalcontainer {
@@ -36,5 +36,5 @@ a {
     position: absolute;
     top: 0px;
     left: 0px;
-    transform: translateY(-350px) translateX(-300px) rotate(0.9turn);
+    transform: translateY(-300px) translateX(-450px) rotate(0.9turn);
 }
