@@ -21,7 +21,20 @@ a {
 
 .pgpkey {
     white-space: pre;
-    background-color: #555555;
+    background-color: #222222;
     font-family: monospace;
     color: #00FF00;
+}
+
+.fractalimage {
+    transform: scale(0.3);
+}
+
+.fractalcontainer {
+    z-index: -10;
+    opacity: 0.5;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    transform: translateY(-350px) translateX(-300px) rotate(0.9turn);
 }
