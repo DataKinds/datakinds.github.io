@@ -1,5 +1,9 @@
+* {
+    font-family: sans-serif;
+}
+
 .centerblock {
-    width: 70%;
+    max-width: 70em;
     margin: 0 auto;
 }
 
@@ -11,15 +15,12 @@
     font-size: 25px;
 }
 
-a {
-    display: block;
-}
-
 .tinytext {
     font-size: 10px;
 }
 
 .pgpkey {
+    text-align: center;
     white-space: pre;
     background-color: #222222;
     font-family: monospace;
@@ -37,4 +38,9 @@ a {
     top: 0px;
     left: 0px;
     transform: translateY(-300px) translateX(-450px) rotate(0.9turn);
+}
+
+.haskell {
+    font-family: monospace;
+    white-space: nowrap;
 }
