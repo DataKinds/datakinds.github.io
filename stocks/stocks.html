@@ -34,21 +34,22 @@
 								 "money": money,
 								 "stocks": stocks,
 								 "exchangeRates": exchangeRates};
-				localStorage.setItem("gameState");
+				localStorage.setItem("gameState", JSON.stringify(gameState));
 			}
 
 			function load() {
-				var gameState = localStorage.getItem("gameState");
+				var gameState = JSON.parse(localStorage.getItem("gameState"));
 				if (gameState != null) { //if we've saved before, aka not null
 					currentCost = gameState["currentCost"];
 					money = gameState["money"];
 					stocks = gameState["stocks"];
 					exchangeRates = gameState["exchangeRates"];
-					document.getElementById("gameLoaded").innerHTML += gameState;
+					document.getElementById("gameLoaded").innerHTML += JSON.stringify(gameState);
 					flash("gameLoaded");
 				} else {
 					document.getElementById("gameLoaded").innerHTML = "No previous saved game!";
 				}
+				updateDisplay();
 			}
 
 			function graphTick() {
