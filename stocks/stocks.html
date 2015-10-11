@@ -20,6 +20,11 @@
 				for (var n = 0; n < Math.floor(canvasWidth / graphResolution); n++) {
 					graph.push(currentCost);
 				}
+				exchangeRates = {"dollar": 1,
+								 "euro": 1,
+								 "pound": 1,
+								 "yen": 1};
+				currentCurrency = ["euro", "€"];
 				graphTick();
 			}
 
@@ -40,7 +45,7 @@
 					//draw money texts
 					ctx.strokeStyle = "#FFFFFF";
 					//look out for magic numbers - for alignment ofc
-					ctx.fillText("€" + yPos, canvasWidth + 10, canvasHeight - yPos / 1.018);
+					ctx.fillText(currentCurrency[1] + yPos, canvasWidth + 10, canvasHeight - yPos / 1.018);
 				}
 				//draw and change the stock market line
 				//first, do some logic with the cost itself
@@ -73,7 +78,7 @@
 			}
 
 			function updateDisplay() {
-				document.getElementById("moneyDisplay").innerHTML = "Money: €" + money.toFixed(2);
+				document.getElementById("moneyDisplay").innerHTML = "Money: " + currentCurrency[1] + money.toFixed(2);
 				document.getElementById("stocksDisplay").innerHTML = "Stocks: " + stocks;
 			}
 
@@ -137,7 +142,22 @@
 			Out of stocks!
 		</h3>
 		<canvas id="graph" height="600" width="900">
-			This doesn't work in internet explorer. I'm looking at you, Kyle.
+			This doesn't work in Internet Explorer. Please get a real browser - Chrome, Firefox, Opera, Midori, or even Safari.
 		</canvas>
+		<h3>
+			None of these buttons are currently functional.
+		</h3>
+		<button id="toEuro">
+			Convert to Euros. Current exchange rate: €1 = €1
+		</button>
+		<button id="toDollar">
+			Convert to Dollars. Current exchange rate: €1 = $1
+		</button>
+		<button id="toPound">
+			Convert to Pounds. Current exchange rate: €1 = ‎£1
+		</button>
+		<button id="toYen">
+			Convert to Yen. Current exchange rate: €1 = ‎¥1
+		</button>
 	</body>
 </html>
