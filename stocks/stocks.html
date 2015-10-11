@@ -112,6 +112,7 @@
 					flash("notEnoughMoney");
 				}
 				updateDisplay();
+				save();
 			}
 
 			function sellStocks() {
@@ -123,6 +124,7 @@
 					flash("outOfStocks");
 				}
 				updateDisplay();
+				save();
 			}
 
 			function buySellKeyPress(event) {
