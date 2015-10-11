@@ -33,20 +33,22 @@
 				var gameState = {"currentCost": currentCost,
 								 "money": money,
 								 "stocks": stocks,
-								 "exchangeRates", exchangeRates};
+								 "exchangeRates": exchangeRates};
 				localStorage.setItem("gameState");
 			}
 
 			function load() {
-				var gameState = localStorage.getItem("gameState")
-				if (gameState) { //if we've saved before
+				var gameState = localStorage.getItem("gameState");
+				if (gameState != null) { //if we've saved before, aka not null
 					currentCost = gameState["currentCost"];
 					money = gameState["money"];
 					stocks = gameState["stocks"];
 					exchangeRates = gameState["exchangeRates"];
+					document.getElementById("gameLoaded").innerHTML += gameState;
+					flash("gameLoaded");
+				} else {
+					document.getElementById("gameLoaded").innerHTML = "No previous saved game!";
 				}
-				document.getElementById("gameLoaded").innerHTML += gameState;
-				flash("gameLoaded");
 			}
 
 			function graphTick() {
@@ -94,8 +96,8 @@
 
 			function flash(id) {
 				var status = document.getElementById(id);
-				status.style = "color:red;"
-				window.setTimeout(function(){status.style = "color:red;display:none;"}, 2000);
+				status.style.display = "block"
+				window.setTimeout(function(){status.style.display = "none"}, 3000);
 			}
 
 			function updateDisplay() {
@@ -128,7 +130,6 @@
 			}
 
 			function buySellKeyPress(event) {
-				console.log(event.keyCode);
 				switch (event.keyCode) {
 					case 90:
 					buyStocks();
