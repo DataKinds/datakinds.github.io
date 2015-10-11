@@ -25,7 +25,26 @@
 								 "pound": 1,
 								 "yen": 1};
 				currentCurrency = ["euro", "€"];
+				load();
 				graphTick();
+			}
+
+			function save() {
+				var gameState = {"currentCost": currentCost,
+								 "money": money,
+								 "stocks": stocks,
+								 "exchangeRates", exchangeRates};
+				localStorage.setItem("gameState");
+			}
+
+			function load() {
+				var gameState = localStorage.getItem("gameState")
+				if (gameState) { //if we've saved before
+					currentCost = gameState["currentCost"];
+					money = gameState["money"];
+					stocks = gameState["stocks"];
+					exchangeRates = gameState["exchangeRates"];
+				}
 			}
 
 			function graphTick() {
@@ -121,6 +140,9 @@
 		<h1>
 			Stocks: Business is Booming
 		</h1>
+		<h2 id="gameLoaded" style="color:green;display:none">
+			Game loaded! 
+		</h2>
 		<h2 style="display:inline;">
 			Z to buy
 		</h2>
