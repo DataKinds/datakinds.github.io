@@ -40,7 +40,7 @@
 					//draw money texts
 					ctx.strokeStyle = "#FFFFFF";
 					//look out for magic numbers - for alignment ofc
-					ctx.fillText(yPos + "€", canvasWidth + 10, canvasHeight - yPos / 1.018);
+					ctx.fillText("€" + yPos, canvasWidth + 10, canvasHeight - yPos / 1.018);
 				}
 				//draw and change the stock market line
 				//first, do some logic with the cost itself
@@ -73,7 +73,7 @@
 			}
 
 			function updateDisplay() {
-				document.getElementById("moneyDisplay").innerHTML = "Money: " + money.toFixed(2) + "€";
+				document.getElementById("moneyDisplay").innerHTML = "Money: €" + money.toFixed(2);
 				document.getElementById("stocksDisplay").innerHTML = "Stocks: " + stocks;
 			}
 
@@ -125,7 +125,7 @@
 		</h2>
 		<input type="number" value="1" id="sellCount">
 		<h3 id="moneyDisplay">
-			Money: 500€
+			Money: €500
 		</h3>
 		<h3 id="notEnoughMoney" style="color:red;display:none;">
 			Not enough cash!
