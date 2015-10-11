@@ -6,27 +6,34 @@
 		</title>
 		<script type="text/javascript">
 			function init() {
+				//stuff to interact with the canvas
 				canvas = document.getElementById("graph");
 				window.addEventListener("keydown", buySellKeyPress, false);
 				canvasWidth = canvas.width - 100;
 				canvasHeight = canvas.height
 				ctx = canvas.getContext("2d");
+				//game variables
 				currentCost = 100;
 				money = 500;
 				stocks = 1;
-				graphResolution = 2; //lower is more
-				graph = []
-				//fill graph array
-				for (var n = 0; n < Math.floor(canvasWidth / graphResolution); n++) {
-					graph.push(currentCost);
-				}
 				exchangeRates = {"dollar": 1,
 								 "euro": 1,
 								 "pound": 1,
 								 "yen": 1};
 				currentCurrency = ["euro", "€"];
 				load();
+				//populate graph array
+				graphResolution = 2; //lower is more
+				graph = []
+				for (var n = 0; n < Math.floor(canvasWidth / graphResolution); n++) {
+					graph.push(currentCost);
+				}
+				//start the game
 				graphTick();
+			}
+
+			function nameToSymbol(name) {
+				return {"dollar": "$", "euro": "€", "pound": "£", "yen": "¥"}[name];
 			}
 
 			function save() {
@@ -146,47 +153,57 @@
 		<h1>
 			Stocks: Business is Booming
 		</h1>
-
-		<h2 style="display:inline;">
-			Z to buy
-		</h2>
-		<input type="number" value="1" id="buyCount">
-		<h2 style="display:inline;">
-			, X to sell
-		</h2>
-		<input type="number" value="1" id="sellCount">
-		<h3 id="moneyDisplay">
-			Money: €500
-		</h3>
-		<h3 id="stocksDisplay">
-			Stocks: 1
-		</h3>
-		<h3 id="notEnoughMoney" style="color:red;display:none;">
-			Not enough cash!
-		</h3>
-		<h3 id="outOfStocks" style="color:red;display:none;">
-			Out of stocks!
-		</h3>
-		<h3 id="gameLoaded" style="color:green;display:none">
-			Game loaded!  
-		</h3>
+		<div>
+			<h2 style="display:inline;">
+				Z to buy
+			</h2>
+			<input type="number" value="1" id="buyCount">
+			<h2 style="display:inline;">
+				, X to sell
+			</h2>
+			<input type="number" value="1" id="sellCount">
+			<h3 id="moneyDisplay">
+				Money: €500
+			</h3>
+		</div>
+		<div>
+			<h3 id="stocksDisplay">
+				Stocks: 1
+			</h3>
+			<h3 id="notEnoughMoney" style="color:red;display:none;">
+				Not enough cash!
+			</h3>
+			<h3 id="outOfStocks" style="color:red;display:none;">
+				Out of stocks!
+			</h3>
+			<h3 id="gameLoaded" style="color:green;display:none">
+				Game loaded!  
+			</h3>
+		</div>
 		<canvas id="graph" height="600" width="900">
 			This doesn't work in Internet Explorer. Please get a real browser - Chrome, Firefox, Opera, Midori, or even Safari.
 		</canvas>
 		<h3>
 			None of these buttons are currently functional.
 		</h3>
-		<button id="toEuro">
-			Convert to Euros. Current exchange rate: €1 = €1
-		</button>
-		<button id="toDollar">
-			Convert to Dollars. Current exchange rate: €1 = $1
-		</button>
-		<button id="toPound">
-			Convert to Pounds. Current exchange rate: €1 = ‎£1
-		</button>
-		<button id="toYen">
-			Convert to Yen. Current exchange rate: €1 = ‎¥1
-		</button>
+		<div>
+			<button id="toEuro">
+				Convert to Euros. Current exchange rate: €1 = €1
+			</button>
+			<button id="toDollar">
+				Convert to Dollars. Current exchange rate: €1 = $1
+			</button>
+			<button id="toPound">
+				Convert to Pounds. Current exchange rate: €1 = ‎£1
+			</button>
+			<button id="toYen">
+				Convert to Yen. Current exchange rate: €1 = ‎¥1
+			</button>
+		</div>
+		<div>
+			<a href="https://github.com/Aearnus/aearnus.github.io/commits/master/stocks">
+				Here's the update log
+			</a>
+		</div>
 	</body>
 </html>
