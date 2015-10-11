@@ -45,6 +45,8 @@
 					stocks = gameState["stocks"];
 					exchangeRates = gameState["exchangeRates"];
 				}
+				document.getElementById("gameLoaded").innerHTML += gameState;
+				flash("gameLoaded");
 			}
 
 			function graphTick() {
@@ -140,9 +142,7 @@
 		<h1>
 			Stocks: Business is Booming
 		</h1>
-		<h2 id="gameLoaded" style="color:green;display:none">
-			Game loaded! 
-		</h2>
+
 		<h2 style="display:inline;">
 			Z to buy
 		</h2>
@@ -154,14 +154,17 @@
 		<h3 id="moneyDisplay">
 			Money: €500
 		</h3>
-		<h3 id="notEnoughMoney" style="color:red;display:none;">
-			Not enough cash!
-		</h3>
 		<h3 id="stocksDisplay">
 			Stocks: 1
 		</h3>
+		<h3 id="notEnoughMoney" style="color:red;display:none;">
+			Not enough cash!
+		</h3>
 		<h3 id="outOfStocks" style="color:red;display:none;">
 			Out of stocks!
+		</h3>
+		<h3 id="gameLoaded" style="color:green;display:none">
+			Game loaded!  
 		</h3>
 		<canvas id="graph" height="600" width="900">
 			This doesn't work in Internet Explorer. Please get a real browser - Chrome, Firefox, Opera, Midori, or even Safari.
