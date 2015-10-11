@@ -1,0 +1,142 @@
+<meta charset="UTF-8"> 
+<html>
+	<head>
+		<title>
+			Stocks
+		</title>
+		<script type="text/javascript">
+			function init() {
+				canvas = document.getElementById("graph");
+				window.addEventListener("keydown", buySellKeyPress, false);
+				canvasWidth = canvas.width - 100;
+				canvasHeight = canvas.height
+				ctx = canvas.getContext("2d");
+				currentCost = 100;
+				money = 500;
+				stocks = 1;
+				graphResolution = 2; //lower is more
+				graph = []
+				//fill graph array
+				for (var n = 0; n < Math.floor(canvasWidth / graphResolution); n++) {
+					graph.push(currentCost);
+				}
+				graphTick();
+			}
+
+			function graphTick() {
+				//first clear canvas
+				ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+				//draw graph lines
+				ctx.lineWidth = 1;
+				ctx.font = "1em serif";
+				for (var y = 0; y <= 20; y++) {
+					ctx.strokeStyle = "#555555";
+					var yPos = (y / 20) * canvasHeight;
+					ctx.beginPath();
+					ctx.moveTo(0, yPos);
+					ctx.lineTo(canvasWidth, yPos);
+					ctx.stroke();
+					ctx.closePath();
+					//draw money texts
+					ctx.strokeStyle = "#FFFFFF";
+					//look out for magic numbers - for alignment ofc
+					ctx.fillText(yPos + "€", canvasWidth + 10, canvasHeight - yPos / 1.018);
+				}
+				//draw and change the stock market line
+				//first, do some logic with the cost itself
+				currentCost += (Math.random() * 16) - 8;
+				if (currentCost > canvasHeight) {
+					currentCost -= 200;
+				} else if (currentCost < 0) {
+					currentCost += 200;
+				}
+				graph.push(currentCost);
+				graph.shift();
+				//then draw the graph
+				ctx.strokeStyle = "#FF0000";
+				ctx.lineWidth = 3;
+				for (var graphIndex = 0; graphIndex < graph.length - 1; graphIndex++) {
+					ctx.beginPath();
+					ctx.moveTo(graphIndex * graphResolution, canvasHeight - graph[graphIndex]);
+					ctx.lineTo((graphIndex * graphResolution) + graphResolution, canvasHeight - graph[graphIndex + 1]);
+					ctx.stroke();
+					ctx.closePath();
+				}
+				//call this function again
+				window.requestAnimationFrame(graphTick);
+			}
+
+			function flash(id) {
+				var status = document.getElementById(id);
+				status.style = "color:red;"
+				window.setTimeout(function(){status.style = "color:red;display:none;"}, 2000);
+			}
+
+			function updateDisplay() {
+				document.getElementById("moneyDisplay").innerHTML = "Money: " + money.toFixed(2) + "€";
+				document.getElementById("stocksDisplay").innerHTML = "Stocks: " + stocks;
+			}
+
+			function buyStocks() {
+				var buyCount = Number.parseInt(document.getElementById("buyCount").value);
+				if (money >= currentCost * buyCount) {
+					money -= currentCost * buyCount;
+					stocks += buyCount;
+				} else {
+					flash("notEnoughMoney");
+				}
+				updateDisplay();
+			}
+
+			function sellStocks() {
+				var sellCount = Number.parseInt(document.getElementById("sellCount").value);
+				if (stocks >= sellCount) {
+					stocks -= sellCount;
+					money += currentCost * sellCount;
+				} else {
+					flash("outOfStocks");
+				}
+				updateDisplay();
+			}
+
+			function buySellKeyPress(event) {
+				console.log(event.keyCode);
+				switch (event.keyCode) {
+					case 90:
+					buyStocks();
+					break;
+					case 88:
+					sellStocks();
+					break;
+				}
+			}
+		</script>
+	</head>
+	<body onload="init()">
+		<h1>
+			Stocks: Business is Booming
+		</h1>
+		<h2 style="display:inline;">
+			Z to buy
+		</h2>
+		<input type="number" value="1" id="buyCount">
+		<h2 style="display:inline;">
+			, X to sell
+		</h2>
+		<input type="number" value="1" id="sellCount">
+		<h3 id="moneyDisplay">
+			Money: 500€
+		</h3>
+		<h3 id="notEnoughMoney" style="color:red;display:none;">
+			Not enough cash!
+		</h3>
+		<h3 id="stocksDisplay">
+			Stocks: 1
+		</h3>
+		<h3 id="outOfStocks" style="color:red;display:none;">
+			Out of stocks!
+		</h3>
+		<canvas id="graph" height="600" width="900">
+		</canvas>
+	</body>
+</html>
