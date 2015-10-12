@@ -2,6 +2,31 @@
 	font-family: sans-serif;
 }
 
+#main {
+	width: 900px;
+	margin: 0 auto;
+}
+
+#titleContainer { 
+	text-align: center;
+}
+
+#titleBox {
+	display: inline-block;
+}
+
+#gameTitle {
+	text-align: left;
+	color: #555555;
+	margin-bottom: 5px;
+}
+
+#gameSubtitle {
+	margin-top: 0px;
+	color: #FF7930;
+}
+
+/* unit conversion table style */
 table {
 	border: 2px solid black;
 }

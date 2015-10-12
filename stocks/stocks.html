@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <meta charset="UTF-8"> 
 <html>
 	<head>
@@ -199,10 +201,17 @@
 		</script>
 	</head>
 	<body onload="init()">
-		<main>
-			<h1>
-				Stocks: Business is Booming
-			</h1>
+		<div id="main">
+			<div id="titleContainer">
+				<div id="titleBox">
+					<h1 id="gameTitle">
+						Stocks
+					</h1>
+					<h3 id="gameSubtitle">
+						Buisness is Booming
+					</h3>
+				</div>
+			</div>
 			<div>
 				<h2 style="display:inline;">
 					Z to buy
@@ -302,6 +311,6 @@
 			<button onclick="localStorage.clear();window.location=window.location">
 				Reset completely (for dev purposes)
 			</button>
-		</main>
+		</div>
 	</body>
 </html>
