@@ -84,6 +84,9 @@
 						//random chance to change exchange rate
 						if (Math.random() < 0.3) {
 							exchangeRates[currencyName] += (Math.random(0.5) - 0.25);
+							if (exchangeRates[currencyName] < 0.05) {
+								exchangeRates[currencyName] = 0.05;
+							}
 							save();
 							updateDisplay();
 						}
