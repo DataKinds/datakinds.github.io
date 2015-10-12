@@ -17,9 +17,9 @@
 				money = 500;
 				stocks = 1;
 				exchangeRates = {"dollar": 1,
-								 "euro": 1,
-								 "pound": 1,
-								 "yen": 1};
+								 "euro": 2,
+								 "pound": 0.6,
+								 "yen": 100};
 				currentCurrency = ["euro", "€"];
 				load();
 				//populate graph array
@@ -29,6 +29,8 @@
 					graph.push(currentCost);
 				}
 				//start the game
+				updateDisplay();
+				setInterval(currencyMarketValues, 2000);
 				graphTick();
 			}
 
@@ -36,27 +38,49 @@
 				return {"dollar": "$", "euro": "€", "pound": "£", "yen": "¥"}[name];
 			}
 
+			function convertCurrencies(firstCurrency, secondCurrency) {
+				return (exchangeRates[secondCurrency] / exchangeRates[firstCurrency]);
+			}
+
 			function save() {
 				var gameState = {"currentCost": currentCost,
 								 "money": money,
 								 "stocks": stocks,
-								 "exchangeRates": exchangeRates};
+								 "exchangeRates": exchangeRates,
+								 "currentCurrency": currentCurrency};
 				localStorage.setItem("gameState", JSON.stringify(gameState));
 			}
 
 			function load() {
 				var gameState = JSON.parse(localStorage.getItem("gameState"));
 				if (gameState != null) { //if we've saved before, aka not null
+					//actually load stuff
 					currentCost = gameState["currentCost"];
 					money = gameState["money"];
 					stocks = gameState["stocks"];
 					exchangeRates = gameState["exchangeRates"];
+					currrentCurrency = gameState["currrentCurrency"];
+					//pretty status messages
 					document.getElementById("gameLoaded").innerHTML += JSON.stringify(gameState);
 					flash("gameLoaded");
 				} else {
 					document.getElementById("gameLoaded").innerHTML = "No previous saved game!";
 				}
 				updateDisplay();
+			}
+
+			function currencyMarketValues() {
+				//iterate through the currencies
+				for (var currencyName in exchangeRates) {
+					if (exchangeRates.hasOwnProperty(currencyName)) {
+						//random chance to change exchange rate
+						if (Math.random() < 0.1) {
+							exchangeRates[currencyName] += (Math.random(0.5) - 0.25);
+							save();
+							updateDisplay();
+						}
+					}
+				}
 			}
 
 			function graphTick() {
@@ -111,6 +135,10 @@
 			function updateDisplay() {
 				document.getElementById("moneyDisplay").innerHTML = "Money: " + currentCurrency[1] + money.toFixed(2);
 				document.getElementById("stocksDisplay").innerHTML = "Stocks: " + stocks;
+				document.getElementById("toDollar").innerHTML = "Convert to Dollars. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("dollar") + convertCurrencies(currentCurrency[0], "dollar").toFixed(2);
+				document.getElementById("toEuro").innerHTML = "Convert to Euros. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("euro") + convertCurrencies(currentCurrency[0], "euro").toFixed(2);
+				document.getElementById("toPound").innerHTML = "Convert to Pounds. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("pound") + convertCurrencies(currentCurrency[0], "pound").toFixed(2);
+				document.getElementById("toYen").innerHTML = "Convert to Yen. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("yen") + convertCurrencies(currentCurrency[0], "yen").toFixed(2);
 			}
 
 			function buyStocks() {
