@@ -93,7 +93,7 @@
 
 			function graphTick() {
 				//first clear canvas
-				ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
 				//draw graph lines
 				ctx.lineWidth = 1;
 				ctx.font = "1em serif";
@@ -219,9 +219,6 @@
 		<canvas id="graph" height="600" width="900">
 			This doesn't work in Internet Explorer. Please get a real browser - Chrome, Firefox, Opera, Midori, or even Safari.
 		</canvas>
-		<h3>
-			None of these buttons are currently functional.
-		</h3>
 		<div>
 			<button id="toEuro" onclick="convertToCurrency('euro')">
 				Convert to Euros. Current exchange rate: €1 = €1
