@@ -148,10 +148,6 @@
 				//hardcoding is _fun_
 				document.getElementById("moneyDisplay").innerHTML = "Money: " + currentCurrency[1] + money.toFixed(2);
 				document.getElementById("stocksDisplay").innerHTML = "Stocks: " + stocks;
-				document.getElementById("toDollar").innerHTML = "Convert to Dollars. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("dollar") + currencyRate(currentCurrency[0], "dollar").toFixed(2);
-				document.getElementById("toEuro").innerHTML = "Convert to Euros. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("euro") + currencyRate(currentCurrency[0], "euro").toFixed(2);
-				document.getElementById("toPound").innerHTML = "Convert to Pounds. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("pound") + currencyRate(currentCurrency[0], "pound").toFixed(2);
-				document.getElementById("toYen").innerHTML = "Convert to Yen. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("yen") + currencyRate(currentCurrency[0], "yen").toFixed(2);
 				document.getElementById("unadjustedEuro").innerHTML = exchangeRates["euro"].toFixed(2);
 				document.getElementById("euroEuro").innerHTML = currencyRate("euro", "euro").toFixed(2);
 				document.getElementById("dollarEuro").innerHTML = currencyRate("dollar", "euro").toFixed(2);
@@ -296,16 +292,16 @@
 			</table>
 			<p>
 				<button id="toEuro" onclick="convertToCurrency('euro')">
-					Convert to Euros. Current exchange rate: €1 = €1
+					Convert to Euros
 				</button>
 				<button id="toDollar" onclick="convertToCurrency('dollar')">
-					Convert to Dollars. Current exchange rate: €1 = $1
+					Convert to Dollars
 				</button>
 				<button id="toPound" onclick="convertToCurrency('pound')">
-					Convert to Pounds. Current exchange rate: €1 = ‎£1
+					Convert to Pounds
 				</button>
 				<button id="toYen" onclick="convertToCurrency('yen')">
-					Convert to Yen. Current exchange rate: €1 = ‎¥1
+					Convert to Yen
 				</button>
 			</p>
 		</div>
