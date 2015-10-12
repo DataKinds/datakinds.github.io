@@ -82,7 +82,7 @@
 				for (var currencyName in exchangeRates) {
 					if (exchangeRates.hasOwnProperty(currencyName)) {
 						//random chance to change exchange rate
-						if (Math.random() < 0.5) {
+						if (Math.random() < 0.3) {
 							exchangeRates[currencyName] += (Math.random(0.5) - 0.25);
 							save();
 							updateDisplay();
@@ -238,5 +238,9 @@
 				Here's the update log
 			</a>
 		</div>
+		<br><br><br><br><br><br><br>
+		<button onclick="localStorage.clear();window.location=window.location">
+			Reset completely (for dev purposes)
+		</button>
 	</body>
 </html>
