@@ -1,5 +1,8 @@
-* {
-	font-family: sans-serif;
+@import url(https://fonts.googleapis.com/css?family=Oswald:400,700);
+
+body, h1, h2, h3 {
+	font-family: 'Oswald', sans-serif;
+	font-weight: 400;
 }
 
 #main {
@@ -18,17 +21,20 @@
 #gameTitle {
 	text-align: left;
 	color: #555555;
-	margin-bottom: 5px;
+	margin-bottom: -5px;
+	font-weight: bold;
 }
 
 #gameSubtitle {
 	margin-top: 0px;
 	color: #FF7930;
+	font-weight: normal;
 }
 
 /* unit conversion table style */
 table {
 	border: 2px solid black;
+	font-family: monospace;
 }
 
 tr, td, th {
