@@ -74,6 +74,7 @@
 					money = money * currencyRate(currentCurrency[0], currency);
 					currentCurrency = [currency, nameToSymbol(currency)];
 				}
+				updateDisplay();
 			}
 
 			function currencyMarketValues() {
@@ -222,16 +223,16 @@
 			None of these buttons are currently functional.
 		</h3>
 		<div>
-			<button id="toEuro">
+			<button id="toEuro" onclick="convertToCurrency('euro')">
 				Convert to Euros. Current exchange rate: €1 = €1
 			</button>
-			<button id="toDollar">
+			<button id="toDollar" onclick="convertToCurrency('dollar')">
 				Convert to Dollars. Current exchange rate: €1 = $1
 			</button>
-			<button id="toPound">
+			<button id="toPound" onclick="convertToCurrency('pound')">
 				Convert to Pounds. Current exchange rate: €1 = ‎£1
 			</button>
-			<button id="toYen">
+			<button id="toYen" onclick="convertToCurrency('yen')">
 				Convert to Yen. Current exchange rate: €1 = ‎¥1
 			</button>
 		</div>
