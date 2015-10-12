@@ -4,6 +4,7 @@
 		<title>
 			Stocks
 		</title>
+		<link rel="stylesheet" type="text/css" href="stocks.css">
 		<script type="text/javascript">
 			function init() {
 				//stuff to interact with the canvas
@@ -83,7 +84,7 @@
 					if (exchangeRates.hasOwnProperty(currencyName)) {
 						//random chance to change exchange rate
 						if (Math.random() < 0.3) {
-							exchangeRates[currencyName] += (Math.random(0.5) - 0.25);
+							exchangeRates[currencyName] += (Math.random(0.3) - 0.15);
 							if (exchangeRates[currencyName] < 0.05) {
 								exchangeRates[currencyName] = 0.05;
 							}
@@ -144,12 +145,33 @@
 			}
 
 			function updateDisplay() {
+				//hardcoding is _fun_
 				document.getElementById("moneyDisplay").innerHTML = "Money: " + currentCurrency[1] + money.toFixed(2);
 				document.getElementById("stocksDisplay").innerHTML = "Stocks: " + stocks;
 				document.getElementById("toDollar").innerHTML = "Convert to Dollars. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("dollar") + currencyRate(currentCurrency[0], "dollar").toFixed(2);
 				document.getElementById("toEuro").innerHTML = "Convert to Euros. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("euro") + currencyRate(currentCurrency[0], "euro").toFixed(2);
 				document.getElementById("toPound").innerHTML = "Convert to Pounds. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("pound") + currencyRate(currentCurrency[0], "pound").toFixed(2);
 				document.getElementById("toYen").innerHTML = "Convert to Yen. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("yen") + currencyRate(currentCurrency[0], "yen").toFixed(2);
+				document.getElementById("unadjustedEuro").innerHTML = exchangeRates["euro"].toFixed(2);
+				document.getElementById("euroEuro").innerHTML = currencyRate("euro", "euro").toFixed(2);
+				document.getElementById("dollarEuro").innerHTML = currencyRate("dollar", "euro").toFixed(2);
+				document.getElementById("poundEuro").innerHTML = currencyRate("pound", "euro").toFixed(2);
+				document.getElementById("yenEuro").innerHTML = currencyRate("yen", "euro").toFixed(2);
+				document.getElementById("unadjustedDollar").innerHTML = exchangeRates["dollar"].toFixed(2);
+				document.getElementById("euroDollar").innerHTML = currencyRate("euro", "dollar").toFixed(2);
+				document.getElementById("dollarDollar").innerHTML = currencyRate("dollar", "dollar").toFixed(2);
+				document.getElementById("poundDollar").innerHTML = currencyRate("pound", "dollar").toFixed(2);
+				document.getElementById("yenDollar").innerHTML = currencyRate("yen", "dollar").toFixed(2);
+				document.getElementById("unadjustedPound").innerHTML = exchangeRates["pound"].toFixed(2);
+				document.getElementById("euroPound").innerHTML = currencyRate("euro", "pound").toFixed(2);
+				document.getElementById("dollarPound").innerHTML = currencyRate("dollar", "pound").toFixed(2);
+				document.getElementById("poundPound").innerHTML = currencyRate("pound", "pound").toFixed(2);
+				document.getElementById("yenPound").innerHTML = currencyRate("yen", "pound").toFixed(2);
+				document.getElementById("unadjustedYen").innerHTML = exchangeRates["yen"].toFixed(2);
+				document.getElementById("euroYen").innerHTML = currencyRate("euro", "yen").toFixed(2);
+				document.getElementById("dollarYen").innerHTML = currencyRate("dollar", "yen").toFixed(2);
+				document.getElementById("poundYen").innerHTML = currencyRate("pound", "yen").toFixed(2);
+				document.getElementById("yenYen").innerHTML = currencyRate("yen", "yen").toFixed(2);
 			}
 
 			function buyStocks() {
@@ -219,22 +241,73 @@
 				Game loaded!  
 			</h3>
 		</div>
+		<h2>
+			Stock graph:
+		</h2>
 		<canvas id="graph" height="600" width="900">
 			This doesn't work in Internet Explorer. Please get a real browser - Chrome, Firefox, Opera, Midori, or even Safari.
 		</canvas>
+		<h2>
+			Currency exchange:
+		</h2>
 		<div>
-			<button id="toEuro" onclick="convertToCurrency('euro')">
-				Convert to Euros. Current exchange rate: €1 = €1
-			</button>
-			<button id="toDollar" onclick="convertToCurrency('dollar')">
-				Convert to Dollars. Current exchange rate: €1 = $1
-			</button>
-			<button id="toPound" onclick="convertToCurrency('pound')">
-				Convert to Pounds. Current exchange rate: €1 = ‎£1
-			</button>
-			<button id="toYen" onclick="convertToCurrency('yen')">
-				Convert to Yen. Current exchange rate: €1 = ‎¥1
-			</button>
+			<table style="">
+				<caption>Currency conversion table</caption>
+				<tr>
+					<th>Currency</th>
+					<th>Unadjusted values</th>
+					<th>1 Euro</th>
+					<th>1 Dollar</th>
+					<th>1 Pound</th>
+					<th>1 Yen</th>
+				</tr>
+				<tr>
+					<td>Euro</td>
+					<td id="unadjustedEuro"></td>
+					<td id="euroEuro"></td>
+					<td id="dollarEuro"></td>
+					<td id="poundEuro"></td>
+					<td id="yenEuro"></td>
+				</tr>
+				<tr>
+					<td>Dollar</td>
+					<td id="unadjustedDollar"></td>
+					<td id="euroDollar"></td>
+					<td id="dollarDollar"></td>
+					<td id="poundDollar"></td>
+					<td id="yenDollar"></td>
+				</tr>
+				<tr>
+					<td>Pound</td>
+					<td id="unadjustedPound"></td>
+					<td id="euroPound"></td>
+					<td id="dollarPound"></td>
+					<td id="poundPound"></td>
+					<td id="yenPound"></td>
+				</tr>
+				<tr>
+					<td>Yen</td>
+					<td id="unadjustedYen"></td>
+					<td id="euroYen"></td>
+					<td id="dollarYen"></td>
+					<td id="poundYen"></td>
+					<td id="yenYen"></td>
+				</tr>
+			</table>
+			<p>
+				<button id="toEuro" onclick="convertToCurrency('euro')">
+					Convert to Euros. Current exchange rate: €1 = €1
+				</button>
+				<button id="toDollar" onclick="convertToCurrency('dollar')">
+					Convert to Dollars. Current exchange rate: €1 = $1
+				</button>
+				<button id="toPound" onclick="convertToCurrency('pound')">
+					Convert to Pounds. Current exchange rate: €1 = ‎£1
+				</button>
+				<button id="toYen" onclick="convertToCurrency('yen')">
+					Convert to Yen. Current exchange rate: €1 = ‎¥1
+				</button>
+			</p>
 		</div>
 		<div>
 			<a href="https://github.com/Aearnus/aearnus.github.io/commits/master/stocks">
