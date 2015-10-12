@@ -148,22 +148,18 @@
 				//hardcoding is _fun_
 				document.getElementById("moneyDisplay").innerHTML = "Money: " + currentCurrency[1] + money.toFixed(2);
 				document.getElementById("stocksDisplay").innerHTML = "Stocks: " + stocks;
-				document.getElementById("euroEuro").innerHTML = currencyRate("euro", "euro").toFixed(2);
-				document.getElementById("dollarEuro").innerHTML = currencyRate("dollar", "euro").toFixed(2);
-				document.getElementById("poundEuro").innerHTML = currencyRate("pound", "euro").toFixed(2);
-				document.getElementById("yenEuro").innerHTML = currencyRate("yen", "euro").toFixed(2);
-				document.getElementById("euroDollar").innerHTML = currencyRate("euro", "dollar").toFixed(2);
-				document.getElementById("dollarDollar").innerHTML = currencyRate("dollar", "dollar").toFixed(2);
-				document.getElementById("poundDollar").innerHTML = currencyRate("pound", "dollar").toFixed(2);
-				document.getElementById("yenDollar").innerHTML = currencyRate("yen", "dollar").toFixed(2);
-				document.getElementById("euroPound").innerHTML = currencyRate("euro", "pound").toFixed(2);
-				document.getElementById("dollarPound").innerHTML = currencyRate("dollar", "pound").toFixed(2);
-				document.getElementById("poundPound").innerHTML = currencyRate("pound", "pound").toFixed(2);
-				document.getElementById("yenPound").innerHTML = currencyRate("yen", "pound").toFixed(2);
-				document.getElementById("euroYen").innerHTML = currencyRate("euro", "yen").toFixed(2);
-				document.getElementById("dollarYen").innerHTML = currencyRate("dollar", "yen").toFixed(2);
-				document.getElementById("poundYen").innerHTML = currencyRate("pound", "yen").toFixed(2);
-				document.getElementById("yenYen").innerHTML = currencyRate("yen", "yen").toFixed(2);
+				document.getElementById("dollarEuro").innerHTML = currencyRate( "euro"  , "dollar").toFixed(3);
+				document.getElementById("poundEuro").innerHTML = currencyRate(  "euro"  , "pound" ).toFixed(3);
+				document.getElementById("yenEuro").innerHTML = currencyRate(    "euro"  , "yen"   ).toFixed(3);
+				document.getElementById("euroDollar").innerHTML = currencyRate( "dollar", "euro"  ).toFixed(3);
+				document.getElementById("poundDollar").innerHTML = currencyRate("dollar", "pound" ).toFixed(3);
+				document.getElementById("yenDollar").innerHTML = currencyRate(  "dollar", "yen"   ).toFixed(3);
+				document.getElementById("euroPound").innerHTML = currencyRate(  "pound" , "euro"  ).toFixed(3);
+				document.getElementById("dollarPound").innerHTML = currencyRate("pound" , "dollar").toFixed(3);
+				document.getElementById("yenPound").innerHTML = currencyRate(   "pound" , "yen"   ).toFixed(3);
+				document.getElementById("euroYen").innerHTML = currencyRate(    "yen"   , "euro"  ).toFixed(3);
+				document.getElementById("dollarYen").innerHTML = currencyRate(  "yen"   , "dollar").toFixed(3);
+				document.getElementById("poundYen").innerHTML = currencyRate(   "yen"   , "pound" ).toFixed(3);
 			}
 
 			function buyStocks() {
@@ -203,107 +199,109 @@
 		</script>
 	</head>
 	<body onload="init()">
-		<h1>
-			Stocks: Business is Booming
-		</h1>
-		<div>
-			<h2 style="display:inline;">
-				Z to buy
+		<main>
+			<h1>
+				Stocks: Business is Booming
+			</h1>
+			<div>
+				<h2 style="display:inline;">
+					Z to buy
+				</h2>
+				<input type="number" value="1" id="buyCount">
+				<h2 style="display:inline;">
+					, X to sell
+				</h2>
+				<input type="number" value="1" id="sellCount">
+				<h3 id="moneyDisplay">
+					Money: €500
+				</h3>
+			</div>
+			<div>
+				<h3 id="stocksDisplay">
+					Stocks: 1
+				</h3>
+				<h3 id="notEnoughMoney" style="color:red;display:none;">
+					Not enough cash!
+				</h3>
+				<h3 id="outOfStocks" style="color:red;display:none;">
+					Out of stocks!
+				</h3>
+				<h3 id="gameLoaded" style="color:green;display:none">
+					Game loaded!  
+				</h3>
+			</div>
+			<h2>
+				Stock graph:
 			</h2>
-			<input type="number" value="1" id="buyCount">
-			<h2 style="display:inline;">
-				, X to sell
+			<canvas id="graph" height="600" width="900">
+				This doesn't work in Internet Explorer. Please get a real browser - Chrome, Firefox, Opera, Midori, or even Safari.
+			</canvas>
+			<h2>
+				Currency exchange:
 			</h2>
-			<input type="number" value="1" id="sellCount">
-			<h3 id="moneyDisplay">
-				Money: €500
-			</h3>
-		</div>
-		<div>
-			<h3 id="stocksDisplay">
-				Stocks: 1
-			</h3>
-			<h3 id="notEnoughMoney" style="color:red;display:none;">
-				Not enough cash!
-			</h3>
-			<h3 id="outOfStocks" style="color:red;display:none;">
-				Out of stocks!
-			</h3>
-			<h3 id="gameLoaded" style="color:green;display:none">
-				Game loaded!  
-			</h3>
-		</div>
-		<h2>
-			Stock graph:
-		</h2>
-		<canvas id="graph" height="600" width="900">
-			This doesn't work in Internet Explorer. Please get a real browser - Chrome, Firefox, Opera, Midori, or even Safari.
-		</canvas>
-		<h2>
-			Currency exchange:
-		</h2>
-		<div>
-			<table style="">
-				<caption>Currency conversion table</caption>
-				<tr>
-					<th>Currency</th>
-					<th>1 Euro</th>
-					<th>1 Dollar</th>
-					<th>1 Pound</th>
-					<th>1 Yen</th>
-				</tr>
-				<tr>
-					<td>Euro</td>
-					<td id="euroEuro"></td>
-					<td id="dollarEuro"></td>
-					<td id="poundEuro"></td>
-					<td id="yenEuro"></td>
-				</tr>
-				<tr>
-					<td>Dollar</td>
-					<td id="euroDollar"></td>
-					<td id="dollarDollar"></td>
-					<td id="poundDollar"></td>
-					<td id="yenDollar"></td>
-				</tr>
-				<tr>
-					<td>Pound</td>
-					<td id="euroPound"></td>
-					<td id="dollarPound"></td>
-					<td id="poundPound"></td>
-					<td id="yenPound"></td>
-				</tr>
-				<tr>
-					<td>Yen</td>
-					<td id="euroYen"></td>
-					<td id="dollarYen"></td>
-					<td id="poundYen"></td>
-					<td id="yenYen"></td>
-				</tr>
-			</table>
-			<p>
-				<button id="toEuro" onclick="convertToCurrency('euro')">
-					Convert to Euros
-				</button>
-				<button id="toDollar" onclick="convertToCurrency('dollar')">
-					Convert to Dollars
-				</button>
-				<button id="toPound" onclick="convertToCurrency('pound')">
-					Convert to Pounds
-				</button>
-				<button id="toYen" onclick="convertToCurrency('yen')">
-					Convert to Yen
-				</button>
-			</p>
-		</div>
-		<div>
-			<a href="https://github.com/Aearnus/aearnus.github.io/commits/master/stocks">
-				Here's the update log
-			</a>
-		</div>
-		<br><br><br><br><br><br><br>
-		<button onclick="localStorage.clear();window.location=window.location">
-			Reset completely (for dev purposes)
-		</button>
+			<div>
+				<table style="">
+					<caption>Currency conversion table</caption>
+					<tr>
+						<th>Currency</th>
+						<th>Euros</th>
+						<th>Dollars</th>
+						<th>Pounds</th>
+						<th>Yen</th>
+					</tr>
+					<tr>
+						<td>1 Euro</td>
+						<td id="euroEuro">1.00</td>
+						<td id="dollarEuro"></td>
+						<td id="poundEuro"></td>
+						<td id="yenEuro"></td>
+					</tr>
+					<tr>
+						<td>1 Dollar</td>
+						<td id="euroDollar"></td>
+						<td id="dollarDollar">1.00</td>
+						<td id="poundDollar"></td>
+						<td id="yenDollar"></td>
+					</tr>
+					<tr>
+						<td>1 Pound</td>
+						<td id="euroPound"></td>
+						<td id="dollarPound"></td>
+						<td id="poundPound">1.00</td>
+						<td id="yenPound"></td>
+					</tr>
+					<tr>
+						<td>1 Yen</td>
+						<td id="euroYen"></td>
+						<td id="dollarYen"></td>
+						<td id="poundYen"></td>
+						<td id="yenYen">1.00</td>
+					</tr>
+				</table>
+				<p>
+					<button id="toEuro" onclick="convertToCurrency('euro')">
+						Convert to Euros
+					</button>
+					<button id="toDollar" onclick="convertToCurrency('dollar')">
+						Convert to Dollars
+					</button>
+					<button id="toPound" onclick="convertToCurrency('pound')">
+						Convert to Pounds
+					</button>
+					<button id="toYen" onclick="convertToCurrency('yen')">
+						Convert to Yen
+					</button>
+				</p>
+			</div>
+			<div>
+				<a href="https://github.com/Aearnus/aearnus.github.io/commits/master/stocks">
+					Here's the update log
+				</a>
+			</div>
+			<br><br><br><br><br><br><br>
+			<button onclick="localStorage.clear();window.location=window.location">
+				Reset completely (for dev purposes)
+			</button>
+		</main>
 	</body>
 </html>
