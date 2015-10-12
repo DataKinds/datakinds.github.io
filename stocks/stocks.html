@@ -38,7 +38,7 @@
 				return {"dollar": "$", "euro": "€", "pound": "£", "yen": "¥"}[name];
 			}
 
-			function convertCurrencies(firstCurrency, secondCurrency) {
+			function currencyRate(firstCurrency, secondCurrency) {
 				return (exchangeRates[secondCurrency] / exchangeRates[firstCurrency]);
 			}
 
@@ -69,12 +69,19 @@
 				updateDisplay();
 			}
 
+			function convertToCurrency(currency) {
+				if (exchangeRates[currency] != null) {
+					money = money * currencyRate(currentCurrency[0], currency);
+					currentCurrency = [currency, nameToSymbol(currency)];
+				}
+			}
+
 			function currencyMarketValues() {
 				//iterate through the currencies
 				for (var currencyName in exchangeRates) {
 					if (exchangeRates.hasOwnProperty(currencyName)) {
 						//random chance to change exchange rate
-						if (Math.random() < 0.1) {
+						if (Math.random() < 0.5) {
 							exchangeRates[currencyName] += (Math.random(0.5) - 0.25);
 							save();
 							updateDisplay();
@@ -135,10 +142,10 @@
 			function updateDisplay() {
 				document.getElementById("moneyDisplay").innerHTML = "Money: " + currentCurrency[1] + money.toFixed(2);
 				document.getElementById("stocksDisplay").innerHTML = "Stocks: " + stocks;
-				document.getElementById("toDollar").innerHTML = "Convert to Dollars. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("dollar") + convertCurrencies(currentCurrency[0], "dollar").toFixed(2);
-				document.getElementById("toEuro").innerHTML = "Convert to Euros. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("euro") + convertCurrencies(currentCurrency[0], "euro").toFixed(2);
-				document.getElementById("toPound").innerHTML = "Convert to Pounds. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("pound") + convertCurrencies(currentCurrency[0], "pound").toFixed(2);
-				document.getElementById("toYen").innerHTML = "Convert to Yen. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("yen") + convertCurrencies(currentCurrency[0], "yen").toFixed(2);
+				document.getElementById("toDollar").innerHTML = "Convert to Dollars. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("dollar") + currencyRate(currentCurrency[0], "dollar").toFixed(2);
+				document.getElementById("toEuro").innerHTML = "Convert to Euros. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("euro") + currencyRate(currentCurrency[0], "euro").toFixed(2);
+				document.getElementById("toPound").innerHTML = "Convert to Pounds. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("pound") + currencyRate(currentCurrency[0], "pound").toFixed(2);
+				document.getElementById("toYen").innerHTML = "Convert to Yen. Current exchange rate: " + currentCurrency[1] + "1.00 = " + nameToSymbol("yen") + currencyRate(currentCurrency[0], "yen").toFixed(2);
 			}
 
 			function buyStocks() {
