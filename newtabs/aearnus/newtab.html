@@ -6,7 +6,7 @@
 			function newBabe(source) {
 				var source = babes[Math.floor(Math.random() * babes.length)];
 				var animeBabe = document.createElement("img");
-				animeBabe.style.cssText = "position: absolute; top: " + randBetween(0, 1080) + "px; left: " + randBetween(0, 1920) + "px; transform: translateX(-50%) translateY(-50%) scaleX(0.4) scaleY(0.4)";
+				animeBabe.style.cssText = "position: absolute; top: " + randBetween(0, 1080) + "px; left: " + randBetween(0, 1920) + "px; transform: translateX(-50%) translateY(-50%) scaleX(0.4) scaleY(0.4); z-index: -1;";
 				animeBabe.src = source;
 				document.body.appendChild(animeBabe);
 			}
@@ -42,15 +42,32 @@
 				return Math.floor(Math.random()*(b-a+1)+a);
 			}
 
+			function parseEnter(event) {
+				if (event.keyCode == 13) {
+					var input = document.getElementsByTagName("input")[0].value;
+					if ((input.indexOf("http://") + input.indexOf(".com") + input.indexOf(".org") + input.indexOf(".net")) > -4) {
+						if (input.indexOf("http://") > -1) {
+							window.location.href = input.trim();
+						} else {
+							window.location.href = "http://" + input.trim();
+						}
+					} else {
+						window.location.href = "https://www.google.com/search?q=" + encodeURIComponent(input);
+					}
+				}
+			}
+
 			function init() {
 				parseJSONP("https://www.reddit.com/r/awwnime/hot.json?jsonp=parseTopPosts&count=100");
 				window.setInterval(newBabe, 100);
+				document.getElementsByTagName("input")[0].value = "";
+				document.getElementsByTagName("input")[0].addEventListener("keydown", parseEnter);
 			}
 			//[10:16PM] Link98: oh i shouldnt type it out here ;) wanna text, snapchat, or even skype? lol ill tell you what we could do then ;)
 			window.onload = init
 		</script>
 	</head>
 	<body style="background-color: #000000">
-		<input type="text" keydown="parseEnter" placeholder="Search Google or type URL" style="position: absolute; left: 50%; top: 40%; height: 2em; width: 40%; transform: translateX(-50%); font-size: 1.5em; text-align: left; background-color: rgba(240, 240, 240, 0.3); border-width: 0px; padding-left: 20px; padding-right: 20px;">
+		<input type="text" keydown="parseEnter" placeholder="Search Google or type URL" style="position: absolute; left: 50%; top: 40%; height: 2em; width: 40%; transform: translateX(-50%); font-size: 1.5em; text-align: left; background-color: rgba(240, 240, 240, 0.7); border-width: 0px; padding-left: 20px; padding-right: 20px; z-index: 100;">
 	</body>
 </html>
