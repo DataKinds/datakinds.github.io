@@ -1,12 +1,25 @@
 <html>
 	<head>
+		<style type="text/css">
+			@keyframes fadein {
+				from {
+					opacity: 0;
+				}
+				to {
+					opacity: 1;
+				}
+			}
+			img {
+				animation: fadein 2s;
+			}
+		</style>
 		<script type="text/javascript">
 			babes = []
 
 			function newBabe(source) {
 				var source = babes[Math.floor(Math.random() * babes.length)];
 				var animeBabe = document.createElement("img");
-				animeBabe.style.cssText = "position: absolute; top: " + randBetween(0, 1080) + "px; left: " + randBetween(0, 1920) + "px; transform: translateX(-50%) translateY(-50%) scaleX(0.4) scaleY(0.4); z-index: -1;";
+				animeBabe.style.cssText = "position: absolute; top: " + randBetween(0, 1080) + "px; left: " + randBetween(0, 1920) + "px; transform: translateX(-50%) translateY(-50%); width: 300px; height: auto; z-index: -1;";
 				animeBabe.src = source;
 				document.body.appendChild(animeBabe);
 			}
