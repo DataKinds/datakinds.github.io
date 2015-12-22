@@ -15,7 +15,7 @@
 		localStorage.setItem("currentBG", (imageIndex + 1) % images.length);
 
 		function init() {
-			var newStyle = "background-image: url(\"" + images[imageIndex] + "\"); background-position: center " + imageOffsets[imageIndex] + "; background-repeat: no-repeat; background-size: 100%";
+			var newStyle = "background-image: url(\"" + images[imageIndex] + "\"); background-position: center " + imageOffsets[imageIndex] + "; background-repeat: repeat; background-size: 100%";
 			document.body.setAttribute("style", newStyle);
 			document.getElementsByTagName("input")[0].value = "";
 			document.getElementsByTagName("input")[0].addEventListener("keydown", parseEnter);
