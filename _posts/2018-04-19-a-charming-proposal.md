@@ -70,6 +70,24 @@ std::for_each(v.begin(), v.end(), [](int n){ return (n * 2) });
 
 ## Charm is higher level
 
+At its core, a program is simply a list of functions to run in order. Thus, all code that runs in Charm is equivalent to a mere list. This was hinted at earlier through the use of the word "program" instead of the use of the word "list", but needed to be cleared up before moving onto this point. Because Charm works in this way, metaprogramming is as easy as writing a list. Take the small program here, for example
+```
+1 1 +
+```
+As you can probably tell, it simply adds 1 and 1 together. But, with a little bit of metaprogramming magic...
+```
+[ 1 1 + ] 2 repeat [ + ] 2 repeat concat i
+```
+To figure out what this little block does, we have to break it down step by step. First, let's look at the `[ 1 1 + ] 2 repeat`. [The glossary says that `repeat`](https://aearnus.github.io/charm/#repeat-id) repeats a list a certain number of times. So, that little piece turns into `[ 1 1 + 1 1 + ]`
+
+Next, we'll look at `[ + ] 2 repeat`. Using the same logic as above, this turns into `[ + + ]`.
+
+Penultimately, we'll check out `concat`. [According to the glossary](https://aearnus.github.io/charm/#concat-id), `concat` concatenates two lists or strings. Thus, it turns our `[ 1 1 + 1 1 + ]` and our `[ + + ]` into a `[ 1 1 + 1 1 + + + ]`.
+
+Finally, last (but not least!), we have the function `i`. `i`nterpret [runs the top of the stack as a program](https://aearnus.github.io/charm/#i-id). Thus, our `[ 1 1 + 1 1 + + + ]` is executed to yield the final result of `4`; which we got through some amazing run-time metaprogramming. Charm allows you to build up a program as you run your program, and that's a fantastic idea both in theory and in practice.
+
+Additionally, though it won't be touched upon here, all of Charm's many list manipulation tools can be used to manipulate programs themselves. An example of this in action is the function [`stepthrough`](https://aearnus.github.io/charm/#stepthrough-id), which is an interactive debugger for Charm... written in Charm. It modifies the program it is fed in real-time in order to show the execution order and stack state after every function. (Video coming soon!)
+
 ## Charm is easily extendable
 
 ## Try Charm!
