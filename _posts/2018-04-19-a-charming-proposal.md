@@ -68,7 +68,7 @@ std::for_each(v.begin(), v.end(), [](int n){ return (n * 2) });
 {% endhighlight %}
 ... and I won't even comment.
 
-## Charm is higher level
+## Charm is meta
 
 At its core, a program is simply a list of functions to run in order. Thus, all code that runs in Charm is equivalent to a mere list. This was hinted at earlier through the use of the word "program" instead of the use of the word "list", but needed to be cleared up before moving onto this point. Because Charm works in this way, metaprogramming is as easy as writing a list. Take the small program here, for example
 ```
@@ -90,4 +90,33 @@ Additionally, though it won't be touched upon here, all of Charm's many list man
 
 ## Charm is easily extendable
 
+I will admit that not every problem is suitable to be solved using Charm's abstractions. This kind of concatenative, functional, stack-based programming is very good for some applications (DSLs, list processing, recursive algorithms); but not suitable for many others. Plain and simple, Charm is not always the right tool for the job. Admitting that, though, is one step in the process towards making a truly good tool. Thus, there is a large focus on making Charm easily extendable through a C/C++ FFI interface. Since code speaks louder than words, here's an example of a simple Charm application that implements the C++ FFI:
+
+In a C++ file `lib.cpp`, I've placed the code
+{% highlight C++ %}
+#include <charm/CharmFFI.hpp>
+#include <iostream>
+
+extern "C"
+MutateFFI charmFFIHelloWorld(Runner* r) {
+    CharmFunction f1 = r->getCurrentStack()->pop();
+    std::cout << "Hello from C++!" << std::endl;
+    std::cout << "This is what I saw on the top of the stack: " << charmFunctionToString(f1) << std::endl;
+}
+{% endhighlight %}
+
+Notice the return type of our FFI function, `MutateFFI`. It's defined as `typedef void (*MutateFFI)(Runner*)` and used to aid in the process of writing functions that interact directly with Charm. Then, it's compiled as a shared library and linked with `libcharmffi`. Once we've compiled that shared library, it can be loaded _directly into_ Charm through the code
+```
+" hello " " ./lib.so " " charmFFIHelloWorld " ffi
+```
+and called by saying `hello`! This whole example (and along with a Makefile) is available [here on GitHub](https://github.com/Aearnus/charm/tree/master/test/ffi).
+
+With this easily extendable interface, Charm can fit into a niche that's not quite general purpose, but moreso as a higher level _interface_ to lower level functions. Though it isn't explored in this blog post, Charm can also serve as an extremely powerful DSL through its C++ extensions capability.
+
+## Final thoughts
+
+You may very well be surprised at the elegance and ease of understanding that comes once you begin to use Charm. That feeling, though, can't be written into a blog post. You'll have to try it yourself. :)
+
 ## Try Charm!
+
+[Using Emscripten, I've compiled the Charm REPL to Javascript and posted it on the Charm Glossary](https://aearnus.github.io/charm/). I'm aware it currently has some very serious issues though; even to the point of being unusable. Because of this, I'd implore you to visit [the Charm GitHub page](https://github.com/Aearnus/charm) to download it and try it out yourself. We also have a page on the [Esolangs Wiki](https://esolangs.org/wiki/Charm)!
