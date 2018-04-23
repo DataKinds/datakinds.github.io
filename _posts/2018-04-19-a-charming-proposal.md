@@ -119,4 +119,4 @@ You may very well be surprised at the elegance and ease of understanding that co
 
 ## Try Charm!
 
-[Using Emscripten, I've compiled the Charm REPL to Javascript and posted it on the Charm Glossary](https://aearnus.github.io/charm/). I'm aware it currently has some very serious issues though; even to the point of being unusable. Because of this, I'd implore you to visit [the Charm GitHub page](https://github.com/Aearnus/charm) to download it and try it out yourself. We also have a page on the [Esolangs Wiki](https://esolangs.org/wiki/Charm)!
+Check out the [TryItOnline page for Charm](https://tio.run/#charm)! I'd also implore you to visit [the Charm GitHub page](https://github.com/Aearnus/charm) to download it and try it out yourself. We also have a page on the [Esolangs Wiki](https://esolangs.org/wiki/Charm)!
