@@ -1,6 +1,6 @@
 ---
 layout: post
-title: A Charming Proposal
+title: A Charming Proposal of the Functional Stack
 date: 2018-04-19 13:17 -0700
 categories: programming charm
 ---
