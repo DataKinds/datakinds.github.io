@@ -100,7 +100,14 @@ If you can't visualize that, perhaps perhaps a concrete example would help. This
 ```
 map :: list list -> list
 ```
-This means that `map` can pop two lists (a program and a list to map the program over) off the stack and it can push one list on the stack (the mapped list).
+This means that `map` can pop two lists (a program and a list to map the program over) off the stack and it can push one list on the stack (the mapped list). Any other behavior, such as popping an `int` instead of a list, causes the interpreter to halt and announce the type mismatch, in the form of
+```
+Charm (Stack 0)$ 10 [ i 1 + q ] map
+[RUNTIME ERROR]: Type signature check for function `map` failed.
+The function has type signature `list list -> list ` but it popped types `int list `
+```
+
+... and you would never even dream of getting that in any other language in Charm's class.
 
 ## Charm is easily extendable
 
