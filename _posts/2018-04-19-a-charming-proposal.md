@@ -12,13 +12,15 @@ What are the effects of extending the definition of data like this? Consider thi
 ```
 1 2 +
 ```
-Let's break this down. The function `+` describes a function that adds two numbers together, then it's applied to the two arguments `1` and `2`. With our new definition of data, though, there is no reason that these two arguments have to values. Consider the following example, now written in [Charm](https://github.com/aearnus/charm), the subject of this article.
+Let's break this down. The function `+` describes a function that adds two numbers together, then it's applied to the two arguments `1` and `2`. With our new definition of data, though, there is no reason that these two arguments have to be values. Consider the following example, now written in [Charm](https://github.com/aearnus/charm), the subject of this article.
 ```
-1 [ 2 ] i +
+[ 1 2 + ] i 3 +
 ```
-What's going on here? Well, the function `+` still ends up receiving the arguments `1` and `2`, but something strange happens first. The `2` isn't passed directly to `+`, but rather, a program that pushes a `2` is interpreted using the `i` function and subsequently passed to the `+`.
+What's going on here? Well, the "program" `1 2 +` was listed out; then, as a whole, it was passed to a function `i`. This function, `i`, [interprets a list at the top of the Charm stack](https://aearnus.github.io/charm/#i-id). Finally, the result of `i` and the number `3` are passed to `+` and the computation concludes.
 
-Looking at this little program, you can see that `i` actually interprets a program that is passed to it. This function, and many higher level functions like it, beget the true power of Charm. Take the humble if/then block, for example. In a C like language, it may look something like this:
+Wait... a function that _interprets and executes a list_? It sounds awful -- that is, until you remember the aforementioned code philosophy.
+
+This function `i`, and many other higher level functions like it, beget the true power of Charm. Take the humble if/then block, for example. In a C like language, it may look something like this:
 {% highlight c %}
 if (condition) {
     do something;
@@ -32,7 +34,7 @@ Compare that with the equivalent code in Charm....
 ```
 Right off the bat, it's much more obvious what Charm's if/then construct does behind the scenes. It takes three programs (denoted with square brackets), then uses the first one to generate a condition, the second one to run if the condition is true, or the third one to run if the condition is false. The C like notation, on the other hand, is wholly ambiguous. The programmer of that language does not know if the condition is allowed to be an expression, or if it has to be a statement; if the inner blocks have access to global scope; or even if the parser has special rules for special cases (I'm looking at you, [bracket-less if statements...](https://stackoverflow.com/questions/97506/formatting-of-if-statements)).
 
-If/else blocks may be a simple example, but it evinces a larger problem: the problem of unnecessary complexity and syntax riddled with gotcha's. Case statements, for loops, class syntax; all of these use complex syntactic rules and keywords galore. Keywords and syntax aren't the solution to ease of use. (Try telling that to C++!)
+If/then blocks may be a simple example, but it evinces a larger problem: the problem of unnecessary complexity and syntax riddled with gotcha's. Case statements, for loops, class syntax; all of these use complex syntactic rules and keywords galore. Keywords and syntax aren't the solution to ease of use. (Try telling that to C++!)
 
 ## Charm is unambiguous
 
@@ -88,6 +90,18 @@ Finally, last (but not least!), we have the function `i`. `i`nterpret [runs the 
 
 Additionally, though it won't be touched upon here, all of Charm's many list manipulation tools can be used to manipulate programs themselves. An example of this in action is the function [`stepthrough`](https://aearnus.github.io/charm/#stepthrough-id), which is an interactive debugger for Charm... written in Charm. It modifies the program it is fed in real-time in order to show the execution order and stack state after every function. (Video coming soon!)
 
+## Charm is safe
+
+If you are anything like me, when you hear "stack-based", the first images that come to your mind are traumatic recollections of smashed stacks and mismatched variadic arguments. Charm, though, uses a unique run-time (planned parse-time) type system to ensure no functions or programs do anything they aren't intended to do. This run-time type system gives Charm the safety of a strongly typed interpreted language -- something that isn't often seen in stack-based languages. A type signature, in very general terms, looks like this:
+```
+<function name> :: <types> -> <types> | <alternate type signature> | ....
+```
+If you can't visualize that, perhaps perhaps a concrete example would help. This is the type signature for `map`, ripped straight out of the Charm prelude:
+```
+map :: list list -> list
+```
+This means that `map` can pop two lists (a program and a list to map the program over) off the stack and it can push one list on the stack (the mapped list).
+
 ## Charm is easily extendable
 
 I will admit that not every problem is suitable to be solved using Charm's abstractions. This kind of concatenative, functional, stack-based programming is very good for some applications (DSLs, list processing, recursive algorithms); but not suitable for many others. Plain and simple, Charm is not always the right tool for the job. Admitting that, though, is one step in the process towards making a truly good tool. Thus, there is a large focus on making Charm easily extendable through a C/C++ FFI interface. Since code speaks louder than words, here's an example of a simple Charm application that implements the C++ FFI:
@@ -119,4 +133,4 @@ You may very well be surprised at the elegance and ease of understanding that co
 
 ## Try Charm!
 
-Check out the [TryItOnline page for Charm](https://tio.run/#charm)! I'd also implore you to visit [the Charm GitHub page](https://github.com/Aearnus/charm) to download it and try it out yourself. We also have a page on the [Esolangs Wiki](https://esolangs.org/wiki/Charm)!
+Check out the [TryItOnline page for Charm](https://tio.run/#charm)! I'd also implore you to visit [the Charm GitHub page](https://github.com/Aearnus/charm) to download it and try it out yourself. Finally, we have a page on the [Esolangs Wiki](https://esolangs.org/wiki/Charm)!
