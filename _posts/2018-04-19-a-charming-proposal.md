@@ -6,7 +6,7 @@ categories: programming charm
 ---
 _**A Lisp Philosophy**: [All code is data and all data is code.](http://wiki.c2.com/?DataAndCodeAreTheSameThing)_
 
-From this, we can deduce a few things. Most code interacts with data through subroutines of some sort, taking in arguments or a global state, then subsequently returning a value or modifying a state. These arguments, values, and states are the data manipulated in the program. Data is traditionally restricted to values such as numbers or strings, but using the definition mentioned above; data can be extended to including code itself as well.
+From this, we can deduce a few things. Most code interacts with data through subroutines of some sort, taking in arguments or a global state, then subsequently returning a value or modifying a state. These arguments, values, and states are the data manipulated in the program. Data is traditionally restricted to values such as numbers or strings, but using the definition mentioned above; data can be extended to include code itself as well.
 
 What are the effects of extending the definition of data like this? Consider this little program, written in [Reverse Polish Notation](https://en.wikipedia.org/wiki/Reverse_Polish_notation):
 ```
@@ -32,7 +32,7 @@ Compare that with the equivalent code in Charm....
 ```
 [ condition ] [ do something ] [ do something else ] ifthen
 ```
-Right off the bat, it's much more obvious what Charm's if/then construct does behind the scenes. It takes three programs (denoted with square brackets), then uses the first one to generate a condition, the second one to run if the condition is true, or the third one to run if the condition is false. The C like notation, on the other hand, is wholly ambiguous. The programmer of that language does not know if the condition is allowed to be an expression, or if it has to be a statement; if the inner blocks have access to global scope; or even if the parser has special rules for special cases (I'm looking at you, [bracket-less if statements...](https://stackoverflow.com/questions/97506/formatting-of-if-statements)).
+Right off the bat, it's much more obvious what Charm's if/then construct does behind the scenes. It takes three programs (denoted with square brackets), then uses the first one to generate a condition, the second one to run if the condition is true, or the third one to run if the condition is false. The C like notation, on the other hand, is wholly ambiguous. The programmer of that language does not know if the if/then block is allowed to evaluate as an expression, or if it has to be a statement; if the inner blocks have access to global scope; or even if the parser has special rules for special cases (I'm looking at you, [bracket-less if statements...](https://stackoverflow.com/questions/97506/formatting-of-if-statements)).
 
 If/then blocks may be a simple example, but it evinces a larger problem: the problem of unnecessary complexity and syntax riddled with gotcha's. Case statements, for loops, class syntax; all of these use complex syntactic rules and keywords galore. Keywords and syntax aren't the solution to ease of use. (Try telling that to C++!)
 
@@ -59,7 +59,7 @@ Of course, there are two programs here being pushed onto the stack and pushed to
 {% highlight ruby %}
 [1, 2, 3, 4, 5].map{|n| n * 2 }
 {% endhighlight %}
-Now, let me put it out there: I love Ruby. But, there is a significant amount of line noise, everywhere from the pipes in the block argument to the commas in the list. Every little thing contributes to making Ruby a "read-only" language. Even compare that to an implementation in C++:
+Now, let me put it out there: I love Ruby. But, there is a significant amount of line noise, everywhere from the pipes in the block argument to the commas in the list. Every little thing contributes to the fact that Ruby is a "read-only" language. Even compare that to an implementation in C++:
 {% highlight c++ %}
 #include <algorithm>
 
@@ -86,9 +86,9 @@ Next, we'll look at `[ + ] 2 repeat`. Using the same logic as above, this turns 
 
 Penultimately, we'll check out `concat`. [According to the glossary](https://aearnus.github.io/charm/#concat-id), `concat` concatenates two lists or strings. Thus, it turns our `[ 1 1 + 1 1 + ]` and our `[ + + ]` into a `[ 1 1 + 1 1 + + + ]`.
 
-Finally, last (but not least!), we have the function `i`. `i`nterpret [runs the top of the stack as a program](https://aearnus.github.io/charm/#i-id). Thus, our `[ 1 1 + 1 1 + + + ]` is executed to yield the final result of `4`; which we got through some amazing run-time metaprogramming. Charm allows you to build up a program as you run your program, and that's a fantastic idea both in theory and in practice.
+Finally, last (but not least!), we have the function `i`. `i`nterpret [runs the top of the stack as a program](https://aearnus.github.io/charm/#i-id). Thus, our `[ 1 1 + 1 1 + + + ]` is executed to yield the final result of `4`; which we got through run-time metaprogramming. Our program _wrote_ the program that gets run to produce our output. Charm allows you to build up a program as you run your program, and that's a fantastic idea both in theory and in practice.
 
-Additionally, though it won't be touched upon here, all of Charm's many list manipulation tools can be used to manipulate programs themselves. An example of this in action is the function [`stepthrough`](https://aearnus.github.io/charm/#stepthrough-id), which is an interactive debugger for Charm... written in Charm. It modifies the program it is fed in real-time in order to show the execution order and stack state after every function. (Video coming soon!)
+Though briefly touched upon above, it is worth mentioning that all of Charm's many list manipulation tools can be used to manipulate programs themselves. An example of this in action is the function [`stepthrough`](https://aearnus.github.io/charm/#stepthrough-id), which is an interactive debugger for Charm... written in Charm. It modifies the program it is fed in real-time in order to show the execution order and stack state after every function. (Video coming soon!)
 
 ## Charm is safe
 
