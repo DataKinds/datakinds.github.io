@@ -88,7 +88,7 @@ Penultimately, we'll check out `concat`. [According to the glossary](https://aea
 
 Finally, last (but not least!), we have the function `i`. `i`nterpret [runs the top of the stack as a program](https://aearnus.github.io/charm/#i-id). Thus, our `[ 1 1 + 1 1 + + + ]` is executed to yield the final result of `4`; which we got through run-time metaprogramming. Our program _wrote_ the program that gets run to produce our output. Charm allows you to build up a program as you run your program, and that's a fantastic idea both in theory and in practice.
 
-Though briefly touched upon above, it is worth mentioning that all of Charm's many list manipulation tools can be used to manipulate programs themselves. An example of this in action is the function [`stepthrough`](https://aearnus.github.io/charm/#stepthrough-id), which is an interactive debugger for Charm... written in Charm. It modifies the program it is fed in real-time in order to show the execution order and stack state after every function. (Video coming soon!)
+Though briefly touched upon above, it is worth mentioning that all of Charm's many list manipulation tools can be used to manipulate programs themselves. An example of this in action is the function [`stepthrough`](https://aearnus.github.io/charm/#stepthrough-id), which is an interactive debugger for Charm... written in Charm. It modifies the program it is fed in real-time in order to show the execution order and stack state after every function. [Here's a video of it](https://asciinema.org/a/w0cWh9eJfJ05ZcR6wfXOm7MuG) (excuse the error at the end -- the REPL doesn't know how to handle the end of input, and asciinema requires you to press `C-D` to end recording).
 
 ## Charm is safe
 
