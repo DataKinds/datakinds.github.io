@@ -21,6 +21,6 @@ Here are some of the projects I've worked on, in order of how cool I think they 
 * [hslua-repl](https://github.com/Aearnus/hslua-repl)
     * An improved Lua REPL written in Haskell.
 * [Mandelbrot Explorer](https://github.com/Aearnus/mandelbrot-explorer)
-    * A hardware accelerated escape time fractal rend1
+    * A hardware accelerated escape time fractal renderer.
 * [Board Framework](https://github.com/Aearnus/board-framework)
     * A framework for a generic image board.
