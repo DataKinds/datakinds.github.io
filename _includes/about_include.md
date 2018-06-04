@@ -12,6 +12,8 @@ map (\s -> "My " ++ s) [
 Here are some of the projects I've worked on, in order of how cool I think they are...
 * [Charm](https://github.com/Aearnus/charm)
     * A stack-based, concatenative language that treats program and data identically.
+* [Sixty Five Oh Two](https://github.com/Aearnus/sixty-five-oh-two)
+    * A Haskell eDSL for writing 65(C)02 assembly.
 * [Bytebeat Framework](https://github.com/Aearnus/bytebeat-framework)
     * A set of Ruby scripts to automate and ease the process of creating one line music files ("bytebeats").
 * [Stocks 2](https://github.com/Aearnus/stocks-2)
