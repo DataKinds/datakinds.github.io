@@ -10,4 +10,4 @@ I threw together a quick script to generate a picture for every letter in the al
 
 Without further ado, here is the _ultimate_ font:
 {% assign alphabet = "abcdefghijklmnopqrstuvwxyz" | split: "" %}
-{% for letter in alphabet %}<a style="display:inline;" href="{{ "/assets/imgs/the-ultimate-font/" | append: letter | append: ".png" | absolute_url }}"><img style="display:inline;" width="100" height="100" src="{{ "/assets/imgs/the-ultimate-font/" | append: letter | append: ".png" | absolute_url }}" alt="The letter {{letter}}"/></a>{% endfor %}
+{% for letter in alphabet %}<a style="display:inline;" href="{{ "/assets/imgs/the-ultimate-font/" | append: letter | append: ".png" | absolute_url }}"><img style="display:inline;box-shadow:0px 0px 0px" width="100" height="100" src="{{ "/assets/imgs/the-ultimate-font/" | append: letter | append: ".png" | absolute_url }}" alt="The letter {{letter}}"/></a>{% endfor %}
