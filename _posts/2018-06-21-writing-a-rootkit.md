@@ -50,7 +50,7 @@ and a Google search for "bypass Windows KASLR" revealing a writeup on a [longsta
 
 Because of the fact that the point of my project wasn't to exploit KASLR (and out of laziness), I took a little bit of an easier approach to all of this. 
 
-**6/22/18: EDIT: Everything between this line and the next notice is wrong is wrong, but I'm keeping it for posterity. I was under the impression that `System.map` accounted for KASLR; when in reality, the last time I had tested the rootkit was _before_ KASLR was enabled by default in Linux, and that's why it worked in the first place.**
+**6/22/18: EDIT: Everything between this line and the next notice is wrong, but I'm keeping it for posterity/correctness/to laugh at later. I was under the impression that `System.map` accounted for KASLR; when in reality, the last time I had tested the rootkit was _before_ KASLR was enabled by default in Linux, and that's why it worked in the first place. Just some proof that I really am writing and learning at the same time.**
 <div markdown="1" style="position:relative;"><div style="position:absolute;top:0;left:0;right:0;bottom:0;background-color:rgba(255,255,255,0.5);z-index:9999;color:white;"></div>
 This approach, though, doesn't allow the "rootkit" to persist across boot-ups. Enter [make.rb](https://github.com/Aearnus/syscall-rootkit/blob/master/make.rb).
 
@@ -83,6 +83,8 @@ On the next reboot and/or on the next update of the kernel, the address of that 
 Oops. So upon testing the previous method, I couldn't manage to make it do anything but kernel panic. Turns out, the `System.map` file [doesn't accurately represent the kernel address space](https://lwn.net/Articles/546686/). Instead, KASLR [shifts the kernel's address space listed in `System.map` by a random constant](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/x86/Kconfig?id=v4.1#n1845). This has been the case since it was turned on by default in Linux 4.12.
 
 This prompted me to stop using the overcomplicated hack that was the `make.rb` file. Instead, in the process of making this edit, I came across the `kallsyms_lookup_name` function (I wasn't kidding when I said I didn't know what I was doing). From `linux/kallsyms.h`, this function allows you to [look up a dynamic kernel space symbol by its name on-the-fly](https://github.com/torvalds/linux/blob/master/kernel/kallsyms.c#L162). With this solution working (and working much better than my previous solution 😛), I'm happy to give myself that check mark for point 2.
+
+With this new method, I could also retire the superglue that is `make.rb`, allowing this rootkit to be built from just a Makefile alone.
 
 The CR0 byte
 ---
