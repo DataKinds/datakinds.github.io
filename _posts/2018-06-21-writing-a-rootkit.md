@@ -86,6 +86,8 @@ This prompted me to stop using the overcomplicated hack that was the `make.rb` f
 
 With this new method, I could also retire the superglue that is `make.rb`, allowing this rootkit to be built from just a Makefile alone.
 
+Here's the one drawback about resolving the syscall table address this way: `kallsyms_lookup_name` is part of a GPL licensed API, meaning I am _legally required to release this rootkit as GPL_. It's now as free as freedom can get.
+
 The CR0 byte
 ---
 Notice [this](https://github.com/Aearnus/syscall-rootkit/blob/master/rk.erb.c#L13)? These two lines gave me more headache than the rest of the code combined. Here's the kicker: without running these two macros, the entirety of the kernel module does _absolutely nothing_, with no indication that anything even went wrong. There's no compile time error, there's no segfault, and the CPU doesn't throw. Read on to find out why...
