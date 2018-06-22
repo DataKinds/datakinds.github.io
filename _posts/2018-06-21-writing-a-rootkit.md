@@ -28,6 +28,7 @@ Now, uhm, let's look at which of these syscall-rootkit manages:
 1. ✔️ It buries itself deep into the innards of a system.
 
 2. ❌ It persists across boots and removal attempts.
+**6/22/18: EDIT: ✔️**
 
 3. ❌ It makes a reasonable attempt to hide itself from the end user.
 
@@ -47,7 +48,11 @@ That leaves the final point to talk about. The first part of point 2 points out 
 
 and a Google search for "bypass Windows KASLR" revealing a writeup on a [longstanding Windows NT bug to bypass KASLR up until Windows 8.1](https://www.crowdstrike.com/blog/kaslr-bypass-mitigations-windows-81/).
 
-Because of the fact that the point of my project wasn't to exploit KASLR (and out of laziness), I took a little bit of an easier approach to all of this. This approach, though, doesn't allow the "rootkit" to persist across boot-ups. Enter [make.rb](https://github.com/Aearnus/syscall-rootkit/blob/master/make.rb).
+Because of the fact that the point of my project wasn't to exploit KASLR (and out of laziness), I took a little bit of an easier approach to all of this. 
+
+**6/22/18: EDIT: Everything between this line and the next notice is wrong is wrong, but I'm keeping it for posterity. I was under the impression that `System.map` accounted for KASLR; when in reality, the last time I had tested the rootkit was _before_ KASLR was enabled by default in Linux**
+
+This approach, though, doesn't allow the "rootkit" to persist across boot-ups. Enter [make.rb](https://github.com/Aearnus/syscall-rootkit/blob/master/make.rb).
 
 This hack of a script uses a templating engine to bake the address of the KASLR-hardened syscall table right into the code itself. To find this address, the script accesses a read-only file system exposed by the Linux kernel at `/boot/`. In `/boot/`, there exist `System.map` files which contain the absolute offsets of every single symbol in the kernel address space for that session (or possibly for that version of the kernel? I'm not too sure, actually).
 
@@ -73,9 +78,15 @@ define = "#define SYS_CALL_TABLE ((unsigned long**)0x#{syscallOffset})"
 
 On the next reboot and/or on the next update of the kernel, the address of that table will change and thus the rootkit will stop working (along with the rest of your computer, most likely).
 
+** 6/22/18: EDIT: Here's the correct version that _actually_ accounts for KASLR **
+
+Oops. So upon testing the previous method, I couldn't manage to make it do anything but kernel panic. Turns out, the `System.map` file [doesn't accurately represent the kernel address space](https://lwn.net/Articles/546686/). Instead, KASLR [shifts the kernel's address space listed in `System.map` by a random constant](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/x86/Kconfig?id=v4.1#n1845). This has been the case since it was turned on by default in Linux 4.12.
+
+This prompted me to stop using the overcomplicated hack that was the `make.rb` file. Instead, in the process of making this edit, I came across the `kallsyms_lookup_name` function (I wasn't kidding when I said I didn't know what I was doing). From `linux/kallsyms.h`, this function allows you to [look up a dynamic kernel space symbol by its name on-the-fly](https://github.com/torvalds/linux/blob/master/kernel/kallsyms.c#L162). With this solution working (and working much better than my previous solution 😛), I'm happy to give myself that check mark for point 2.
+
 The CR0 byte
 ---
-Notice [this](https://github.com/Aearnus/syscall-rootkit/blob/master/rk.erb.c#L10)? These two lines gave me more headache than the rest of the code combined. Here's the kicker: without running these two macros, the entirety of the kernel module does _absolutely nothing_, with no indication that anything even went wrong. There's no compile time error, there's no segfault, and the CPU doesn't throw. Read on to find out why...
+Notice [this](https://github.com/Aearnus/syscall-rootkit/blob/master/rk.erb.c#L13)? These two lines gave me more headache than the rest of the code combined. Here's the kicker: without running these two macros, the entirety of the kernel module does _absolutely nothing_, with no indication that anything even went wrong. There's no compile time error, there's no segfault, and the CPU doesn't throw. Read on to find out why...
 
 ![Code from hell.](/assets/imgs/writing-a-rootkit/code_from_hell.png)
 
@@ -97,7 +108,7 @@ _From https://en.wikipedia.org/wiki/Control_register#CR0._
 
 Those little macros above switch on and off bit 16 (`0x10000` is equivalent to `0b10000000000000000` -- everything turned off except the 16th bit). CR0's 16th bit is write protection. That macro disables ring 0 write protection, meaning everything that shouldn't ever change in kernel space suddenly becomes free game. It's taking every single modern security feature and chucking it straight back to the 60's, with all of its peeks, pokes, and unprotected memory. It's like waving a magnet over your RAM and expecting everything to be perfectly fine afterwards. So, I'm careful to only modify what I need before turning that write protection right back on.
 
-Those modifications are right [here](https://github.com/Aearnus/syscall-rootkit/blob/master/rk.erb.c#L26). All I do is save the original `read(2)` and `write(2)` calls into their own respective `original_` functions (which really should be done before flipping the bit on CR0). Then, I replace those slots in the `SYS_CALL_TABLE` with my own function pointers and flip the bits on CR0 right back to how they should be. That's all there is to it. After doing that, I have full control over the system calls I overwrote -- and even more so, I have full control over any arbitrary kernel function (should I choose to modify it).
+Those modifications are right [here](https://github.com/Aearnus/syscall-rootkit/blob/master/rk.erb.c#L34). All I do is save the original `read(2)` and `write(2)` calls into their own respective `original_` functions (which really should be done before flipping the bit on CR0). Then, I replace those slots in the `SYS_CALL_TABLE` with my own function pointers and flip the bits on CR0 right back to how they should be. That's all there is to it. After doing that, I have full control over the system calls I overwrote -- and even more so, I have full control over any arbitrary kernel function (should I choose to modify it).
 
 Seeing It All Come Together
 ---
@@ -105,7 +116,7 @@ Here's where I would put cool screenshots of the rootkit fishing out every sudo 
 
 Just kidding.
 
-
+It's not the moral obligation that stopped me. It's the fact that no matter what I tried, I couldn't get anything to not hang the entire machine. [Here's my best attempt at code that logged every call to `read(2)`](https://github.com/Aearnus/syscall-rootkit/blob/a59821e2b357e6db15b763f6cbeb454e8662e459/rk.erb.c#L29). Payloads are hard, man.
 
 Final Words
 ---
