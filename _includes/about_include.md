@@ -1,4 +1,8 @@
-Hi, I'm Tyler! I'm enrolled in the University of Arizona for mathematics and computer science. I love functional programming and esoteric tech. Talk to me about Ruby, Haskell, or C. Or, catch me around the internet at any of the following links:
+Hi, I'm Tyler! I'm enrolled in the University of Arizona for mathematics and computer science. I love functional programming and esoteric tech. Talk to me about Ruby, Haskell, or C.  
+
+If you like what I do on this blog or around the internet, please [support me on Patreon](https://www.patreon.com/aearnus) or [become a patron on Liberapay](https://liberapay.com/Aearnus) to get more content and software in the future.
+
+Or, catch me around the internet at any of the following links:
 
 {% highlight haskell %}
 map (\s -> "My " ++ s) [
