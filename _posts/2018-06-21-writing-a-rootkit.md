@@ -99,6 +99,13 @@ Those little macros above switch on and off bit 16 (`0x10000` is equivalent to `
 
 Those modifications are right [here](https://github.com/Aearnus/syscall-rootkit/blob/master/rk.erb.c#L26). All I do is save the original `read(2)` and `write(2)` calls into their own respective `original_` functions (which really should be done before flipping the bit on CR0). Then, I replace those slots in the `SYS_CALL_TABLE` with my own function pointers and flip the bits on CR0 right back to how they should be. That's all there is to it. After doing that, I have full control over the system calls I overwrote -- and even more so, I have full control over any arbitrary kernel function (should I choose to modify it).
 
+Seeing It All Come Together
+---
+Here's where I would put cool screenshots of the rootkit fishing out every sudo password you typed in and intercepting every single time a program wrote to a file. But, to be honest, I have a real moral obligation not to do that.
+
+Just kidding.
+
+
 
 Final Words
 ---
