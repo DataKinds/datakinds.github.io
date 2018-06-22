@@ -50,8 +50,8 @@ and a Google search for "bypass Windows KASLR" revealing a writeup on a [longsta
 
 Because of the fact that the point of my project wasn't to exploit KASLR (and out of laziness), I took a little bit of an easier approach to all of this. 
 
-**6/22/18: EDIT: Everything between this line and the next notice is wrong is wrong, but I'm keeping it for posterity. I was under the impression that `System.map` accounted for KASLR; when in reality, the last time I had tested the rootkit was _before_ KASLR was enabled by default in Linux**
-
+**6/22/18: EDIT: Everything between this line and the next notice is wrong is wrong, but I'm keeping it for posterity. I was under the impression that `System.map` accounted for KASLR; when in reality, the last time I had tested the rootkit was _before_ KASLR was enabled by default in Linux, and that's why it worked in the first place.**
+<div markdown="1" style="position:relative;"><div style="position:absolute;top:0;left:0;right:0;bottom:0;background-color:rgba(255,255,255,0.5);z-index:9999;color:white;"></div>
 This approach, though, doesn't allow the "rootkit" to persist across boot-ups. Enter [make.rb](https://github.com/Aearnus/syscall-rootkit/blob/master/make.rb).
 
 This hack of a script uses a templating engine to bake the address of the KASLR-hardened syscall table right into the code itself. To find this address, the script accesses a read-only file system exposed by the Linux kernel at `/boot/`. In `/boot/`, there exist `System.map` files which contain the absolute offsets of every single symbol in the kernel address space for that session (or possibly for that version of the kernel? I'm not too sure, actually).
@@ -77,8 +77,8 @@ define = "#define SYS_CALL_TABLE ((unsigned long**)0x#{syscallOffset})"
 `SYS_CALL_TABLE` is then used throughout the code to reference the table that holds the Linux system calls. Take that, KASLR!
 
 On the next reboot and/or on the next update of the kernel, the address of that table will change and thus the rootkit will stop working (along with the rest of your computer, most likely).
-
-** 6/22/18: EDIT: Here's the correct version that _actually_ accounts for KASLR **
+</div>
+**6/22/18: EDIT: Here's the correct version that _actually_ accounts for KASLR**
 
 Oops. So upon testing the previous method, I couldn't manage to make it do anything but kernel panic. Turns out, the `System.map` file [doesn't accurately represent the kernel address space](https://lwn.net/Articles/546686/). Instead, KASLR [shifts the kernel's address space listed in `System.map` by a random constant](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/arch/x86/Kconfig?id=v4.1#n1845). This has been the case since it was turned on by default in Linux 4.12.
 
@@ -94,7 +94,7 @@ _Code from hell._
 
 ❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗
 
-BEFORE I BEGIN THIS SECTION: If you _ever_, and I mean **_ever_** see this in an actual kernel module, run screaming in the other direction. Run as far away as you possibly can. This is a massive security risk and the product of a programmer who has absolutely no idea what they are doing or the power that kernel level code wields. If you're going to scold me for writing this, I beg that you save your breath. _I already know_, and I've handled it as safe as I possibly could. Which, to be fair, isn't very safely.
+<div style="color:red"><b>BEFORE I BEGIN THIS SECTION:</b></div> If you _ever_, and I mean **_ever_** see this in an actual kernel module, run screaming in the other direction. Run as far away as you possibly can. This is a massive security risk and the product of a programmer who has absolutely no idea what they are doing or the power that kernel level code wields. If you're going to scold me for writing this, I beg that you save your breath. _I already know_, and I've handled it as safe as I possibly could. Which, to be fair, isn't very safely.
 
 ❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗❗
 
