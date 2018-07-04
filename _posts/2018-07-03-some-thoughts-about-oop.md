@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Some Thoughts About Pharo Smalltalk and OOP (part 1)
+title: Some Thoughts About Pharo Smalltalk and OOP (OOP Thoughts part 1)
 date: 2018-07-03 16:30 -0700
 categories: programming smalltalk
 ---
@@ -53,4 +53,6 @@ This little interface would definitely prove invaluable in an actual working sce
 
 Some Further Research
 ---
-In part 2 of this blog post, I'll delve a little bit deeper into what it actually means to program in Pharo Smalltalk. Until then, though, I'll leave with a little bit more research that I've done on the Smalltalk language itself. It's built around simplicity and the sole existence of the object. Objects contain a state, pass messages to other objects, and react to messages sent to them. There is nothing else in Smalltalk. For example, methods are implemented by sending a message to an object saying "Please run this method..." (think: `#__send__` from Ruby). For now, thank you for reading this far. If you appreciate what I put out, please feel free to support me on [Liberapay](https://liberapay.com/Aearnus) or [Patreon](https://www.patreon.com/aearnus).
+In the next parts of this blog post, I'll delve a little bit deeper into what it actually means to program in Pharo Smalltalk. Until then, though, I'll leave with a little bit more research that I've done on the Smalltalk language itself. It's built around simplicity and the sole existence of the object. Objects contain a state, pass messages to other objects, and react to messages sent to them. There is nothing else in Smalltalk. For example, methods are implemented by sending a message to an object saying "Please run this method..." (think: `#__send__` from Ruby). For now, thank you for reading this far. If you appreciate what I put out, please feel free to support me on [Liberapay](https://liberapay.com/Aearnus) or [Patreon](https://www.patreon.com/aearnus).
+
+# [Read the next part here!]({% post_url 2018-07-03-some-thoughts-about-oop-part-2 %})
