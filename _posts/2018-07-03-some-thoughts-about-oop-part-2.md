@@ -25,6 +25,8 @@ A Running List of Ruby Things I Didn't Know Came From Smalltalk
 * Class introspection (`#methods`, `#class`)
 * Direct access to the GC & VM (the former is common in modern languages, but the latter is unique (and Ruby is only currently implementing it))
 * Being able to monkey-patch classes on-the-fly, including modifying variable or function privacy
+* Using `Class::initialize` as the function to initialize a class, even though you actually call it by saying `Class.new`
+* The MVC model
 
 A Running List of Smalltalk Things I Wish I Had in Ruby
 ---
