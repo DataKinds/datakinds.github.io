@@ -59,7 +59,7 @@ There is only one primarily functional language in that list. There are many lan
 * PHP: 41.6%
 * Ocaml: 41.5%
 
-I took a few languages out of this list just because they didn't quite fit (like Shell or HTML). There is a _lot_ more variety in these languages, between modern imperative languages like Rust, Lisps like Clojure, or fully functional languages like Haskell. 
+I took a few languages out of this list just because they didn't quite fit (like Shell or HTML). There is a _lot_ more variety in these languages, between modern imperative languages like Rust, Lisps like Clojure, or fully functional languages like Haskell.
 
 What does it say about the state of our little ecosystem that the popular languages are pretty much carbon copies of each other? It might be that they "just work", and that they're used _because_ they're similar, and thus they don't take as long to learn and it's not as hard to bring people onto a team using that language.
 
@@ -67,18 +67,26 @@ Here's the thing though: languages don't survive unless they're popular. A langu
 
 Common Lisp poses an interesting counter-example to all this. Despite being both unpopular and unused, it's been kept alive though a dedicated core following of fans and supporters. Somehow it's found its way into [large company's production code](https://tech.grammarly.com/blog/running-lisp-in-production) and the community has created pretty much [every facility you'd need in a common language](https://www.quicklisp.org/beta/). The compilers and interpreters for it are all continually updated: SBCL was last updated a month ago and CCL had its newest release 7 months ago. The Scheme standard (though a little off-topic) was last updated in 2017 with compilers and interpreters such as Chicken Scheme and Racket being updated day-to-day.
 
-How have Common Lisp and its children stayed alive this long? A nice quote I found from lisp-lang.org says: 
+How have Common Lisp and its children stayed alive this long? A nice quote I found from lisp-lang.org says:
 
-    Part of what makes Lisp distinctive is that it is designed to evolve. As new abstractions become popular (object-oriented programming, for example), it always turns out to be easy to implement them in Lisp. Like DNA, such a language does not go out of style. 
+    Part of what makes Lisp distinctive is that it is designed to evolve. As new abstractions become popular (object-oriented programming, for example), it always turns out to be easy to implement them in Lisp. Like DNA, such a language does not go out of style.
     (Paul Graham)
-    
+
 Common Lisp first appeared in 1984, and has seen many an abstraction in its time. It's seen message passing, actors, OOP, functional style, futures, asynchronous code, massive concurrency, and so much more. Surprisingly, it's been able to keep up with all these changes in ideas. We can shoehorn the next big idea into JavaScript all we want, but it's hard to achieve true first class support like you could in a Lispy language.
 
-So is extensibility the key to make a language that never dies? Well... maybe. It's hard to say without analyzing other languages just as extensible as Lisp. But, at the end of the say, I'm not so sure any other language like that exists. 
+So is extensibility the key to make a language that never dies? Well... maybe. It's hard to say without analyzing other languages just as extensible as Lisp. But, at the end of the say, I'm not so sure any other language like that exists.
 
 Maybe the key to make a language that doesn't die is to not make a language at all. Lisp isn't a language; it's a set of syntax rules for interpreting and modifying [S-expressions](https://en.wikipedia.org/wiki/S-expression). Common Lisp is one implementation of those rules, as is Scheme and Racket and Clojure and the list goes on. Haskell's done this, too. GHC (the canonical Haskell compiler) is simply an implementation of a Haskell. There are many other implementations of it with different targets and different concepts, such as Elm, GHCJS, and Eta.
 
-Maybe the key to making a language that doesn't die is a combination of the two. Or maybe C++ found the key already and we'll be stuck with it forever. 
+Maybe the key to making a language that doesn't die is a combination of the two. Or maybe C++ found the key already and we'll be stuck with it forever.
+
+Why is it bad that programming languages die?
+---
+There are plenty of linguists who have written very good arguments for why languages shouldn't die, and I am not one of them. The gist of it is, though, that when a language dies, so do the ideas that it contained. Take [Forth](https://en.wikipedia.org/wiki/Forth_(programming_language) from 1970, for example. It didn't have any children outside of defunct Forth derivatives like ColorForth. It was also the first language to make the distinction between functions that run at compile time and functions that run at run time. No language in the next decade or so had such comprehensive compile time tools until they were rediscovered in the form of C++ style templates (as far as Google would suggest. if this is incorrect please email me).
+
+This feature provides a huge value to the programmer, but disappeared for a decade with Forth's death (or non-birth? maybe it was dead on arrival?). If Forth didn't die out, it would have been much easier to build off of the ideas that it had already thought of.
+
+_will finish later_
 
 (I'm not a language researcher, but I'd like to hear from one on this topic. If you know more about this topic, please contact me through one of those methods down below. I'd love to talk about this!)
 
