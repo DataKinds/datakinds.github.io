@@ -80,13 +80,15 @@ Maybe the key to make a language that doesn't die is to not make a language at a
 
 Maybe the key to making a language that doesn't die is a combination of the two. Or maybe C++ found the key already and we'll be stuck with it forever.
 
+The surveys show the overwhelming homogeneity of the programming language ecosystem, but...
+
 Why is it bad that programming languages die?
 ---
 There are plenty of linguists who have written very good arguments for why languages shouldn't die, and I am not one of them. The gist of it is, though, that when a language dies, so do the ideas that it contained. Take [Forth](https://en.wikipedia.org/wiki/Forth_(programming_language) from 1970, for example. It didn't have any children outside of defunct Forth derivatives like ColorForth. It was also the first language to make the distinction between functions that run at compile time and functions that run at run time. No language in the next decade or so had such comprehensive compile time tools until they were rediscovered in the form of C++ style templates (as far as Google would suggest. if this is incorrect please email me).
 
-This feature provides a huge value to the programmer, but disappeared for a decade with Forth's death (or non-birth? maybe it was dead on arrival?). If Forth didn't die out, it would have been much easier to build off of the ideas that it had already thought of.
+Here's an alternate scenario: Modula (1975) introduced the idea of coroutines and module based compilation units. These features have, in some capacity, stuck around in every single programming language where they'd make sense.
 
-_will finish later_
+A language's death also means the death of the ideas the language contains. That's why the continuation of projects such as the [Wiki](http://wiki.c2.com/) or [Esolangs](https://esolangs.org/wiki/Main_Page) are so important: they prevent good ideas from dying out.
 
 (I'm not a language researcher, but I'd like to hear from one on this topic. If you know more about this topic, please contact me through one of those methods down below. I'd love to talk about this!)
 
