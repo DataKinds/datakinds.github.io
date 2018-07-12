@@ -84,11 +84,17 @@ The surveys show the overwhelming homogeneity of the programming language ecosys
 
 Why is it bad that programming languages die?
 ---
-There are plenty of linguists who have written very good arguments for why languages shouldn't die, and I am not one of them. The gist of it is, though, that when a language dies, so do the ideas that it contained. Take [Forth](https://en.wikipedia.org/wiki/Forth_(programming_language) from 1970, for example. It didn't have any children outside of defunct Forth derivatives like ColorForth. It was also the first language to make the distinction between functions that run at compile time and functions that run at run time. No language in the next decade or so had such comprehensive compile time tools until they were rediscovered in the form of C++ style templates (as far as Google would suggest. if this is incorrect please email me).
+There are plenty of linguists who have written very good arguments for why languages shouldn't die, and I am not one of them. The gist of it is, though, that when a language dies, so do the ideas that it contained. Take [Forth](https://en.wikipedia.org/wiki/Forth_(programming_language)) from 1970, for example. It didn't have any children outside of defunct Forth derivatives like ColorForth. It was also the first language to make the distinction between functions that run at compile time and functions that run at run time. No language in the next decade or so had such comprehensive compile time tools until they were rediscovered in the form of C++ style templates (as far as Google would suggest. if this is incorrect please email me).
 
 Here's an alternate scenario: Modula (1975) introduced the idea of coroutines and module based compilation units. These features have, in some capacity, stuck around in every single programming language where they'd make sense.
 
 A language's death also means the death of the ideas the language contains. That's why the continuation of projects such as the [Wiki](http://wiki.c2.com/) or [Esolangs](https://esolangs.org/wiki/Main_Page) are so important: they prevent good ideas from dying out.
+
+Are programming languages actually dying?
+---
+Yes, and it's because of this lack of diversity. Some languages, like Prolog, will dominate their niche until something better comes along. But, take Python for example. Depending on who you ask, Python is the quintessential dynamic scripting language. So, it's the language that gets all the funding and library development, while other languages (with much better ideas 😛) are left in the dust to die. Ruby and Perl/Perl 6, namely, are now considered dead languages that you shouldn't learn if you want a job in programming. Putting the fact that I'm a Ruby fanboy aside, this is awful because if these languages die, we lose ideas such as anonymous blocks, sigils, or full fledged PCRE.
+
+Regardless of your opinion on non-Python scripting languages, losing them would be losing a large part of humanity's collective programming knowledge.
 
 (I'm not a language researcher, but I'd like to hear from one on this topic. If you know more about this topic, please contact me through one of those methods down below. I'd love to talk about this!)
 
