@@ -48,7 +48,7 @@ That leaves the final point to talk about. The first part of point 2 points out 
 
 and a Google search for "bypass Windows KASLR" revealing a writeup on a [longstanding Windows NT bug to bypass KASLR up until Windows 8.1](https://www.crowdstrike.com/blog/kaslr-bypass-mitigations-windows-81/).
 
-Because of the fact that the point of my project wasn't to exploit KASLR (and out of laziness), I took a little bit of an easier approach to all of this. 
+Because of the fact that the point of my project wasn't to exploit KASLR (and out of laziness), I took a little bit of an easier approach to all of this.
 
 **6/22/18: EDIT: Everything between this line and the next notice is wrong, but I'm keeping it for posterity/correctness/to laugh at later. I was under the impression that `System.map` accounted for KASLR; when in reality, the last time I had tested the rootkit was _before_ KASLR was enabled by default in Linux, and that's why it worked in the first place. Just some proof that I really am writing and learning at the same time.**
 <div markdown="1" style="position:relative;"><div style="position:absolute;top:0;left:0;right:0;bottom:0;background-color:rgba(255,255,255,0.5);z-index:9999;color:white;"></div>
@@ -127,4 +127,4 @@ Final Words
 If I had one takeaway from this whole process, it's that full control doesn't come easily. Building and installing this module requires superuser access for two separate commands **6/22/18: EDIT: One command now, but that's still non-negligible.**, and for many Linux users, that's too important to take with a grain of salt. Figuring out a way to place that on a computer without them knowing would require a real feat of social engineering (or a real bad privilege escalation exploit). Even more so, kernel modules don't have access to the same set of C functions that userland applications do, so doing anything non-trivial is another feat of engineering in and of itself. All in all, this was a hell of a lot of fun to build, and a great learning experience. I'd just hope that those <a href="http://github.com/aearnus/syscall-rootkit"><img src="https://img.shields.io/github/forks/Aearnus/syscall-rootkit.svg?style=social&label=Forks" style="display:inline;box-shadow:0 0 0"></a> people who forked `syscall-rootkit` aren't any more evil than I am 😄.
 
 
-_[If you like what I do, please support me on [Liberapay](https://liberapay.com/Aearnus) or [Patreon](https://www.patreon.com/aearnus)!_
+_If you like what I do, please support me on [Liberapay](https://liberapay.com/Aearnus) or [Patreon](https://www.patreon.com/aearnus)!_

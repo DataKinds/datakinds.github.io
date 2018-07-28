@@ -98,4 +98,4 @@ Regardless of your opinion on non-Python scripting languages, losing them would 
 
 (I'm not a language researcher, but I'd like to hear from one on this topic. If you know more about this topic, please contact me through one of those methods down below. I'd love to talk about this!)
 
-_If you if you liked this post, please [support me on Patreon](https://www.patreon.com/aearnus) or [become a patron on Liberapay](https://liberapay.com/Aearnus) to get more content in the future._
+_If you liked this post, please [support me on Patreon](https://www.patreon.com/aearnus) or [become a patron on Liberapay](https://liberapay.com/Aearnus) to get more content in the future._
