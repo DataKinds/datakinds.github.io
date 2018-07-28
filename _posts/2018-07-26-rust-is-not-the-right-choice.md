@@ -60,6 +60,6 @@ If you're making public facing software, though, a strong type system will _alwa
 
 It's more important to use the right tool for the job than it is to be personally attached -- and hell; if C is the right tool, there is no reason to shove Rust where it doesn't belong.
 
-_[If you like what I do, please support me on [Liberapay](https://liberapay.com/Aearnus) or [Patreon](https://www.patreon.com/aearnus)!_
+_If you like what I do, please support me on [Liberapay](https://liberapay.com/Aearnus) or [Patreon](https://www.patreon.com/aearnus)!_
 
 **Update 07/27/18:** Added the Hacker News comment along with some information and fixed some typos.
