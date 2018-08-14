@@ -35,7 +35,11 @@ Although, there are some things that I've used as a default activity that wouldn
 
 My OCD comes and goes depending on how stressed and tired I am. That's how it's worked through my whole family.
 
-Oddly enough, a lot of the symptoms emerged when I was about 10, but disappeared again around 12 or 13. Maybe my late elementary school years were easy? Either way, they reemerged during a very stressful period of time while I was 17. The first night that I had
+Oddly enough, a lot of the symptoms emerged when I was about 10, but disappeared again around 12 or 13. Maybe my late elementary school years were easy? Either way, they reemerged during a very stressful period of time while I was 17. The first night that my symptoms came back enough to interfere with my life, I happened to be with a long time friend that I've known since middle school. I told him everything I was feeling and he took me for a drive around the block to decompress. Every single obsessive thought that I mentioned would either be met with "You're being crazy" or an in depth explanation on why that could not EVER be true.
+
+I try to tell myself those exact things, but frankly, they don't work as well when they're coming out of the same mind that's making the problems in the first place. Hearing someone else call my obsessive thoughts crazy somehow manages to kick my rational mind into gear. It's conformation that the reality your OCD has created isn't real at all.
+
+I've asked my significant other to tell me I'm crazy at least once or twice through a conversation if I'm in the middle of obsessing on something. That might be demoralizing to some, but for me, it's probably the best reality check there is.
 
 ## Go To Sleep
 
@@ -43,4 +47,18 @@ It's hard to sleep when obsessions are dancing around your mind -- but sometimes
 
 # And If All Else Fails
 
-I've only been in a situation where all else had failed one time. I had an anxiety attack for 15 hours straight, from 7 PM one night to 10 AM the next morning. I didn't sleep, I didn't eat, and I barely moved from my position on the couch as I fought a mental battle of trying to convince myself that what my brain was convinced was real wasn't.
+I've only been in a situation where all else had failed one time. I had an anxiety attack for 15 hours straight, from 7 PM one night to 10 AM the next morning. I didn't sleep, I didn't eat, and I barely moved from my position on the couch as I fought a mental battle against what my brain had convinced itself was real.
+
+For those 15 hours, I felt the closest to death than I have ever been before. That sounds over-dramatic, but at one point your heart just beats so hard for so long that it doesn't feel like you can keep up any more. There ended up being a huge scene, which included my girlfriend showing up to my door in tears ready to take me to the hospital.
+
+Though I don't want to share what it was I was obsessing over for so long, I will say that it was definitely something that I wouldn't ever want to tell my parents. Not in a million years.
+
+So, naturally, I called up my parents and told them everything I was obsessing over. They comforted me and calmed me down, and just like that, it was over.
+
+I wish I had something better to put in this section, but the reality is that I don't have any clue what I'd do if I got into a situation that bad again. If calling my parents didn't work then I don't know what would have happened to me. It scares me to think about the fact that my brain has the power to make me feel so awful like that, even when I work so hard to not let that happen.
+
+# Final Words
+
+None of the points in here relate specifically to compulsions because I don't suffer from compulsions nearly as much as I suffer from obsessions. I've got the occasional tic and the odd urge to rinse my hands until I finally believe that there's no more soap left, but nothing really debilitating. So, all of these methods that I use really relate more to the obsessing part of OCD.
+
+Please enjoy your day and please please contact me down below if any of this helped you or if you want to talk about it. I want nothing more but to have a support network of people that feel the same way as I do. We could all over-analyze things together :)
