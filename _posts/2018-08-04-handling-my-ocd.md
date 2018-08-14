@@ -9,7 +9,7 @@ I suffer from really bad OCD. It usually manifests itself in the form of constan
 
 It's really difficult for me to share this intimate detail with the entire internet, when this isn't even something that most of my close friends know. But, I want to share it in order to share how try to deal with all of this.
 
-# How I Deal With My OCD
+# The Methods I Use
 
 All of these things are things that have specifically worked for ME. Even then, they rarely work all the time. If they don't work for you, I urge you to explore all of the other strategies and coping mechanisms that the internet and therapists have to offer.
 
