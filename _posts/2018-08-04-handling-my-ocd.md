@@ -7,7 +7,7 @@ categories: ocd life
 
 I suffer from really bad OCD. It usually manifests itself in the form of constant obsessions that run through my mind, like intrusive thoughts on steroids. When there's any uncertainty in my life I obsess over it non-stop. It gets incredibly bad, to the point where I can't conduct myself because of the overwhelming anxiety that this all causes.
 
-It's really difficult for me to share this intimate detail with the entire internet, when this isn't even something that most of my close friends know. But, I want to share it in order to share how try to deal with all of this.
+It's really difficult for me to share this intimate detail with the entire internet when this isn't even something that most of my close friends know. But, I want to share it in order to share how to try to deal with all of this.
 
 # The Methods I Use
 
@@ -35,9 +35,9 @@ Although, there are some things that I've used as a default activity that wouldn
 
 My OCD comes and goes depending on how stressed and tired I am. That's how it's worked through my whole family.
 
-Oddly enough, a lot of the symptoms emerged when I was about 10, but disappeared again around 12 or 13. Maybe my late elementary school years were easy? Either way, they reemerged during a very stressful period of time while I was 17. The first night that my symptoms came back enough to interfere with my life, I happened to be with a long time friend that I've known since middle school. I told him everything I was feeling and he took me for a drive around the block to decompress. Every single obsessive thought that I mentioned would either be met with "You're being crazy" or an in depth explanation on why that could not EVER be true.
+Oddly enough, a lot of the symptoms emerged when I was about 10 but disappeared again around 12 or 13. Maybe my late elementary school years were easy? Either way, they reemerged during a very stressful period of time while I was 17. The first night that my symptoms came back enough to interfere with my life, I happened to be with a long time friend that I've known since middle school. I told him everything I was feeling and he took me for a drive around the block to decompress. Every single obsessive thought that I mentioned would either be met with "You're being crazy" or an in depth explanation on why that could not EVER be true.
 
-I try to tell myself those exact things, but frankly, they don't work as well when they're coming out of the same mind that's making the problems in the first place. Hearing someone else call my obsessive thoughts crazy somehow manages to kick my rational mind into gear. It's conformation that the reality your OCD has created isn't real at all.
+I try to tell myself those exact things, but frankly, they don't work as well when they're coming out of the same mind that's making the problems in the first place. Hearing someone else call my obsessive thoughts crazy somehow manages to kick my rational mind into gear. It's confirmation that the reality your OCD has created isn't real at all.
 
 I've asked my significant other to tell me I'm crazy at least once or twice through a conversation if I'm in the middle of obsessing on something. That might be demoralizing to some, but for me, it's probably the best reality check there is.
 
