@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Some Thoughts About Ruby and Smalltalk (OOP Thoughts part 2)
+title: Some Thoughts OOP pt. 2
 date: 2018-07-03 21:18 -0700
 categories: programming ruby smalltalk
 ---

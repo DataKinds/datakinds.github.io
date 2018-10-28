@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Some Thoughts About Pharo Smalltalk and OOP (OOP Thoughts part 1)
+title: Some Thoughts About OOP pt. 1
 date: 2018-07-03 16:30 -0700
 categories: programming smalltalk
 ---
