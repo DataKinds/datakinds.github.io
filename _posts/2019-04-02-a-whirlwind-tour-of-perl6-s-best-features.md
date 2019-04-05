@@ -3,9 +3,9 @@ layout: post
 title: A Whirlwind Tour of Perl6's Best Features
 date: 2019-04-02 17:31 -0700
 ---
-It's rare that I find a language that I truly feel innovates upon established conventions and features. Perl6 came out in late 2015 to little fanfare -- it was written off by the Perl community as unnecessary change and by the larger programming community as, well, still Perl. I feel that Perl6 fills the same niche that Lisp does: there are a hundred short and elegant ways to do the same thing, and it's up to the programmer to decide which one works best for them. It's extensible and customizable so therefore [it'll last a long time](https://aearnus.github.io/2018/07/09/programming-language-diversity). 
+It's rare that I find a language that I truly feel innovates upon established conventions and features. Perl6 came out in late 2015 to little fanfare -- it was written off by the Perl community as unnecessary change and by the larger programming community as, well, still Perl. I feel that Perl6 fills the same niche that Lisp does: there are a hundred short and elegant ways to do the same thing, and it's up to the programmer to decide which one works best for them. It's extensible and customizable so therefore [it'll last a long time](https://aearnus.github.io/2018/07/09/programming-language-diversity).
 
-In the spirit of Perl, Perl6 is extremely terse and can be fairly hard to read. There's a lot that goes on behind the scenes that you would hardly catch if you weren't acquainted with the language. To get up to speed, I found the [Learn X in Y minutes page for Perl6](https://learnxinyminutes.com/docs/perl6/) _extremely_ helpful. Before continuing, you should skim through that page. 
+In the spirit of Perl, Perl6 is extremely terse and can be fairly hard to read. There's a lot that goes on behind the scenes that you would hardly catch if you weren't acquainted with the language. To get up to speed, I found the [Learn X in Y minutes page for Perl6](https://learnxinyminutes.com/docs/perl6/) _extremely_ helpful. Before continuing, you should skim through that page.
 
 I've only been writing Perl6 for a couple of days, so please excuse any errors & message me using the links at the bottom or the discord at the top so I could correct them.
 
@@ -15,7 +15,7 @@ I've only been writing Perl6 for a couple of days, so please excuse any errors &
 
 The whatever star inhereits its namesake from the wildcard character, which gets replaced by "whatever" when evaluated by your shell. In Perl6, the whatever star creates an implicit block which can be used in place of anything that expects a `Callable`. This process is called _whatever-currying_. Here are the docs: [https://docs.perl6.org/type/WhateverCode](https://docs.perl6.org/type/WhateverCode).
 
-This is useful for a wide variety of reasons. Here's an example I feel is relatively succinct: 
+This is useful for a wide variety of reasons. Here's an example I feel is relatively succinct:
 
 ```perl6
 1,1,*+* ...^ * >= 100
@@ -52,7 +52,7 @@ In my opinion, this idea of implicit chaining opens the opportunity to write ele
 
 I don't remember who this quote is attributed to, but I believe I heard it while hanging around APL folks. It rings true -- functions with tons of arguments become less and less clear the more arguments you have. It's sort of like the unix philosophy: do one thing and do it well. Massive monolithic functions (or objects, or classes...) are a significant code smell.
 
-Perl6 encourages the programmer to dispose of massive functions like this by providing an extremely flexible way to define operators. The [operators page in the Perl6 docs](https://docs.perl6.org/language/operators) is extraordinarily long but _very_ worth it to scroll through. 
+Perl6 encourages the programmer to dispose of massive functions like this by providing an extremely flexible way to define operators. The [operators page in the Perl6 docs](https://docs.perl6.org/language/operators) is extraordinarily long but _very_ worth it to scroll through.
 
 Most languages that provide the ability to define custom operators have a notion of precedence (sometimes called fixity or strength). Haskell, for example, allows you to define operators as `infixl` (left associative infix) or `infixr` (right associative infix) along with a number 0 through 9 describing how tightly they bind to their arguments. What's unique about Perl6 though is the fine grained control that it offers the programmer over the associativity rules of the operator. In addition to left associative and right associative, Perl6 allows you to specify whether an operator is _non-associative_, _list associative_, or _chain associative_. The specific rules for these are listed in the docs so I won't bother rehashing it here, but like I said before, it's very much so worth reading if you're unfamiliar.
 
@@ -87,7 +87,7 @@ I love how Perl6 names things. It's cute and silly enough to be memorable, and d
 
 `WHY` returns documentation about the object.
 
-`HOW` is important: it returns the metaclass object, which the developers have slyly named the _Higher Order Workings_ object. It provides an interface to all the runtime dynamicism that Perl6 allows. 
+`HOW` is important: it returns the metaclass object, which the developers have slyly named the _Higher Order Workings_ object. It provides an interface to all the runtime dynamicism that Perl6 allows.
 
 There is special syntax to call a method on an object's `HOW` object, and that syntax is `.^`.
 
@@ -130,7 +130,7 @@ Consider this snippet of Ruby code. This isn't some contrived example, I've actu
 ```ruby
 class UhOh
 	attr_accessor :value
-	
+
 	def floor
 		@value = @value.floor
 	end
@@ -176,7 +176,7 @@ nasty_function($okay); # This doesn't work!
 #  in block <unit> at test.p6 line 14
 nasty_function($uhoh); # After this, $uhoh.value now equals 0.
 ```
-	
+
 # Smartmatch
 
 This is a feature that is so inherently Perl that I cannot imagine it ever being implemented in another language. Smartmatch is the embodiment of "this does what you expect it to do".
@@ -232,7 +232,7 @@ Read more about smartmatching [here](https://docs.perl6.org/language/operators#i
 
 # P6CRE and the Grammar Engine
 
-I haven't quite had an opporutnity to play around with this yet, but Perl6 revamped the way that it handles regexes. In the spirit of cute names, I'll refer to it as P6CRE (pronounced picture?): the Perl6 Compatible Regex Engine. They've revamped how regexes traditionally work, allowing for spaces between identifiers, full unicode class support, extra quantifiers, readability improvments, [so on and so forth](https://docs.perl6.org/language/regexes). 
+I haven't quite had an opportunity to play around with this yet, but Perl6 revamped the way that it handles regexes. In the spirit of cute names, I'll refer to it as P6CRE (pronounced picture?): the Perl6 Compatible Regex Engine. They've revamped how regexes traditionally work, allowing for spaces between identifiers, full unicode class support, extra quantifiers, readability improvments, [so on and so forth](https://docs.perl6.org/language/regexes).
 
 Along with P6CRE, [an entire grammar system reminiscent of PEG grammars is provided to you for free](https://docs.perl6.org/language/grammars). This system is extremely powerful... powerful enough that [Perl6's parser is actually implemented using the Perl6 grammar engine](https://github.com/perl6/nqp/blob/master/src/NQP/Grammar.nqp). I can't say much more about it considering I haven't gotten to use it, but I'm eager to take on a project where I can put it to good use.
 
