@@ -125,7 +125,7 @@ By encapsulating all these metamethods into one object, Perl6 makes an obvious d
 
 Every language should have traits, a strong type system, subset types, etc, etc. It makes programming easier and it means you can offload much of the required mental energy onto the compiler. Perl6's gradual typing is a perfect example of this -- but I have so many things to say about the type system that it would be enough to fill 10 blog posts in their entirety. Instead, I'll focus on one specific example where the type system comes in handy: the `is rw` trait.
 
-Consider this (admittedly untested) snippet of Ruby code. This isn't some contrived example, I've actually run into this problem in real life before. It sneaks up in unsuspecting ways.
+Consider this snippet of Ruby code. This isn't some contrived example, I've actually run into this problem in real life before. It sneaks up in unsuspecting ways.
 
 ```ruby
 class UhOh
