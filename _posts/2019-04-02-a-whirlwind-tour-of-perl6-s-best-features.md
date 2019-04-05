@@ -132,11 +132,11 @@ class UhOh
 	attr_accessor :value
 	
 	def floor
-		value.floor!
+		@value = @value.floor
 	end
 end
 
-def nasty_funcion(x)
+def nasty_function(x)
 	return x.floor
 end
 
