@@ -48,25 +48,39 @@ sub just(::A $x --> Maybe[::A]) { class Just does Maybe[::A] { has $.V = $x; }.n
 sub nothing(Any:U $t --> Maybe[$t]) { class Nothing does Maybe[$t] { }.new }
 ```
 
-Here, we define `Maybe` as a parametric role that stores the type that it contains in an instance variable `$!T`. We define the constructors `just` and `nothing` as routines that return parametrized classes `Just` and `Nothing` respectively. Unfortunately, because Perl6 lacks any sort of meaningful type inference, the constructor for `Nothing` still needs to take in the uninhabited type which it will unify with as an argument.
+Here, we define `Maybe` as a parametric role. We define the constructors `just` and `nothing` as routines that return parametrized classes `Just` and `Nothing` respectively. Unfortunately, because Perl6 lacks any sort of meaningful type inference, the constructor for `Nothing` still needs to take in the uninhabited type which it will unify with as an argument.
 
-Now, we can use our `Maybe` in the most Perl6 way possible: with `when` blocks.
+Now, we can pattern match on the classes produced by our constructors to interact with our `Maybe` values.
 
 ```perl6
 my @maybes = just(1), just(2), nothing(Int), just(4), nothing(Int);
-for @maybes -> $maybe {
-	given $maybe.WHAT {
-		when Just {
-			$maybe.V.say;
-		}
-		when Nothing {
-			'nothing'.say;
-		}
-	}
-}
+
+proto print-maybe(Maybe $) {*}
+multi print-maybe(Just $m) { $m.V.say }
+multi print-maybe(Nothing $) { 'nothing'.say }
+
+@maybes.map: { print-maybe $_ }
 ```
 
-Sorry.
+This produces:
+
+```
+1
+2
+nothing
+4
+nothing
+```
+
+And finally, compare this to the equivalent Haskell code:
+
+```haskell
+print_maybe :: Show a => Maybe a -> IO ()
+print_maybe (Just m) = print m
+print_maybe (Nothing) = putStrLn "nothing"
+```
+
+Sorry. Hope you enjoyed this :)
 
 ---
 
