@@ -1,4 +1,4 @@
-Hi, I'm Tyler! I'm enrolled in the University of Arizona for mathematics and computer science. I love functional programming and esoteric tech. Talk to me about Ruby, Haskell, or C.  
+Hi, I'm Tyler! I'm a student at the University of Arizona for mathematics and theatre. I love functional programming and esoteric tech.
 
 If you like what I do on this blog or around the internet, please [support me on Patreon](https://www.patreon.com/aearnus) or [become a patron on Liberapay](https://liberapay.com/Aearnus) to get more content and software in the future.
 
