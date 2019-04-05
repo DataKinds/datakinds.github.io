@@ -30,17 +30,17 @@ There is a special variable in Perl6 named `$_`. It has type `(Any)` and essenti
 Here's a contrived example: given a list of lists, filter the lists down to only their even elements and print the new lists.
 
 ```perl6
-> (1..2 X 1..2).map: { .grep(!(* % 2)).say }
+> (1..2 X 1..2).map: { .grep(* %% 2).say }
 ()
 (2)
 (2)
 (2 2)
 ```
 
-The significant code here is `{ .grep(!(* % 2)).say }`. This is a block that takes an implicit argument (passed in as `$_`), filters out eveything that isn't divisible by 2 (`.grep(!(* % 2))`), and prints it to standard output. We can use this block as a standalone callable to see this in action:
+The significant code here is `{ .grep(* %% 2).say }`. This is a block that takes an implicit argument (passed in as `$_`), filters out eveything that isn't divisible by 2 (`.grep(* %% 2)`), and prints it to standard output. We can use this block as a standalone callable to see this in action:
 
 ```perl6
-> { .grep(!(* % 2)).say }(1..10)
+> { .grep(* %% 2).say }(1..10)
 (2 4 6 8 10)
 ```
 
@@ -243,3 +243,7 @@ If you haven't gotten a chance to check out Perl6, [here's your opportunity](htt
 Thanks to the Perl6 discord server at [https://discord.gg/gg2a3T6](https://discord.gg/gg2a3T6) and #perl6 at freenode for helping me through some confusing moments. Special thanks to the Perl6 developers and timotimo from #perl6 for being extra patient with me while I was frustrated :)
 
 Have any favorite Perl6 features that I missed out on? Want to leave a comment? Message me using the contact info below.
+
+---
+
+UPDATE: as per AlexDaniel's suggestion on #perl6, changed `!(* % 2)` to `* %% 2`
