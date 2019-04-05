@@ -36,7 +36,7 @@ The first `multi` declaration has the signature `([] --> 0)`. Therefore, this br
 
 The second `multi` declaration has the signature `(@ [$, *@rest] --> Int)`. The first half of this signature pattern matches on a nonempty list: `@` is the positional sigil, which we leave anonymous since we don't need to use its value. `[$, *@rest]` is where the list deconstruction actually happens -- it matches against a single head value `$` which we leave anonymous, and slurps up the rest of the list into `@rest`.
 
-Finally, the `1 + samewith(@rest)` line recurses through the list. `samewith` (documented [https://docs.perl6.org/language/functions#index-entry-dispatch_samewith](here "samewith documentation")) calls `len` with a new argument and the process repeats all over again, all the way down until we hit the base case.
+Finally, the `1 + samewith(@rest)` line recurses through the list. `samewith` (documented [here](https://docs.perl6.org/language/functions#index-entry-dispatch_samewith "samewith documentation")) calls `len` with a new argument and the process repeats all over again, all the way down until we hit the base case.
 
 ---
 
