@@ -247,3 +247,115 @@ Have any favorite Perl6 features that I missed out on? Want to leave a comment? 
 ---
 
 UPDATE: as per AlexDaniel's suggestion on #perl6, changed `!(* % 2)` to `* %% 2`
+
+# Comments
+
+Rory O'Kane writes (formatting slightly modified):
+
+> # Ruby and avoiding accidental mutation
+>
+> I think you characterize Ruby wrong in your Traits section. The reason
+> `my_uhoh.value` changes and `my_num` doesn’t has nothing to do with
+> copy semantics. Ruby passes both `my_num` and `my_uhoh` by reference –
+> it doesn’t implicitly copy only the number as you claim. The reason
+> `my_uhoh.value` changes is that the `UhOh#floor` method explicitly
+> mutates `@value = @value.floor`.
+>
+> I think your confusion is due to an assumption that Float#floor
+> mutates the number it is called on. You think that `my_num` was only
+> left unchanged because a copy was provided to `nasty_function`. In
+> fact, `#floor` does not mutate the number. A demonstration in irb:
+>
+> ~~~ruby
+> my_num = 0.5
+> my_num
+>  # => 0.5
+> my_num.floor
+>  # => 0
+> my_num
+>  # => 0.5
+> ~~~
+>
+> If `floor` mutated the number, I would expect it to be called `floor!`
+> according to Ruby convention. That is why your example feels to
+> contrived to me, despite your assurance that it is not. If I had
+> written the `UhOh` class, I would have named the method `floor!`, and
+> the bug never would have happened.
+>
+> Apart from naming the method differently, if you wanted to achieve the
+> same effect in Ruby as the Perl 6 `rw` trait that you demonstrate, you
+> could call the `#freeze` method on the object after constructing it:
+>
+> ~~~ruby
+> class Mutable
+> 	attr_accessor :value
+> 	def change
+> 		@value += 1
+> 	end
+> end
+>
+> mut = Mutable.new
+>  # => #<Mutable:0x00007fc5ae26cc78>
+> mut.value = 3
+>  # => 3
+> mut.change
+>  # => 4
+> mut.value
+>  # => 4
+>
+> mut.freeze
+>  # => #<Mutable:0x00007fc5ae26cc78 @value=4>
+> mut.change
+>  # Traceback (most recent call last):
+>  # …
+>  # FrozenError (can't modify frozen Mutable)
+> mut.value
+>  # => 4
+> ~~~
+>
+> I called `mut.freeze` manually above, but you can even override `.new`
+> so that `#freeze` is called automatically on every new instance of
+> your object.
+>
+> Anyway, that is a corrected description of how Ruby can help you
+> prevent unintended mutation. It’s good that Perl 6 has a solution for
+> that problem too.
+>
+> # Ruby and Smartmatch
+>
+> > This is a feature that is so inherently Perl that I cannot imagine it ever being implemented in another language.
+>
+> In fact, Ruby has a very similar feature too – probably inspired by
+> Perl, as many of Ruby’s features are. Ruby’s `case` … `when` construct
+> calls a custom operator `===` on each “when” expression to compare it
+> to the “case” value. This sounds the same as your description of Perl
+> 6 calling `.ACCEPTS` on the “when” expression to compare it to the
+> “given” value.
+>
+> Ruby’s `#===` method (because operators are just method calls in Ruby)
+> is defined for various types as doing some sort of matching – for
+> example, equality for strings, inclusion for ranges, and matching for
+> regexes. And it can be used for type matching as well. Thanks to the
+> `Module#===` implementation, `MyClass === some_obj` will return true
+> only if `some_obj` is an instance of `MyClass` or one of its
+> descendants. Ruby doesn’t have an object representation of function
+> signatures, though, so you can’t check whether an object would be
+> accepted as a parameter to a method as you demonstrated you can in
+> Perl 6.
+>
+> [snipped all but the quote -- my response to the comment about `#===`]
+> > For example, `#===` is supposed to be symmetric and associative, 
+> > which could limit the operator's flexibility. `~~` doesn't have those same best practice constraints.
+>
+> Despite its use of the equals sign, `#===` in Ruby is actually not
+> supposed to be symmetric or associative. For example, `/oo/ ===
+> ‘cool’` evaluates to `true` (via the `Regex#===` method), while
+> `'cool' === /oo/` evaluates to `false` (via the `String#===` method).
+>
+> As far as I can tell, Ruby’s `===` really is equivalent in meaning to
+> Perl 6’s `ACCEPTS`/`~~`. The only functional difference I can see is
+> that Perl 6 defines custom `ACCEPTS` implementations for a few more
+> classes than Ruby does. For example, Ruby doesn’t override `Array#===`
+> or `Enumerable#===`, treating them the same as `#==`, while Perl 6’s
+> `ACCEPTS` implementation for `List` has custom handling of “Whatever”
+> elements and lazy `Iterable`s.

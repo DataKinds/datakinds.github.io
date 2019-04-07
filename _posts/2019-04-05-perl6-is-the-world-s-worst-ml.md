@@ -88,47 +88,47 @@ Sorry. Hope you enjoyed this :)
 
 Here's [Damian Conway, a Perl 6 language designer](http://damian.conway.org/About_us/Bio_formal.html), on the goals of the Perl 6 language in relation to this post:
 
-	One of the original Perl 6 design philosophies was that complexity
-	is intrinsically irreducible...but extrinsically redistributable.
-	See: "The waterbed theory of language design".
-	
-	In line with that belief, Perl 6 almost always attempts to redistribute
-	its syntactic complexity towards declarations...and away from calls.
-	Mainly because declarations are typically written once, by a small
-	number of expert developers, whereas calls are typically written many
-	times, by a large herd of shall-we-say-less-than-expert developers.
-	
-	In other words, Perl tries to put the complexity where it will do
-	the least harm, and where its victims may have the best chance
-	of surviving it. :-)
-	
-	[snip]
-
-	Of course, I'm not claiming that this high degree of flexibility is an
-	unalloyed benefit (because there are plenty of plausible syntactic
-	variations that wouldn't Do The Right Thing so obligingly).
-	But in all those cases, the resulting error message is guaranteed to
-	be clear and helpful, because any Perl 6 error message that is LTA
-	("Less Than Awesome") is officially considered to be a bug!
-	
-	The forgiving nature of Perl 6 syntax reflects several more
-	of its fundamental design principles:
-	
-		* Perl 6 tries to do what you meant, not merely what your said.
-		* Perl 6 has a long--but gentle--learning curve.
-		* It's perfectly okay to write "baby Perl".
-		* There's far more than one way to do it.
-	
-
-	Ultimately, I think that we're pretty happy with Perl 6 being the
-	"World's Worst ML", so long as it can also (simultaneously) be:
-	the "World's Worst Smalltalk", the "World's Worst Lisp",
-	the "World's Worst Snobol", the "World's Worst QCL",
-	the "World's Worst Erlang", the "World's Worst Prolog",
-	the "World's Worst Python", the "World's Worst C",
-	and even the "World's Worst Perl 5".
-
-	Because that was one of our design goals too. :-)
+> One of the original Perl 6 design philosophies was that complexity
+> is intrinsically irreducible...but extrinsically redistributable.
+> See: "The waterbed theory of language design".
+>
+> In line with that belief, Perl 6 almost always attempts to redistribute
+> its syntactic complexity towards declarations...and away from calls.
+> Mainly because declarations are typically written once, by a small
+> number of expert developers, whereas calls are typically written many
+> times, by a large herd of shall-we-say-less-than-expert developers.
+>
+> In other words, Perl tries to put the complexity where it will do
+> the least harm, and where its victims may have the best chance
+> of surviving it. :-)
+>
+> [snip]
+>
+> Of course, I'm not claiming that this high degree of flexibility is an
+> unalloyed benefit (because there are plenty of plausible syntactic
+> variations that wouldn't Do The Right Thing so obligingly).
+> But in all those cases, the resulting error message is guaranteed to
+> be clear and helpful, because any Perl 6 error message that is LTA
+> ("Less Than Awesome") is officially considered to be a bug!
+>
+> The forgiving nature of Perl 6 syntax reflects several more
+> of its fundamental design principles:
+>
+> 	* Perl 6 tries to do what you meant, not merely what your said.
+> 	* Perl 6 has a long--but gentle--learning curve.
+> 	* It's perfectly okay to write "baby Perl".
+> 	* There's far more than one way to do it.
+>
+>
+> Ultimately, I think that we're pretty happy with Perl 6 being the
+> "World's Worst ML", so long as it can also (simultaneously) be:
+> the "World's Worst Smalltalk", the "World's Worst Lisp",
+> the "World's Worst Snobol", the "World's Worst QCL",
+> the "World's Worst Erlang", the "World's Worst Prolog",
+> the "World's Worst Python", the "World's Worst C",
+> and even the "World's Worst Perl 5".
+>
+> Because that was one of our design goals too. :-)
 
 He also offers this alternate, more readable definition of `len`:
 
