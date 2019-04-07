@@ -82,9 +82,9 @@ print_maybe (Nothing) = putStrLn "nothing"
 
 Sorry. Hope you enjoyed this :)
 
----
+If this piqued your interest, check out the [Haskell to Perl6 page of the docs](https://docs.perl6.org/language/haskell-to-p6 "Haskell to Perl6"), or [download Perl6](https://perl6.org/ "Download Perl6") and give it a try for yourself.
 
-### Comments
+# Addendum
 
 Here's [Damian Conway, a Perl 6 language designer](http://damian.conway.org/About_us/Bio_formal.html), on the goals of the Perl 6 language in relation to this post:
 
