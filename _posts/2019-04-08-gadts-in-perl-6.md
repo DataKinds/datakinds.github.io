@@ -17,7 +17,7 @@ A junction is a special type that represents a _superposition of eigenstates tha
 
 ```perl6
 if 2 + 2 == 4 or 2 + 2 == 6 {
-	say 'perl6 can do math!'
+    say 'perl6 can do math!'
 }
 ```
 
@@ -27,7 +27,7 @@ This conditional can be rewritten using a junction as:
 
 ```perl6
 if 2 + 2 == 4|6 {
-	say 'perl6 can do math /and/ collapse superpositions!'
+    say 'perl6 can do math /and/ collapse superpositions!'
 }
 ```
 
@@ -64,8 +64,8 @@ But, what if we wanted to impose some arbitrary constraint onto the type we put 
 {-# LANGUAGE GADTs #-}
 
 data OurEqNullable t where
-	OurNull :: OurEqNullable t
-	OurFull :: Eq t => t -> OurEqNullable t
+    OurNull :: OurEqNullable t
+    OurFull :: Eq t => t -> OurEqNullable t
 ```
 
 Do note that we can also write the original version of `OurNullable` as a GADT as well:
@@ -74,8 +74,8 @@ Do note that we can also write the original version of `OurNullable` as a GADT a
 {-# LANGUAGE GADTs #-}
 
 data OurNullable t where
-	OurNull :: OurNullable t
-	OurFull :: t -> OurNUllable t
+    OurNull :: OurNullable t
+    OurFull :: t -> OurNUllable t
 ```
 
 That's all you'll need to know about GADTs in order to appreciate the Perl 6 heading your way.
@@ -91,14 +91,14 @@ sub prefix:«>»($x) { $x.v; }
 
 # Constructor 1
 class OurNull { has $.t is required;
-				method ACCEPTS($other) { $other.WHAT eqv OurNull and $other.t ~~ $!t } }
+                method ACCEPTS($other) { $other.WHAT eqv OurNull and $other.t ~~ $!t } }
 sub ourNull(Any:U $t) { OurNull.new: t => $t }
 # Constructor 2
 class OurFull { has $.v is required;
-				 method ACCEPTS($other) {
-					 $other.WHAT eqv OurFull and do {
-						 with $!v { >$other ~~ $!v.WHAT }
-						 else { >$other ~~ $!v } } } }
+                method ACCEPTS($other) {
+                    $other.WHAT eqv OurFull and do {
+                        with $!v { >$other ~~ $!v.WHAT }
+                        else { >$other ~~ $!v } } } }
 sub ourFull($v) { OurFull.new: v => $v }
 # Data declaration
 sub IsNullable(Any:U $t) { ourNull($t) ^ ourFull($t) }
@@ -120,7 +120,7 @@ First, we define a helper function `prefix:«>»($x)` at the top of the file. Th
 
 ```perl6
 class OurNull { has $.t is required;
-				method ACCEPTS($other) { $other.WHAT eqv OurNull and $other.t ~~ $!t } }
+                method ACCEPTS($other) { $other.WHAT eqv OurNull and $other.t ~~ $!t } }
 sub ourNull(Any:U $t) { OurNull.new: t => $t }
 ```
 
@@ -133,10 +133,10 @@ The `ACCEPTS` function is used during typechecking -- we only succeed in typeche
 ```perl6
 # Constructor 2
 class OurFull { has $.v is required;
-				 method ACCEPTS($other) {
-					 $other.WHAT eqv OurFull and do {
-						 with $!v { >$other ~~ $!v.WHAT }
-						 else { >$other ~~ $!v } } } }
+                method ACCEPTS($other) {
+                    $other.WHAT eqv OurFull and do {
+                        with $!v { >$other ~~ $!v.WHAT }
+                        else { >$other ~~ $!v } } } }
 sub ourFull($v) { OurFull.new: v => $v }
 ```
 Most of what is here is the same as before, with the exception of the `ACCEPTS` method. This time, we must have two branches related to the two scenarios which may end up calling `ACCEPTS`: when `OurFull` contains a type vs. when `OurFull` contains a value.
