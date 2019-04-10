@@ -1,0 +1,98 @@
+---
+layout: post
+title: GADTs and Superpositions in Perl 6
+date: 2019-04-08 14:16 -0700
+---
+In my [last post](https://aearnus.github.io/2019/04/05/perl6-is-the-world-s-worst-ml "Perl 6 is the World's Worst ML"), I talked about this bit of code for implementing a [Maybe ADT](https://en.wikibooks.org/wiki/Haskell/Understanding_monads/Maybe "Maybe monad") in Perl 6:
+
+```perl6
+role Maybe[::A] { }
+sub just(::A $x --> Maybe[::A]) { class Just does Maybe[::A] { has $.V = $x; }.new }
+sub nothing(Any:U $t --> Maybe[$t]) { class Nothing does Maybe[$t] { }.new }
+```
+
+I knew this code was bad but at the time I couldn't figure out how to improve upon it. Rest easy, though, as Perl 6 has us covered. Enter the [junction](https://docs.perl6.org/type/Junction "Junctions in Perl 6")....
+
+A junction is a special type that represents a _superposition of eigenstates that collapse down to a single value in a boolean context_. In English, it's a type that is hand-crafted to match against values in special ways. Consider this simple conditional:
+
+```perl6
+if 2 + 2 == 4 or 2 + 2 == 6 {
+	say 'perl6 can do math!'
+}
+```
+
+(Obviously 2 + 2 will never equal anything but 4, but in the case of some sort of reality bending apocalyptic event, we can never be too sure.)
+
+This conditional can be rewritten using a junction as:
+
+```perl6
+if 2 + 2 == 4|6 {
+	say 'perl6 can do math /and/ collapse superpositions!'
+}
+```
+
+In this case, the `==` operator _autothreads_ over the junction, effectively mapping each value to whether or not it equals `2 + 2`. We can see this by looking at this session:
+
+```perl6
+trepl> 4|6             # This is simply the junction of values `4` and `6`.
+==> any(4, 6)
+
+trepl> 2 + 2 == 4|6    # This is autothreading over `4|6` using `==`.
+==> any(True, False)
+
+trepl> ?(2 + 2 == 4|6) # This is coercing that result to a boolean.
+==> True
+```
+
+So, what does this have to do with GADTs? Or, perhaps more importantly...
+
+# What is a GADT?
+
+(tl;dr: [https://en.wikibooks.org/wiki/Haskell/GADT](https://en.wikibooks.org/wiki/Haskell/GADT "GADTs"))
+
+GADT stands for "Generalized Algebraic Data Type", and it's essentially a highly generalized way to represent the constructors of a given type.
+
+Consider the following Haskell snippet defining an extremely simple data type: `OurNullable` This type will work exactly the same as, say, `Nullable<T>` from Java -- thus managing to anger both Haskell programmers and Java programmers simultaneously. Our type can be constructed by either calling `OurNull` with no arguments or `OurFull` with one argument. It looks like this in Haskell: (do note that this is automorphic to the `Maybe` type)
+
+```haskell
+data OurNullable t = OurNull | OurFull t
+```
+
+But, what if we wanted to impose some arbitrary constraint onto the type we put in `OurNullable`? That's where GADTs come in. Let's say that instead, we only want values that we can call `==` on inside `OurNullable`. We would modify the `OurFull` constructor to only take in values which have this property. That looks like this:
+
+```haskell
+{-# LANGUAGE GADTs #-}
+
+data OurEqNullable t where
+	OurNull :: OurEqNullable t
+	OurFull :: Eq t => t -> OurEqNullable t
+```
+
+Do note that we can also write the original version of `OurNullable` as a GADT as well:
+
+```haskell
+{-# LANGUAGE GADTs #-}
+
+data OurNullable t where
+	OurNull :: OurNullable t
+	OurFull :: t -> OurNUllable t
+```
+
+That's all you'll need to know about GADTs in order to appreciate the Perl 6 heading your way.
+
+# Putting it all together 
+### Alternatively, _collapsing the eigenstates_
+
+Now we're ready to represent `Maybe[::T]` as a GADT instead of a hacky role as we did at the top. For clarity's sake, we'll discard with this notion of `Maybe` and instead redefine `OurNullable`. Let me show you the whole thing before we break it down into pieces.
+
+```perl6
+sub prefix«>»($x) { $x.v; }
+
+subset OurNullable where OurNull ^ OurFull
+sub OurNull() { class OurNull { }.new }
+sub OurFull($v) { class OurFull { has $.v = $v }.new }
+```
+
+---
+
+Special thanks to guifa and AlexDaniel in the IRC (#perl6 on freenode) for talking through this with me.
