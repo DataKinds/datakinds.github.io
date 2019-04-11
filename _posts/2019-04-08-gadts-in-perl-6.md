@@ -6,7 +6,7 @@ date: 2019-04-08 14:16 -0700
 
 ![Of course, this implies that comprehensibility and nonsense are equally likely, which is not true in the general case. Especially when working with Perl 6.](/assets/imgs/gadts-in-perl6/comic.png "Of course, this implies that comprehensibility and nonsense are equally likely, which is not true in the general case. Especially when working with Perl 6.")
 
-<div style="width: 100%; text-align: center"><i>(image made by the wonderful <a href="https://twitter.com/TristanBomb/">@TristanBomb</a>)</i></div>
+<div style="width: 100%; text-align: center"><i>(comics made by the wonderful <a href="https://twitter.com/TristanBomb/">@TristanBomb</a>)</i></div>
 
 ---
 
@@ -191,3 +191,5 @@ Nonetheless, there's enough valuable information here that I'm still excited to 
 ---
 
 Special thanks to guifa and AlexDaniel in the IRC (#perl6 on freenode) for talking through this a little bit with me.
+
+![In some universe, this isn't the empty set.](/assets/imgs/gadts-in-perl6/comic1.png "In some universe, this isn't the empty set.")
