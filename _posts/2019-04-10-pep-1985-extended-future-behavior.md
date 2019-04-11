@@ -5,7 +5,7 @@ date: 2019-04-10 21:58 -0700
 ---
 
 **PEP:** | 1985
-**Title:** | Extended __future__ Behavior
+**Title:** | Extended `__future__` Behavior
 **Author:** | The Late BDFL, Aearnus, [@TristanBomb](https://twitter.com/TristanBomb "TristanBomb")
 **Status:** | Paradoxical
 **Type:** | Standards Track
