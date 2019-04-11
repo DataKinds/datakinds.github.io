@@ -75,7 +75,7 @@ Do note that we can also write the original version of `OurNullable` as a GADT a
 
 data OurNullable t where
     OurNull :: OurNullable t
-    OurFull :: t -> OurNUllable t
+    OurFull :: t -> OurNullable t
 ```
 
 That's all you'll need to know about GADTs in order to appreciate the Perl 6 heading your way.
