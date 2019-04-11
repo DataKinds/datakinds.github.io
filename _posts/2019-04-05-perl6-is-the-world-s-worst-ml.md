@@ -146,4 +146,11 @@ and argues that this is all just as readable (if not more) than the Haskell vers
 
 ---
 
+![We tried to find the World's Worst Prolog trophy, but it was lost under 10 layers of indirection.](/assets/imgs/perl6-is-the-worlds-worst-ml/comic.png "We tried to find the World's Worst Prolog trophy, but it was lost under 10 layers of indirection.")
+
+<div style="width: 100%; text-align: center"><i>(comic made by the fantastic <a href="https://twitter.com/TristanBomb/">@TristanBomb</a>)</i></div>
+
+
+---
+
 Comments? Improvements? Ideas? Contact me below.
