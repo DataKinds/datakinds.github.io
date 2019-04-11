@@ -3,6 +3,13 @@ layout: post
 title: GADTs and Superpositions in Perl 6
 date: 2019-04-08 14:16 -0700
 ---
+
+![Of course, this implies that comprehensibility and nonsense are equally likely, which is not true in the general case. Especially when working with Perl 6.](/assets/imgs/gadts-in-perl6/comic.png "Of course, this implies that comprehensibility and nonsense are equally likely, which is not true in the general case. Especially when working with Perl 6.")
+
+<div style="width: 100%; text-align: center"><i>(image made by the wonderful <a href="https://twitter.com/TristanBomb/">@TristanBomb</a>)</i></div>
+
+---
+
 In my [last post](https://aearnus.github.io/2019/04/05/perl6-is-the-world-s-worst-ml "Perl 6 is the World's Worst ML"), I talked about this bit of code for implementing a [Maybe ADT](https://en.wikibooks.org/wiki/Haskell/Understanding_monads/Maybe "Maybe monad") in Perl 6:
 
 ```perl6
