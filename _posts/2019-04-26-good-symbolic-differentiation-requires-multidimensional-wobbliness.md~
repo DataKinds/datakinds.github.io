@@ -1,0 +1,91 @@
+---
+layout: post
+title: Good Symbolic Differentiation Requires Multidimensional Wobbliness
+date: 2019-04-26 09:15 -0700
+---
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+
+(note: this page uses MathJAX. If you have your Javascript disabled, please enable it for the best possible experience reading this blog post. I promise that's the only script that will run!)
+
+Over the past couple of days, I've been working on a Haskell script to do symbolic differentiation. Despite the fact that I'm more than a few semesters into a math degree, I've learned a ton while working on this little project. Differentiation can be a harder problem than it seems -- especially when we've been trained trust our intuition about things.
+
+To represent symbolic mathematics, I've created a moderately sized inductive data structure. This should be familiar to anyone who's used Haskell before, and fairly easy to figure out otherwise:
+
+```hs
+data Op =
+    Plus Op Op
+  | Mul Op Op
+  | Pow Op Op
+  | Ln Op
+  | E Op
+  | Pi Op
+  | Const Rational
+  | Var
+```
+
+This structure can store simple expressions in forms such as \\(2 + 2 \Leftrightarrow Plus\;(Const\;2)\;(Const\;2)\\)
+
+It only supports holding one variable at a time, using the `Var` constructor. This means that every single expression that `Op` can hold only depends on one variable, which I'll refer to as \\(x\\) through the rest of this post.
+
+Then, to take the derivative of the expression stored in this data structure, we use the function `d`. `d` is defined inductively on the `Op` datatype. For simple cases, this is easy. For example, the derivative of a constant is always 0, and the derivative of a bare variable is always 1.
+
+```hs
+d (Const u) = Const 0
+d (Var) = Const 1
+```
+
+We can get all the easy cases out of the way relatively quickly. Let's continue -- the derivative of \\(u(x) + v(x)\\) is \\(u'(x) + v'(x)\\):
+
+```hs
+d (Plus u v) = Plus (d u) (d v)
+```
+
+And now we'll break out the product rule: the derivative of \\(u(x)v(x)\\) is \\(u(x)v'(x) + u'(x)v(x)\)):
+
+```hs
+d (Mul u v) = Plus (Mul u (d v)) (Mul (d u) v)
+```
+
+Taking the derivatives of \\(e^{u(x)}\\) and \\(\pi^{u(x)}\\) get us \\(u'(x)e^{u(x)}\\) and \\(u'(x)(\ln{\pi})\pi^{u(x)}\\) respectively
+
+```hs
+d (E u) = Mul (d u) (E u)
+d (Pi u) = Mul (d u) (Mul (Pi u) (Ln (Pi (Const 1))))
+```
+
+Finally, taking the derivative of \\(u(x)^{v(x)}\\) is---
+
+well, more difficult.
+
+Deriving a Mistake
+---
+
+By how I wrote it above, \\(u(x)^{v(x)}\\), I'm already giving away some of the solution. For the sake of guiding you, the reader, through the rabbit hole of my thought processes, I'm going to refrain from uniformly referring to \\(u\\) and \\(v\\) as functions until the "big reveal" at the end of this section.
+
+Do note that I'm writing this up primarily to show how I corrected my incorrect judgements, so I will try very hard to explicitly highlight the errors in the ideas presented.
+
+My first thought was to try the classical chain rule \\(\frac{d}{dx}\left(f(g(x))\right) = f'(g(x))g'(x)\\). That's the one that everyone learns in Calculus 1, and it's what lead me through so much faulty intuition.
+
+I started by splitting up this exponential into two parts. For consistency with the definition above, I will call these two parts \\(f(v) = x^{v}\\) and the exponent \\(v(x)\\). Astute readers will already see plenty wrong with my initial judgement.
+
+Yet alas, along I trekked. Using these formulas for normal exponentials seemed to work fine. Take the derivation of \\(2^{3x}\\) for example.
+
+$$\frac{d(2^{3x})}{dx}\\=\frac{d(2^v)}{dv}\cdot\frac{d(3x)}{dx}\\=(\ln{2})(2^{3x})\cdot3$$
+
+This was indeed the correct answer.
+
+My intuition broke down while trying to consider exponentials in which the base was not constant. Even the simplest case, \\(x^2\\), would fail. According to this rule:
+
+$$\frac{d(x^2)}{dx}\\=\frac{d(x^v)}{dv}\cdot\frac{d(2)}{dx}\\=(\ln{x})(x^2)\cdot0\\=0$$
+
+Of course, this isn't the correct answer in the slightest. 
+
+The error lies in how I had defined the function \\(f(v) = x^v\\). By how it was written, \\(f\\) only depends on \\(v\\), not \\(x\\). Thus, for all intents and purposes, \\(f\\) treats \\(x\\) as a _constant_ parameter, instead of the ever changing variable that we had wanted.
+
+When writing it out afterwards, it seems so obvious --- but at the time, I'd gotten so frustruated with this that I was convinced that my last three years of math education were all wrong.
+
+Picking up the Pieces
+---
+
+After a long flame war in the Mathematics discord, with every (correct) of finding \\(\frac{d}{dx}(u(x)^{v(x)})\\) being touted as the only way to do it, someone had suggested using the multivariate chain rule instead.
