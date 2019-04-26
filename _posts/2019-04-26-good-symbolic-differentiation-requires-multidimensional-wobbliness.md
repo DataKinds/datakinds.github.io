@@ -169,3 +169,7 @@ x^{2.0}
 ```
 
 Stay tuned to see what I have planned for this code!
+
+---
+
+Thanks to the Mathematics Discord server for talking through this with me. Join the conversation here: [https://discord.sg/math/](https://discord.sg/math/).
