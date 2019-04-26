@@ -8,7 +8,7 @@ date: 2019-04-26 09:15 -0700
 
 (allergy notice: this page contains latex. If you have your Javascript disabled, please enable it for the best possible experience reading this blog post. I promise that's the only script on this site!)
 
-Over the past couple of days, I've been working on a Haskell script to do symbolic differentiation. Despite the fact that I'm more than a few semesters into a math degree, I've learned a ton while working on this little project. Differentiation can be a harder problem than it seems -- especially when we've been trained trust our intuition about things.
+Over the past couple of days, I've been working on a Haskell script to do symbolic differentiation. Despite the fact that I'm more than a few semesters into a math degree, I've learned a ton while working on this little project. Differentiation can be a harder problem than it seems -- especially when we've been trained to trust our intuition about things.
 
 To represent symbolic mathematics, I've created a moderately sized inductive data structure. This should be familiar to anyone who's used Haskell before, and fairly easy to figure out otherwise:
 
@@ -41,7 +41,7 @@ We can get all the easy cases out of the way relatively quickly. Let's continue 
 d (Plus u v) = Plus (d u) (d v)
 ```
 
-And now we'll break out the product rule: the derivative of \\(u(x)v(x)\\) is \\(u(x)v'(x) + u'(x)v(x)\)):
+And now we'll break out the product rule: the derivative of \\(u(x)v(x)\\) is $$u(x)v'(x) + u'(x)v(x)$$:
 
 ```hs
 d (Mul u v) = Plus (Mul u (d v)) (Mul (d u) v)
@@ -92,7 +92,7 @@ With new intuition on our side, it should be expected that the actual algorithmi
 Into The Next Dimension
 ---
 
-After a long flame war in the Mathematics discord, with every (correct) of finding \\(\frac{d}{dx}(u(x)^{v(x)})\\) being touted as The Only Way To Do It, someone had suggested using the _multivariate chain rule_ instead.
+After a long flame war in the Mathematics discord, with every (correct) way of finding \\(\frac{d}{dx}(u(x)^{v(x)})\\) being touted as The Only Way To Do It, someone had suggested using the _multivariate chain rule_ instead.
 
 For those who have yet to take Calculus III, the multivariate chain rule is a generalization of the chain rule for functions with an arbitrary number of arguments. To utilize it, we must take our original expression \\(u(x)^{v(x)}\\) and manipulate it into the definition of some higher order function $$f$$: 
 
