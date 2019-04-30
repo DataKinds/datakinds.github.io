@@ -89,6 +89,13 @@ This space was intentionally left blank.
 (let ((x 8) (y 7)) ((lambda () (+ x y))))
 ```
 
+### Joy
+<div class="hvrer"></div>
+```joy
+8 7 [+] i.
+```
+
+
 ### ATS
 <div class="hvrer"></div>
 ```ats
