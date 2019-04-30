@@ -104,6 +104,12 @@ This space was intentionally left blank.
 ((x:Int, y:Int) => x + y)(8, 7)
 ```
 
+### Java 8
+<div class="hvrer"></div>
+```java
+((int x, int y) ->  x + y;)(8, 7);
+```
+
 ### C++ (Lambda)
 <div class="hvrer"></div>
 ```cpp
