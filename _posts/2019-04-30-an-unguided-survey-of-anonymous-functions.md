@@ -49,6 +49,17 @@ This space was intentionally left blank.
 <br/><br/><br/><br/>
 <br/><br/><br/><br/>
 
+### Dyalog APL
+<div class="hvrer"></div>
+```apl
+8 {⍺+⍵} 7
+```
+
+### J
+<div class="hvrer"></div>
+```j
+8 (+) 7
+```
 
 ### Idris
 <div class="hvrer"></div>
@@ -98,8 +109,6 @@ This space was intentionally left blank.
 ### Scala
 <div class="hvrer"></div>
 ```scala
-(:(Int, Int) => Int = _ + _)(8, 7)
-(:(x:Int, y:Int) => Int = x + y)(8, 7)
 (( _ :Int ) + ( _ :Int ))(8, 7)
 ((x:Int, y:Int) => x + y)(8, 7)
 ```
