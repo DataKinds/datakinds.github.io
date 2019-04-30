@@ -136,7 +136,7 @@ This space was intentionally left blank.
 ### C++ (Closure)
 <div class="hvrer"></div>
 ```cpp
-int x = 8; int y = 7; ([=](int x, int y) { return x + y; })();
+int x = 8; int y = 7; ([=]() { return x + y; })();
 ```
 
 ### Rust
