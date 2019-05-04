@@ -173,3 +173,13 @@ Stay tuned to see what I have planned for this code!
 ---
 
 Thanks to the Mathematics Discord server for talking through this with me. Join the conversation here: [https://discord.sg/math/](https://discord.sg/math/).
+
+## More
+
+[Gitcommit](http://gitcommit.co.uk "Gitcommit") sent me a few resources to look at if this article interested you. They're very good, and I highly recommend reading through these if you want to see a few different approaches to differentiating formulas programatically:
+
+[Dual Numbers and Differentiation](http://gitcommit.co.uk/2017/06/24/dual-numbers-and-differentiation-part-1/) by Gitcommit.
+
+[What is automatic differentiation, and why does it work?](http://conal.net/blog/posts/what-is-automatic-differentiation-and-why-does-it-work) by Conal Elliott.
+
+[Learn Physics by Programming in Haskell](https://arxiv.org/pdf/1412.4880.pdf) by Scott N. Walck.
