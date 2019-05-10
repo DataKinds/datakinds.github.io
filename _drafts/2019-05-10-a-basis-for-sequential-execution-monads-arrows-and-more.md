@@ -132,5 +132,80 @@ At the end of the day, though, continuations are quick and dirty but they _work_
 Because of the arbitrary jumping and context passing, continuations are very hard to represent under a strict type system. They're nigh impossible to represent in Haskell without a dedicated Continuation type, as there's no state to access from Haskell's pure-by-default functions anyway. To look at how Haskell gets around this, we must look at...
 
 # Monads
+
+Monads are the Haskell programmer's calling card. Monads are also the reason why every failed attempt to learn Haskell eventually meets its doom. It's simple -- "monads are just monoids in the category of endofunctors".
+
+All jokes aside though, monads are not super complicated to understand. They're one way to abstract over this idea of composition. In essence, they give you the ability to change what it means to write $$\circ$$ and $$(x)$$ in $$(f \circ g)(x)$$.
+
+In Haskell, being a monad means a couple important things for us. First off, monads contain _values_, but they can also contain _state_. 
+
+It also means that we have a monadic way to sequence functions,
+
+```hs
+(>>) :: (Monad m) => forall a b. m a -> m b -> m b
+```
+
+(Anyone who's taken a proofs class will at least be somewhat familiar with that syntax -- it says that for any Monad `m`, and for any two types `a` and `b`, the `(>>)` operator takes an `m` containing `a` and an `m` containing `b` and gives back an `m` containing `b` unchanged).
+
+But, you may ask, why in the world is `(>>)` useful if it just gives back an `m` containing `b` unchanged? The secret is in the state. At a very high level, this state is stored in the `m`, and not in the `b`. So, `(>>)` allows us to "carry state" through the computation.
+
+To see an example of this, let's consider the `IO` monad, which abstracts over the real world state of your machine. Let's define a few functions that just print to the terminal.
+
+```hs
+f = putStr "hello "
+g = putStr "world"
+```
+
+These functions both have type `IO ()`, meaning they monadically manipulate some `IO` state yet give back no value. Running `f` alone prints `hello ` to the terminal, and running `g` alone prints `world` to the terminal.
+
+Let's compose these two functions. 
+
+Our composition `(f >> g)` still gives back nothing, but we now modify the state abstracted by `IO` twice -- first by `f`, then by `g`. So, running `(f >> g)` prints `hello world` to the terminal. Sweet!
+
+We've abstracted over $$\circ$$, but we've yet to abstract over how to apply a value to these monadic actions. This is the $$(x)$$ we mentioned earlier. This "binding" of a value to a function comes in the form of the "monadic bind" operator in Haskell:
+
+```hs
+(>>=) :: (Monad m) => forall a b. m a -> (a -> m b) -> m b
+```
+
+This should be read similar to the last type that was presented. Given an `m a` and a function that brings you from `a` to `m b`, you can create an `m b`.
+
+Now, we have everything that we need to create what's called `do`-notation. `do`-notation allows you to create a mockup of an imperative, Turing machine-esq language within Haskell.
+
+Let's see the `do`-notation in action, alongside the code that the `do`-notation desugars to. We'll write a simple progam that prints out the first 10 words in `/usr/share/dict/words`.
+
+<span>Original code:</span>
+<span style="float:right;text-align:right;">Desugared code:</span>
+
+<div style="width:49%;display:inline-block;" class="language-hs highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">main</span> <span class="o">=</span> <span class="kr">do</span>
+	<span class="n">wordList</span> <span class="o">&lt;-</span> <span class="n">readFile</span> <span class="s">"/usr/share/dict/words"</span>
+	
+	<span class="kr">let</span> <span class="n">words</span> <span class="o">=</span> <span class="n">take</span> <span class="mi">10</span> <span class="p">(</span><span class="n">lines</span> <span class="n">wordList</span><span class="p">)</span>
+	
+	
+	<span class="n">putStrLn</span> <span class="s">"Here are the first 10 words:"</span>
+	<span class="n">mapM_</span> <span class="n">putStrLn</span> <span class="n">words</span>
+</code></pre></div></div>
+
+<div style="width:49%;float:right;display:inline-block;" class="language-hs highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">main</span> <span class="o">=</span>
+	<span class="p">(</span><span class="n">readFile</span> <span class="s">"/usr/share/dict/words"</span><span class="p">)</span> <span class="o">&gt;&gt;=</span>
+	<span class="p">(</span><span class="nf">\</span><span class="n">wordList</span> <span class="o">-&gt;</span>
+		<span class="kr">let</span> 
+			<span class="n">tenWords</span> <span class="o">=</span> <span class="n">take</span> <span class="mi">10</span> <span class="p">(</span><span class="n">lines</span> <span class="n">wordList</span><span class="p">)</span> 
+		<span class="kr">in</span>
+			<span class="p">(</span><span class="n">putStrLn</span> <span class="s">"Here are the first 10 words:"</span><span class="p">)</span> <span class="o">&gt;&gt;</span>
+			<span class="p">(</span><span class="n">mapM</span> <span class="n">putStrLn</span> <span class="n">tenWords</span><span class="p">))</span>
+</code></pre></div></div>
+
+---
+
+
+And this, my friends, is a mathematically sound way to model sequential execution.
+
+(If you're interested, [here](https://hackage.haskell.org/package/base-4.12.0.0/docs/Prelude.html#t:Monad "Monad documentation") is the documentation for what it means to be a Monad in the Haskell language).
+
 # Arrows
-# Applicatives
+
+Arrows are a way to encapsulate sequential actions as objects. It's an idea borrowed from category theory, so we're about to dive deep into trying to develop an intuition around these strange objects.
+
+# Applicatives and other goodies
