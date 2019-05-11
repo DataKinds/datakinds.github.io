@@ -236,14 +236,14 @@ How about the simplest nontrivial category? We could represent it as a directed 
 
 ![Simple category](/assets/imgs/sequential-execution/simple.png "Simple category")
 
-Then, instead of representing the category itself as a thing from within Haskell, it will prove more natural to represent the arrows connecting objects instead. To do this, we use [Control.Arrow](https://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Arrow.html "Control.Arrow on hackage").
+Although, it will instead prove more natural to simply represent the arrows connecting the objects, as the Haskell type system already gives us a convenient way to represent objects as types. To do this, we use [Control.Arrow](https://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Arrow.html "Control.Arrow on hackage").
 
 ```hs
 import Control.Arrow
 
-type A = ... # it doesn't matter what we decide
-type B = ... # to make these two types, as long
-             # as we can draw an arrow between them
+type A = ... -- it doesn't matter what we decide
+type B = ... -- to make these two types, as long
+             -- as we can draw an arrow between them
 			 
 f :: (Arrow a) => a A B
 f = # some implementation
@@ -257,8 +257,8 @@ Pure functions being coerced to arrows are rather boring. Let's say that type `A
 import Control.Arrow
 
 f :: (Arrow a) => a Int String
-f = arr (show) # where `arr` lifts a function
-               # to an arrow.
+f = arr (show) -- where `arr` lifts a function
+               -- to an arrow.
 ```
 
 This is a useful abstraction to consider when you consider the composition of multiple arrows. But, before that, we'll look at _Kleisli arrows_.
