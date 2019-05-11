@@ -262,11 +262,11 @@
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1438"
+     inkscape:window-width="1920"
      inkscape:window-height="1020"
-     inkscape:window-x="482"
+     inkscape:window-x="0"
      inkscape:window-y="27"
-     inkscape:window-maximized="0"
+     inkscape:window-maximized="1"
      inkscape:snap-global="false" />
   <metadata
      id="metadata5">
@@ -276,7 +276,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -285,9 +285,9 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1.46203411;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:2.39121914;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect11273"
-       width="75.595238"
+       width="202.21725"
        height="146.20493"
        x="19.843733"
        y="148.89189"
@@ -414,7 +414,7 @@
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola Italic';stroke-width:0.26458332"
          y="183.11194"
          x="53.580059"
-         sodipodi:role="line">arrow1</tspan></text>
+         sodipodi:role="line">arrow1 : Kleisli IO String String</tspan></text>
     <text
        id="text4148"
        y="205.11343"
@@ -463,7 +463,7 @@
          x="53.580059"
          y="224.38643"
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola Italic';stroke-width:0.26458332"
-         id="tspan9423">arrow2</tspan></text>
+         id="tspan9423">arrow2 : String -&gt; [String]</tspan></text>
     <path
        inkscape:connector-curvature="0"
        id="path10317"
@@ -479,6 +479,6 @@
          style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'TeX Gyre Schola';-inkscape-font-specification:'TeX Gyre Schola Italic';stroke-width:0.26458332"
          y="266.71954"
          x="53.580059"
-         sodipodi:role="line">arrow3</tspan></text>
+         sodipodi:role="line">arrow3 : Kleisli IO [String] ()</tspan></text>
   </g>
 </svg>

@@ -236,7 +236,11 @@ How about the simplest nontrivial category? We could represent it as a directed 
 
 ![Simple category](/assets/imgs/sequential-execution/simple.png "Simple category")
 
-Although, it will instead prove more natural to simply represent the arrows connecting the objects, as the Haskell type system already gives us a convenient way to represent objects as types. To do this, we use [Control.Arrow](https://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Arrow.html "Control.Arrow on hackage").
+Although, it will instead prove more natural to simply represent the arrows connecting the objects, as the Haskell type system already gives us a convenient way to represent objects as types. Thus categories we are constructing aren't true categories per se, they instead exist in the space of `Hask` -- every Haskell type. So, we only need to draw arrows between the objects of `Hask` to be able to construct our directed graphs,
+
+(If we are going to be extremely formal with our language, we can say that we are working on a subgraph of the fully connected graph with objects $$o \in \text{Hask}$$, where we are only interested in the objects $$\left \{ A, B \right \}$$)
+
+Enough of the formalisms, let's draw these arrows using [Control.Arrow](https://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Arrow.html "Control.Arrow on hackage").
 
 ```hs
 import Control.Arrow
@@ -246,7 +250,7 @@ type B = ... -- to make these two types, as long
              -- as we can draw an arrow between them
 			 
 f :: (Arrow a) => a A B
-f = # some implementation
+f = -- some implementation
 ```
 
 We read the type of `f` as `f` is some arrow `a` from type `A` to type `B`. By default, two things in Haskell can automatically be coerced to arrows: pure functions, and monads.
@@ -316,7 +320,7 @@ Aachen
 Aachen's
 ```
 
-Note how it doesn't matter that `arrow2` took a `String` and not an `IO String`. Due to how the laws of the monad carry over to the realm of arrows, we can compose Kleisli arrows of the type `Monad m => a -> m b` with normal arrows of the type `b -> c` or `z -> a` as much as we please.
+Note how it doesn't matter that `arrow2` took a `String` and not an `IO String`, even though it was being fed by a Kleisli arrow using the `IO` monad. This is because the Kleisli arrow fully encapsulates the fact that the `String` is in `IO`. If you've noticed earlier, our type signature for arrows was `Arrow a => a A B`. This type is parametrized over the type of the arrow as well as the types of `A` and `B`. In the case of our Kleisli arrow here, we let `a` be `Kleisli IO`, and thus the Kleisli arrow can encapsulate an IO action as a simple arrow.
 
 And thus, we've established a higher generalization on top of the idea of the monad, and thus a second basis for sequential execution.
 
