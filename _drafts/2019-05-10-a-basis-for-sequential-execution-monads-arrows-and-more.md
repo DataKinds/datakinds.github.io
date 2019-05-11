@@ -208,4 +208,33 @@ And this, my friends, is a mathematically sound way to model sequential executio
 
 Arrows are a way to encapsulate sequential actions as objects. It's an idea borrowed from category theory, so we're about to dive deep into trying to develop an intuition around these strange objects.
 
+An "arrow" is a generalization of the idea of "monad" to the abstract realm of category theory. This first involves the question of "what is a category"?
+
+As per Wikipedia, a category is "a labeled directed graph[...] whose nodes are called objects, and whose labelled directed edges are called **arrows** (or morphisms). A category has two basic properties: the ability to compose the arrows associatively, and the existence of an identity arrow for each object."
+
+Here's Wikipedia's example of what a category _looks_ like:
+
+![Category](https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Commutative_diagram_for_morphism.svg/1024px-Commutative_diagram_for_morphism.svg.png "Category")
+
+This category has 3 objects: $$\left \{ X, Y, Z \right \}$$, and two explicit arrows: $$f : X \rightarrow Y, g : Y \rightarrow Z$$. The composition of $$g \circ f$$ has type $$X \rightarrow Z$$. Every single object here has an implicit identity arrow connecting it to itself.
+
+How would we represent a directional category graph like this in Haskell? [Control.Category](https://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Category.html "Control.Category hackage documentation") provides us with a way to represent a simple category with two objects and a single arrow between them.
+
+Let's start with the _simplest_ category, with one object $$A$$ and a single arrow connecting $$A$$ to itself. That would look like this:
+
+---
+
+---
+
+We would represent this in Haskell [as such](https://hackage.haskell.org/package/base-4.12.0.0/docs/Control-Category.html#v:id):
+
+```hs
+import Control.Category
+
+A = id
+```
+
+How about the simplest nontrivial category? We could represent it as a directed graph with objects $$\left \{ A, B\right \}$$ and one arrow $$f : A \rightarrow B$$. That would look like this:
+
+
 # Applicatives and other goodies
