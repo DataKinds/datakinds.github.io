@@ -229,7 +229,7 @@ We would represent this in Haskell [as such](https://hackage.haskell.org/package
 ```hs
 import Control.Category
 
-A = id
+our_category = id
 ```
 
 How about the simplest nontrivial category? We could represent it as a directed graph with objects $$\left \{ A, B\right \}$$ and one arrow $$f : A \rightarrow B$$. That would look like this:
