@@ -15,7 +15,7 @@ This won't be like any other blog post that I've written. I am writing this post
 
 In one window, I have my blog post. In the other window, my code. Without further ado...
 
-## 9:23 PM
+## 9:23 PM, day 1
 
 I came up with the idea and started writing this blog post.
 
@@ -24,3 +24,70 @@ I came up with the idea and started writing this blog post.
 Finally got around to initializing the stack project!  
 
 ![Stack project screenshot](/assets/imgs/ride-along-game-dev/1119.png)
+
+## 12:57 AM
+
+Here's my first attempt at defining enough of a wrapper around GL and GLFW in order to [run the example code on the GLFW documentation page](https://www.glfw.org/documentation.html). This is before I've even tried compiling it, so this is pre-iteration-1:
+
+`GLFW.hs`:
+
+```hs
+{-# LANGUAGE ForeignFunctionInterface #-}
+
+module GLFW where
+
+import Control.Monad
+
+-- | Init functions
+foreign import ccall "glfwInit" init :: IO Int
+foreign import ccall "glfwTerminate" terminate :: IO ()
+
+-- | Window functions
+data Window = InternalWindow deriving (Storable)
+foreign import ccall "glfwCreateWindow" createWindow :: Int -> Int -> CString -> IO (Ptr Window)
+foreign import ccall "glfwWindowShouldClose" _windowShouldClose :: Ptr Window -> IO Int
+windowShouldClose :: Ptr Window -> IO Bool
+windowShouldClose = fmap (0 /=) . _windowShouldClose
+foreign import ccall "glfwSwapBuffers" swapBuffers :: Ptr Window -> IO ()
+foreign import ccall "glfwPollEvents" pollEvents :: IO ()
+
+-- | Context functions
+foreign import ccall "glfwMakeContextCurrent" makeContextCurrent :: Ptr Window -> IO ()
+```
+
+`GL.hs`:
+
+```hs
+{-# LANGUAGE CPP, ForeignFunctionInterface #-}
+
+module GL where
+
+#include <GL/gl.h>
+
+data ClearMask = COLOR_BUFFER_BIT | DEPTH_BUFFER_BIT | STENCIL_BUFFER_BIT
+foreign import ccall "glClear" _clear :: Int -> IO ()
+clear :: ClearMask -> IO ()
+clear COLOR_BUFFER_BIT = _clear GL_COLOR_BUFFER_BIT
+clear DEPTH_BUFFER_BIT = _clear GL_DEPTH_BUFFER_BIT
+clear STENCIL_BUFFER_BIT = _clear GL_STENCIL_BUFFER_BIT
+```
+
+## 1:08 AM
+
+Turns out including header files in Haskell isn't as easy as using `#include <GL/gl.h>`.
+
+![C preprocessor error](/assets/imgs/ride-along-game-dev/108.png)
+
+## 6:38 PM, day 3
+
+After a day long break where I was busy with some freelance work, I came back to this project and finally made some progress! After fixing some linker errors a couple Haskell bugs...
+
+We have a window! 
+
+![Hello, window!](/assets/imgs/ride-along-game-dev/638.png)
+
+### Interlude: Why Haskell?
+
+> I believethat the monadic approach to programming, in which actions are first class values, is itself interesting, beautiful, and modular. In short, Haskell is the world’s finest imperative programming language.
+
+[from https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/mark.pdf](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/mark.pdf).
