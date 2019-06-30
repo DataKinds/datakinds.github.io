@@ -299,8 +299,11 @@ Box (MulMsg : Add) -> MulHandler primary {
 	rule N;
 }
 Cap (OutputMsg : Output) -> OutputHandler primary {
-	IO.print OutputMsg.tobePrinted;
+	IO.print OutputMsg.toBePrinted;
 }
+
+# Now we'll register these handlers to the primary queue.
+register AddHandler; register MulHandler; register OutputHandler;
 
 # And now, let's use it! And check out the shorthand for queueing
 # custom messages. This could be used above, as well.
