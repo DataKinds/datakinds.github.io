@@ -145,8 +145,12 @@ Handler (A : Num), (B : Num) -> Adder {
 # Then,
 
 register primary Adder;
-3; # Nothing happens
-2; # 3, 2 are dequeued, 5 is queued back
+3;      # 3 is queued but nothing happens.
+2;      # 3, 2 are dequeued, 5 is queued back.
+8;      # 8 is queued, 5 + 8 is calculated and 13 is queued back.
+"abcd"; # "abcd" is queued.
+1;      # 13, 1 are dequeued, and 14 is queued back. "abcd" is now at the very
+        # front of the queue, and was left untouched.
 
 ########################################
 # Creating queues and other fun things #
