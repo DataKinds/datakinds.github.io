@@ -8,10 +8,11 @@ Or, catch me around the internet at any of the following links:
 
 {% highlight haskell %}
 map (\s -> "My " ++ s) [
-    "Github", -- https://github.com/Aearnus
-    "Twitter", -- https://twitter.com/Aearnus
-    "Reddit", -- https://reddit.com/u/crazym4n
-    "HN" -- https://news.ycombinator.com/user?id=Aearnus
+    "Github",     -- https://github.com/Aearnus
+    "Twitter",    -- https://twitter.com/Aearnus
+    "Reddit",     -- https://reddit.com/u/crazym4n
+    "Hacker News" -- https://news.ycombinator.com/user?id=Aearnus
+    "LinkedIn"    -- https://www.linkedin.com/in/tyler-limkemann-72a80a178/
 ]
 {% endhighlight %}
 
