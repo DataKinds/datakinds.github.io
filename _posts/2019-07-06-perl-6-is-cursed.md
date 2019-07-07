@@ -58,7 +58,11 @@ People who jump right into Perl 6 immediately sink until the complexity piles up
 
 ([from here](https://aearnus.github.io/2019/04/05/perl6-is-the-world-s-worst-ml))
 
+You can try as hard as you can to shift complexity away from new programmers, but it's impossible to stop them from seeking it out. If you show a new Perl 6 programmer [this page](https://docs.perl6.org/language/operators), they will run away screaming in the other direction. That's why Perl 6 is introduced slowly and softly -- using a little subset that the community likes to call "baby Perl 6". You can see an example of baby Perl 6 on tutorial websites like [https://perl6intro.com/](https://perl6intro.com/) (the first tutorial listed at [https://perl6.org/resources/](https://perl6.org/resources/)). Only a handful of the operators are introduced, and hardly any of the control flow structures are introduced. The inner workings of the control flow structures aren't touched on at all! It doesn't even mention that `given/when` uses the smartmatch operator `~~` under the hood, which uses the `.ACCEPTS` method on the invocant under the hood.
 
+This complexity is all there and it's all ready to be used. But if you're a beginner, or if you're just not planning on diving deep into the language, you have no reason to use it! It's all hidden from the programmer who doesn't want to get down and dirty with it. 
+
+And that's what's important: the complexity is layered. You can use Perl 6 using its surface level features and it'll function just fine as a Python-esq high level scripting language. But peel back those layers, and you're given the capability to do almost _anything_ that your heart may desire -- all the way down to modifying the very way that `nqp` parses the Perl 6 language itself!
 
 ## Myth: Perl 6 is hard to read.
 
@@ -84,6 +88,23 @@ Good code and bad code is subjective, but in my subjective opinion: this could l
 
 ### Reality: You're trading off speed for expressiveness, but that speed deficit has been shrinking consistently.
 
+Perl 6 is an incredibly expressive language created by a tiny team of people. The priority was never speed, it was all-encompassing expressivity. You are purposefully making that trade off when you choose Perl 6. 
+
+There are two bright sides though:
+
+* Perl 6 has _crazy_ good support for concurrency. The docs will do a better job than I could ever do explaining this, so here you go: [https://docs.perl6.org/language/concurrency](https://docs.perl6.org/language/concurrency). Another nice post about this is [here](http://blogs.perl.org/users/zoffix_znet/2016/04/perl-6-is-slower-than-my-fat-momma.html). It's an old article, but it's still applicable.
+
+* Speed is consistently improving over in the land of the Rakudo compiler. [Look at all the open performance fixes waiting to be implemented in Rakudo](https://github.com/rakudo/rakudo/labels/performance)! There was a website that listed progressive benchmarks of the Rakudo compiler by version, but no matter how much Google-fu I slung I couldn't find it. I'd appreciate it if a reader who knows what page I'm talking about could submit it using the contact information below.
+
+---
+
+I know I've mentioned it a couple times now, but if you haven't read it you should go back and read [Perl 6 is the World's Worst ML](https://aearnus.github.io/2019/04/05/perl6-is-the-world-s-worst-ml). On top of that, I added a couple of extra new and insightful comments. Definitely worth it to check out! There are a couple more memorable quotes in there from Damien Conway. My favorite are the following paragraphs:
+
+> I’m a big believer in languages adapting to the needs of the speaker, not vice versa. Just as there’s no one right way to speak in English, there should be no one right way to code in your preferred programming language. Most languages don’t really support that notion; many of them, in fact, are based on the diametrically opposite principle: “Everything has to be pure functional”, “Everything has to be objects”, “Everything has to be declared relationships”, “Everything has to be independent unreliable intercommunicating threads”. Each of which, in my opinion, is equivalent to: “Here’s your one true hammer. Now everything has to be a nail.”
+> 
+> Which, of course, serious developers reject. That means they now have to be fluent in Haskell and Erlang and Python and Node.js and a dozen other completely distinct and mutually incomprehensible development tools. And they have to continually context switch between them when writing and debugging and maintaining. And the vast majority of us just aren’t good at that.
+> 
+> That’s why I devoted two decades of my life to helping ensure that Perl 6 lets you solve problems in whatever (reasonable) way that suits you…and suits your problem! By all means solve the majority of your problem functionally, but implement the inherently stateful parts of your program with objects, and handle the intrinsically linguistic components with declarative grammars. But do it all in the same language and at whatever granularity you are most comfortable with.
 
 ---
 

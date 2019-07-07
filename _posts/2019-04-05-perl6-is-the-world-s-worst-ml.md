@@ -173,13 +173,13 @@ His response:
 > Not at all. That's exactly why we put it there: so that people who think
 > the way you do can write code the way they prefer. Whereas people who
 > think like C programmers can write:
-> 
+> ```
 >     my Int sub len (@list) {
 >         return @list
 >                 ?? 1 + len(@list[1..*])
 >                 !! 0
 >     }
-> 
+> ```
 > Bless their hearts.
 > 
 > 
@@ -220,7 +220,7 @@ His response:
 > intermixed hybrid paradigms - hence "transparadigm")...all in Perl 6.
 > 
 > For example:
-> 
+> ```
 > {
 >     # Median value (imperative)...
 >     sub median (*@list) {
@@ -303,7 +303,7 @@ His response:
 > 
 >     say (2, 3, 5, 7, 11, 13, 17, 19).median();
 > }
-> 
+> ```
 > 
 > I'm a big believer in languages adapting to the needs of the speaker,
 > not vice versa. Just as there's no one right way to speak in English,
