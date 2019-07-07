@@ -18,13 +18,26 @@ Let's get right to all the myths people like to spread. The most common myth I'v
 
 ### Reality: Perl 6 has been finished for a long, long time.
 
-Perl 6 is defined as a set of test cases that must be passed by any specific compiler. That test suite is here: [https://github.com/perl6/roast/](https://github.com/perl6/roast/). This test suite has been complete since the language's release, and thus so has the language. Perl 6's compilers may not implement the language in its entirety yet, but that does _not_ mean the language is incomplete.
+Perl 6 is defined as a set of test cases that must be passed by any specific compiler. That test suite is here: [https://github.com/perl6/roast/](https://github.com/perl6/roast/). This test suite has been complete since the language's release, and thus so has the language. Some Perl 6 compilers may not implement the language in its absolute entirety yet, but that does _not_ mean the language is incomplete.
+
+Rakudo, the most popular Perl 6 compiler, <sup>[2]</sup>
+
 
 ## Myth: Perl 6 has a bizarre ecosystem.
 
 ### Reality: You're probably confusing Perl 5 and Perl 6, or Rakudo itself with Perl 6. Hold on while I explain...
 
-`Perl 6` is sometimes called `Raku` in order to distance it from `Perl 5`. `Perl 6`'s most popular compiler is `Rakudo Star`, which implements `Rakudo Perl 6`. `Perl 6` is built off of a language called `nqp`: Not Quite Perl. `Rakudo Star` uses a virtual machine called [`MoarVM`](https://www.moarvm.org/) which implements the virtual machine that `nqp` is compiled down to. `nqp` is then used to implement the majority of `Rakudo Star`. You read that right: the ubiquitous `Perl 6` compiler is implemented in a stripped down version of `Perl 6` itself. When you type `apt install perl6` (or whatever your equivalent is), your package manager will install `Rakudo Star`. `zef` is the `Perl 6` package manager. `Perl 6` packages live in `p6c` at [`http://modules.perl6.org/`](http://modules.perl6.org/). [`CPAN`](https://www.cpan.org/) DOES host Perl 6 modules, and they are mirrored on the `p6c` website.
+* `Perl 6` is the language. It is sometimes called `Raku` in order to distance it from `Perl 5`. 
+
+* `Rakudo` is the most popular `Perl 6` compiler, and it implements a superset of the language called `Rakudo Perl 6`. 
+
+* `Rakudo Star` refers to the packaging of the `Rakudo` compiler alongside a
+
+* `nqp` is a subset of `Perl 6` which is used to build the language. You read that right -- `Perl 6` is implemented using a stripped down version of itself. A large portion of `Rakudo` is written in `nqp`.
+
+* [`MoarVM`](https://www.moarvm.org/) is the virtual machine used by `Rakudo` which implements the backend that `nqp` is compiled against. 
+
+* `zef` is the `Perl 6` package manager, which downloads a list of modules from a master repo.<sup>[3]</sup>
 
 ## Myth: Perl 6 has no target demographic and no niche.
 
@@ -113,5 +126,18 @@ I know I've mentioned it a couple times now, but if you haven't read it you shou
 [/u/ogniloud on Reddit corrected a couple spelling errors across the post.](https://old.reddit.com/r/perl6/comments/ca47uy/perl_6_is_cursed_i_hate_it/et7bv33/)
 
 [1] used to read "If you’re from the land of APL you might learn to handle that." An anonymous reader pointed out the fact that all APL operators are right associative, bind the same amount, and operation proceeds from right to left. 
+
+[2] Section 1 used to read
+
+> Perl 6 is defined as a set of test cases that must be passed by any specific compiler. That test suite is here: [https://github.com/perl6/roast/](https://github.com/perl6/roast/). This test suite has been complete since the language's release, and thus so has the language. Perl 6's compilers may not implement the language in its entirety yet, but that does _not_ mean the language is incomplete.
+
+A couple people, including [Rogue#2017 from the Perl 6 discord](https://discord.gg/gg2a3T6) and [Timotimo](https://wakelift.de/) pointed out that this wasn't entirely accurate. Rakudo implements a _vast_ majority of this spec.
+
+[3] This section was _awful_. It used to read 
+
+> `Perl 6` is sometimes called `Raku` in order to distance it from `Perl 5`. `Perl 6`'s most popular compiler is `Rakudo Star`, which implements `Rakudo Perl 6`. `Perl 6` is built off of a language called `nqp`: Not Quite Perl. `Rakudo Star` uses a virtual machine called [`MoarVM`](https://www.moarvm.org/) which implements the virtual machine that `nqp` is compiled down to. `nqp` is then used to implement the majority of `Rakudo Star`. You read that right: the ubiquitous `Perl 6` compiler is implemented in a stripped down version of `Perl 6` itself. When you type `apt install perl6` (or whatever your equivalent is), your package manager will install `Rakudo Star`. `zef` is the `Perl 6` package manager. `Perl 6` packages live in `p6c` at [`http://modules.perl6.org/`](http://modules.perl6.org/). [`CPAN`](https://www.cpan.org/) DOES host Perl 6 modules, and they are mirrored on the `p6c` website.
+
+Additionally, it is inaccurate to say that `Rakudo Star` implements `Rakudo Perl 6`. `Rakudo Star` is the entire Perl 6 packaging, including a few community packages ala Haskell Platform. `Rakudo` is the compiler.
+
 
 Did I miss any myths? Did I leave out an explanation that you like? Do you want to tell me how wrong I am? Please leave a comment using the contact info below! 
