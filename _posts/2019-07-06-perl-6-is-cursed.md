@@ -41,7 +41,9 @@ Rakudo, the most popular Perl 6 compiler, [implements a vast majority of this sp
 
 ## Myth: Perl 6 has no target demographic and no niche.
 
-### Reality: So what?
+### Reality: Perl 6 is targeted towards problem solvers.<sup>[4]</sup>
+
+(You should read this comment for an interesting analysis: [https://news.ycombinator.com/item?id=20375080](https://news.ycombinator.com/item?id=20375080))
 
 Larry Wall, Perl's original creator, was a linguist. So let me pose a rhetorical question: what is English's target demographic?
 
@@ -49,11 +51,13 @@ How do you even answer that? Is it tautological? Does it make sense to say that 
 
 You could argue that this question makes no sense; that Perl 6 is a language constructed by humans for a specific purpose. But English was also constructed by humans, albeit indeliberately. Modern English was constructed from Middle English with various features changed to more closely represent the format of colloquial speech. Perl 6 was constructed out of Perl in a similar way: various features were changed from Perl 5. The specific features that didn't pan out were described in the Perl 6 ["apocalypses"](https://perl6.org/archive/doc/apocalypse.html).
 
-So, Perl 6 came to be as a solution to a problem, and the problem was that Perl 5 wasn't a very good language. Modern English came to be as a solution to the fact that Old and Middle English weren't very good languages -- or, at the very least, they didn't represent their usages any longer. Where does that bring us? I'm not so sure.
+So, Perl 6 came to be as a solution to a problem, and the problem was that Perl 5 no longer aligned with what some Perl speakers wanted it to be<sup>[5]</sup>. Modern English came to be as a solution to the fact that Old and Middle English, at the very least, didn't represent their usages any longer as well. Where does that bring us? I'm not so sure.
 
 Is a language worth it for the sake of its own existence? That's a question for a philosophist, not for me. But if you can't accept that Perl 6 has a valid demographic, then at least consider that much.
 
 To answer the question more directly: Perl 6's lack of a niche _is_ the language's niche. It appeals to functional programmers looking to dip their toes into something imperative, it appeals to low level programmers for having easy C interop, it appeals to array programmers for having extremely flexible containers and operators, etc, etc, etc. Perl 6 allows the programmer to write code in their style that makes sense to them (see: baby Perl 6, as mentioned below) (also see: [https://aearnus.github.io/2019/04/05/perl6-is-the-world-s-worst-ml](https://aearnus.github.io/2019/04/05/perl6-is-the-world-s-worst-ml)).
+
+Being able to choose your own niche is a strength all its own, and it allows Perl 6 to appeal to each person and each problem in a unique way.
 
 ## Myth: Perl 6 is inconsistent.
 
@@ -139,5 +143,8 @@ A couple people, including [Rogue#2017 from the Perl 6 discord](https://discord.
 
 Additionally, it is inaccurate to say that `Rakudo Star` implements `Rakudo Perl 6`. `Rakudo Star` is the entire Perl 6 packaging, including a few community packages ala Haskell Platform. `Rakudo` is the compiler. Most of what I wrote about `p6c` was also incorrect.
 
+[4] This used to say "So what?", but an anomyous reader and a few people on HN suggested that this was an awful response to that myth. I agree. `ben509` on HN explained my response better than I feel like I ever could, though, so I supplanted his explanation with mine.
+
+[5] ~~Perl 5 wasn't a very good language~~
 
 Did I miss any myths? Did I leave out an explanation that you like? Do you want to tell me how wrong I am? Please leave a comment using the contact info below! 
