@@ -31,7 +31,7 @@ Rakudo, the most popular Perl 6 compiler, [implements a vast majority of this sp
 
 * `Rakudo` is the most popular `Perl 6` compiler, and it implements a superset of the language called `Rakudo Perl 6`. 
 
-* `Rakudo Star` refers to the packaging of the `Rakudo` compiler alongside a
+* `Rakudo Star` refers to the packaging of the `Rakudo` compiler alongside a smattering of high quality community packages.
 
 * `nqp` is a subset of `Perl 6` which is used to build the language. You read that right -- `Perl 6` is implemented using a stripped down version of itself. A large portion of `Rakudo` is written in `nqp`.
 
