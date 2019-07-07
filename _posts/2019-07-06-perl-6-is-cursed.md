@@ -52,7 +52,7 @@ Language is inconsistent. Ideas are inconsistent. _Reality_ is inconsistent. Per
 
 ### Reality: Perl 6 has layers of necessary complexity.
 
-People who jump right into Perl 6 immediately sink until the complexity piles up over their head. This complexity is necessary. I'm going to quote back to Damien Conway again: 
+People who jump right into Perl 6 immediately sink until the complexity piles up over their head. This complexity is necessary. I'm going to quote back to Damian Conway again: 
 
 > One of the original Perl 6 design philosophies was that complexity is intrinsically irreducible... but extrinsically redistributable
 
@@ -80,7 +80,7 @@ If you don't know Perl 6, it will fly right over your head. It is so dense with 
 
 Every single symbol in that line of code carries a significance, and the code would be drastically different should any of the symbols be missing or different. Imagine trying to read Chinese when you have to skim over every other symbol!
 
-Problem is: there's definitely a limit to how much you should use these information-dense symbols. Admittedly, the precedence rules are confusing and the left & right binding seems to change willy-nilly. If you're from the land of APL you might learn to handle that. If you're from the land of Java you might not. 
+Problem is: there's definitely a limit to how much you should use these information-dense symbols. Admittedly, the precedence rules are confusing and the left & right binding seems to change willy-nilly. If you're from the land of Agda or Haskell you might learn to handle that<sup>[1]</sup>. If you're from the land of Java you might not. 
 
 Good code and bad code is subjective, but in my subjective opinion: this could lead to bad code, and bad code is hard to read. With great power comes great responsibility.
 
@@ -107,5 +107,11 @@ I know I've mentioned it a couple times now, but if you haven't read it you shou
 > That’s why I devoted two decades of my life to helping ensure that Perl 6 lets you solve problems in whatever (reasonable) way that suits you…and suits your problem! By all means solve the majority of your problem functionally, but implement the inherently stateful parts of your program with objects, and handle the intrinsically linguistic components with declarative grammars. But do it all in the same language and at whatever granularity you are most comfortable with.
 
 ---
+
+# Comments, corrections, and footnotes:
+
+[/u/ogniloud on Reddit corrected a couple spelling errors across the post.](https://old.reddit.com/r/perl6/comments/ca47uy/perl_6_is_cursed_i_hate_it/et7bv33/)
+
+[1] used to read "If you’re from the land of APL you might learn to handle that." An anonymous reader pointed out the fact that all APL operators are right associative, bind the same amount, and operation proceeds from right to left. 
 
 Did I miss any myths? Did I leave out an explanation that you like? Do you want to tell me how wrong I am? Please leave a comment using the contact info below! 
