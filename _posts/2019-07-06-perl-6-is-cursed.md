@@ -20,7 +20,7 @@ Let's get right to all the myths people like to spread. The most common myth I'v
 
 Perl 6 is defined as a set of test cases that must be passed by any specific compiler. That test suite is here: [https://github.com/perl6/roast/](https://github.com/perl6/roast/). This test suite has been complete since the language's release, and thus so has the language. Some Perl 6 compilers may not implement the language in its absolute entirety yet, but that does _not_ mean the language is incomplete.
 
-Rakudo, the most popular Perl 6 compiler, <sup>[2]</sup>
+Rakudo, the most popular Perl 6 compiler, [implements a vast majority of this specification](https://github.com/rakudo/rakudo/blob/master/t/spectest.data.6.c). This is a majority large enough that you will most likely never run into the edge cases which are left unimplemented. I've personally only run into an edge case like this once, and it was during some intense hacking on [an object's metaobject](https://docs.perl6.org/type/Metamodel::ClassHOW). Definitely not something you'd see on a day to day basis.<sup>[2]</sup>
 
 
 ## Myth: Perl 6 has a bizarre ecosystem.
@@ -137,7 +137,7 @@ A couple people, including [Rogue#2017 from the Perl 6 discord](https://discord.
 
 > `Perl 6` is sometimes called `Raku` in order to distance it from `Perl 5`. `Perl 6`'s most popular compiler is `Rakudo Star`, which implements `Rakudo Perl 6`. `Perl 6` is built off of a language called `nqp`: Not Quite Perl. `Rakudo Star` uses a virtual machine called [`MoarVM`](https://www.moarvm.org/) which implements the virtual machine that `nqp` is compiled down to. `nqp` is then used to implement the majority of `Rakudo Star`. You read that right: the ubiquitous `Perl 6` compiler is implemented in a stripped down version of `Perl 6` itself. When you type `apt install perl6` (or whatever your equivalent is), your package manager will install `Rakudo Star`. `zef` is the `Perl 6` package manager. `Perl 6` packages live in `p6c` at [`http://modules.perl6.org/`](http://modules.perl6.org/). [`CPAN`](https://www.cpan.org/) DOES host Perl 6 modules, and they are mirrored on the `p6c` website.
 
-Additionally, it is inaccurate to say that `Rakudo Star` implements `Rakudo Perl 6`. `Rakudo Star` is the entire Perl 6 packaging, including a few community packages ala Haskell Platform. `Rakudo` is the compiler.
+Additionally, it is inaccurate to say that `Rakudo Star` implements `Rakudo Perl 6`. `Rakudo Star` is the entire Perl 6 packaging, including a few community packages ala Haskell Platform. `Rakudo` is the compiler. Most of what I wrote about `p6c` was also incorrect.
 
 
 Did I miss any myths? Did I leave out an explanation that you like? Do you want to tell me how wrong I am? Please leave a comment using the contact info below! 
