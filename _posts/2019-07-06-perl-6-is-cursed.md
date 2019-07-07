@@ -143,7 +143,7 @@ A couple people, including [Rogue#2017 from the Perl 6 discord](https://discord.
 
 Additionally, it is inaccurate to say that `Rakudo Star` implements `Rakudo Perl 6`. `Rakudo Star` is the entire Perl 6 packaging, including a few community packages ala Haskell Platform. `Rakudo` is the compiler. Most of what I wrote about `p6c` was also incorrect.
 
-[4] This used to say "So what?", but an anomyous reader and a few people on HN suggested that this was an awful response to that myth. I agree. `ben509` on HN explained my response better than I feel like I ever could, though, so I supplanted his & the perl 6 IRC's explanation with mine.
+[4] This used to say "So what?", but an anomyous reader and a few people on HN suggested that this was an awful response to that myth. I agree. `ben509` on HN explained my response better than I feel like I ever could, though, so I supplanted his & the Perl 6 IRC's explanation with mine. Also see [https://old.reddit.com/r/perl6/comments/ca47uy/perl_6_is_cursed_i_hate_it/et66gof/](https://old.reddit.com/r/perl6/comments/ca47uy/perl_6_is_cursed_i_hate_it/et66gof/).
 
 [5] ~~Perl 5 wasn't a very good language~~
 
