@@ -4,7 +4,7 @@ title: A Rhetorical Analysis of Tucker Carlson's Ilhan Omar Tirade
 date: 2019-07-10 22:18 -0700
 ---
 
-If you haven't seen it, there's a clip that's been going around of Tucker Carlson talking about the rescue of Ilhan Omar. As much as I don't want to direct more traffic to Carlson's Twitter account, the rest of this post wouldn't make sense without that clip attached. So, here it is in all its glory.
+If you haven't seen it, there's a clip that's been going around of Tucker Carlson talking about the "rescue of Ilhan Omar". As much as I don't want to direct more traffic to Carlson's Twitter account, the rest of this post wouldn't make sense without that clip attached. So, here it is in all its glory.
 
 <blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Tucker Carlson: U.S. rescued Ilhan Omar <a href="https://twitter.com/Ilhan?ref_src=twsrc%5Etfw">@ilhan</a>, she said thanks by showering us with contempt. Watch. <a href="https://t.co/N0ZYZ3fO40">pic.twitter.com/N0ZYZ3fO40</a></p>&mdash; Tucker Carlson (@TuckerCarlson) <a href="https://twitter.com/TuckerCarlson/status/1149118379447529472?ref_src=twsrc%5Etfw">July 11, 2019</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
