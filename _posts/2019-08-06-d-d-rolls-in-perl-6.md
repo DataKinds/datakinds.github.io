@@ -54,7 +54,9 @@ sub infix:<b>(@ds, Int $max) is assoc<left> {
 }
 ```
 
-It looks complicated, but it's really just a lazy sequence that terminates when two elements are the same (that's what `... * == *` signifies). It starts with the list of dice rolls `@ds`, then iterates the function `{ .map: -> $d { $d ~~ ($max - 1) ?? |($d - 1, |(1 d $max)) !! $d }` until the dice list no longer changes. That function does the dice exploding: it maps the list of dice and appends new dice rolls if it finds a dice that's equal to the max roll.
+(thanks to [timotimo](https://wakelift.de/) for an idea of how to write this function!)
+
+It looks complicated, but it's really just a lazy sequence that terminates when two elements are the same (that's what `... * == *` signifies). It starts with the list of dice rolls `@ds`, then iterates the function `{ .map: -> $d { $d ~~ ($max - 1) ?? |($d - 1, |(1 d $max)) !! $d }` until the dice list no longer changes. That function makes the dice explode: it maps the list of dice and appends new die rolls if it finds a die that's equal to the max roll.
 
 It can be used as follows:
 
