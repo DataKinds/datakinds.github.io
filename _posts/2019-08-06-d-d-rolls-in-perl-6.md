@@ -6,7 +6,7 @@ date: 2019-08-06 17:33 -0700
 
 Last week, I played my first D&D session with a couple of old friends from high school theatre. It was super fun and I haven't really gotten it off of my mind since.
 
-I was reading up on the game, and I found out that the [dice notation that they use is actually rather intricate](https://en.wikipedia.org/wiki/Dice_notation). Might be old news for most of my audience, but it's new to me, and it's piqued my interest.
+I was reading up on the game, and I found out that the [dice notation that they use is actually rather intricate](https://en.wikipedia.org/wiki/Dice_notation). Might be old news for most of my audience, but it's new to me, and it piqued my interest.
 
 A basic dice roll in dice notation looks like `MdN`, where `M` is the number of dice to roll and `N` is the number of sides on the dice. So, something like `4d10` means "roll 4 dice with 10 sides".
 
@@ -33,7 +33,7 @@ say (3 d 20).sum;
 # => 16
 ```
 
-D&D lets you add modifiers to the dice rolls as well. You can multiply and add dice rolls or constants. For example, `2*(2d4+1)` will add 1 to the result of rolling 2d4, then multiply the whole roll by two.
+D&D lets you add modifiers to your rolls as well. You can multiply and add together dice rolls or constants. For example, `2*(2d4+1)` will add 1 to the result of rolling 2d4, then multiply the whole roll by two.
 
 This is super easy to replicate in Perl 6:
 
@@ -46,7 +46,7 @@ Even more exciting is the idea of _exploding dice_ or _open ended rolling_. Some
 
 For example, if you were to roll 4d20 and get `(1, 8, 20, 6)`, you'd add up the values 1, 8, 6 and 19 (it's not possible to roll a 20 with this method). Once you've added all those, you can roll the 20 again. Say you got a roll of `11`. Then, your total roll for `4d20!` would be 1 + 8 + 6 + 19 + 11 = 45.
 
-To set that up in Perl 6, I created a new infix operator `b` (short for `b`ang, since the bang symbol `!` was taken). On the left side, it takes a list of dice rolls, and on the right side it takes the dice number to explode on. So, using it is a little more verbose than simply appending a `!` to your dice roll, but it's also more flexible and allows me to preserve the simplicity of the `d` operator doing nothing but producing a list of numbers.
+To set that up in Perl 6, I created a new infix operator `b` (short for `b`ang, since the bang symbol `!` was taken). On the left side, it takes a list of dice rolls, and on the right side it takes the number to explode on. So, using it is a little more verbose than simply appending a `!` to your dice roll, but it's also more flexible and allows me to preserve the simplicity of the `d` operator doing nothing but producing a list of numbers.
 
 ```perl
 sub infix:<b>(@ds, Int $max) is assoc<left> { 
@@ -77,7 +77,7 @@ say 2 d 3 b 3;
 # => ((2 1) (1 2 1) (1 1 1 1) (1 1 1 1))
 ```
 
-The initial roll was `(2 1)`, but since we're rolling `d3`s labelled 0 through 2, every 2 we roll explodes.
+The initial roll was `(2 1)`, and 2 is the max roll you can roll on a hypothetical d3 labelled 0 through 2. So, we go ahead and explode on the 2.
 
 After exploding the first dice in the first roll, we actually end up rolling another 2. Now our rolls total `(1 2 1)` and we can explode the 2 yet again.
 
