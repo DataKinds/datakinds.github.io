@@ -88,6 +88,17 @@ We have a window!
 
 ### Interlude: Why Haskell?
 
-> I believethat the monadic approach to programming, in which actions are first class values, is itself interesting, beautiful, and modular. In short, Haskell is the world’s finest imperative programming language.
+> I believe that the monadic approach to programming, in which actions are first class values, is itself interesting, beautiful, and modular. In short, Haskell is the world’s finest imperative programming language.
 
 [from https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/mark.pdf](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/mark.pdf).
+
+I didn't want to do this in C because C is the language that can directly interface with GLFW and OpenGL. I didn't want to be able to do this because I wanted a reason to sit and ponder each function before I use it. Having to write sensible bindings for every single graphics function that I use encouraged me to take this time.
+
+So the question remained of what langauge I should decide to use. I could have went with a run-of-the-mill scripting language, but something about the elegant abstractions of Haskell drew me toward using it for this project. 
+
+For one, Haskell is my favorite language, so it's naturally one of my top choices for anything that I do. But further than that, the biggest roadblock that I hit trying to learn OpenGL the first time a while back was the difficulty of composing abstractions on top of the admittedly obtuse graphics pipeline. Haskell is notorious for being able to abstract. So abstract I shall.
+
+## 11:53 PM, day 3
+
+Started reading through [https://learnopengl.com/Getting-started/Hello-Triangle](https://learnopengl.com/Getting-started/Hello-Triangle). Buffers make a lot more sense than I remember them making.
+

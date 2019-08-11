@@ -13,7 +13,7 @@ A basic dice roll in dice notation looks like `MdN`, where `M` is the number of 
 I took that and defined a custom operator in Perl 6 to roll any number of n-sided dice. It looks like this:
 
 ```perl
-sub infix:<d>(Int $n, Int $max) { (^$max).pick xx $n }
+sub infix:<d>(Int $n, Int $max) { (1..$max).pick xx $n }
 ```
 
 That operator can be called just as the notation would suggest.
@@ -50,13 +50,13 @@ To set that up in Perl 6, I created a new infix operator `b` (short for `b`ang, 
 
 ```perl
 sub infix:<b>(@ds, Int $max) is assoc<left> { 
-    ( @ds, { .map: -> $d { $d ~~ ($max - 1) ?? |($d - 1, |(1 d $max)) !! $d } } ... * == * ).tail 
+    ( @ds, { .map: -> $d { $d ~~ $max ?? |($d - 1, |(1 d $max)) !! $d } } ... * == * ).tail 
 }
 ```
 
 (thanks to [timotimo](https://wakelift.de/) for an idea of how to write this function!)
 
-It looks complicated, but it's really just a lazy sequence that terminates when two elements are the same (that's what `... * == *` signifies). It starts with the list of dice rolls `@ds`, then iterates the function `{ .map: -> $d { $d ~~ ($max - 1) ?? |($d - 1, |(1 d $max)) !! $d }` until the dice list no longer changes. That function makes the dice explode: it maps the list of dice and appends new die rolls if it finds a die that's equal to the max roll.
+It looks complicated, but it's really just a lazy sequence that terminates when two elements are the same (that's what `... * == *` signifies). It starts with the list of dice rolls `@ds`, then iterates the function `{ .map: -> $d { $d ~~ ($max) ?? |($d - 1, |(1 d $max)) !! $d }` until the dice list no longer changes. That function makes the dice explode: it maps the list of dice and appends new die rolls if it finds a die that's equal to the max roll.
 
 It can be used as follows:
 
@@ -64,23 +64,31 @@ It can be used as follows:
 say 3 d 4 b 4;
 # on my machine, my
 # first roll got me
-# => (2 0 0 2 1)
+# => (3 1 1 2 1)
 ```
 
 Another fun thing to do is to remove the `.tail` at the end of the definition of `b` to actually see how the dice explode over time:
 
 ```perl
-sub infix:<b>(@ds, Int $max) is assoc<left> { ( @ds, { .map: -> $d { $d ~~ ($max - 1) ?? |($d - 1, |(1 d $max)) !! $d } } ... * == * ) }
+sub infix:<b>(@ds, Int $max) is assoc<left> { ( @ds, { .map: -> $d { $d ~~ $max ?? |($d - 1, |(1 d $max)) !! $d } } ... * == * ) }
 
-say 2 d 3 b 3;
+say 2 d 2 b 2;
 # my first roll was
 # => ((2 1) (1 2 1) (1 1 1 1) (1 1 1 1))
 ```
 
-The initial roll was `(2 1)`, and 2 is the max roll you can roll on a hypothetical d3 labelled 0 through 2. So, we go ahead and explode on the 2.
+The initial roll was `(2 1)`, and 2 is the max roll you can roll on a hypothetical d2 labelled 1 through 2. So, we go ahead and explode on the 2.
 
 After exploding the first dice in the first roll, we actually end up rolling another 2. Now our rolls total `(1 2 1)` and we can explode the 2 yet again.
 
 Finally, we're left with `(1 1 1 1)`, our final roll.
 
 Got any other cool ideas to implement and/or more fun facts about dice? Email or tweet me below.
+
+---
+
+## Comments
+
+* [/u/aaronsherman on Reddit made a much more in depth dice roll parser using Perl 6's grammars](https://np.reddit.com/r/perl6/comments/cnz0fl/dd_rolls_in_perl_6/ewg060z/). I think it's a fantastic little bit of code. Here's a [permalink on GitHub](https://github.com/ajs/tools/blob/master/games/die-parser.p6).
+
+* Damian Conway commented that the correct semantics of an `MdN` dice roll was to roll M dice labelled 1 through N, not 0 through N - 1. This was corrected throughout the post. He also offered up this alternate definition for the `d` function, which is very succinct and I like it very much: `sub infix:<d>(Int $n, Int $max) { (1..$max).roll($n) }`
