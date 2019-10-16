@@ -59,4 +59,69 @@ sub _or($a, $b) is export {
 }
 ```
 
-The kettle is steaming and whistling now, and you know you have little time left before you must depart. 
+The kettle is steaming and whistling now, and you know you have little time left before you must depart. You gaze out the window and towards the blue sky, feeling the universe itself bear down onto you. "One more relationship... just one more!" you mutter to yourself. "One more to rule all the others..." Sometimes your dreams sound like mediocre fantasy writing.
+
+But then it comes back to you. Blocks flowing and exceptions being caught. An eldridtch horror from the very depths of your mind:
+
+```perl
+sub _xor($a, $b) is export {
+  sink $a; 
+  CATCH {
+    sink $b;
+    CATCH {
+      return f
+    }
+    return t
+  }
+  {
+    sink $b;
+    CATCH {
+      return t
+    }
+    return f
+  }
+}
+```
+
+Your lover calls up to you, beckoning you to start the day. 
+
+---
+
+```perl
+use Test;
+use lib '.';
+use CursedLogic;
+
+my &is-t = &dies-ok;
+my &is-f = &lives-ok;
+
+plan 4;
+
+subtest 'or', {
+  is-f { _or(f, f) };
+  is-t { _or(f, t) };
+  is-t { _or(t, f) };
+  is-t { _or(t, t) };
+}
+
+subtest 'xor', {
+  is-f { _xor(f, f) };
+  is-t { _xor(f, t) };
+  is-t { _xor(t, f) };
+  is-f { _xor(t, t) };
+}
+
+subtest 'and', {
+  is-f { _and(f, f) };
+  is-f { _and(f, t) };
+  is-f { _and(t, f) };
+  is-t { _and(t, t) };
+}
+
+subtest 'not', {
+  is-t { _not(f) }
+  is-f { _not(t) }
+}
+
+done-testing;
+```
