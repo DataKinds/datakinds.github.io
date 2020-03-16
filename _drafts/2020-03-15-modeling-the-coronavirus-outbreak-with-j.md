@@ -32,22 +32,85 @@ _Used with attribution from [https://www.idmod.org/docs/hiv/_images/SEIR-SEIRS.p
 
 These states and variables all correspond directly to differential equations which correlate them. There are still few notes to be made, though. Firstly, this model doesn't represent mortality in the population due to the disease. Because of that, the [basic reproductive rate](https://en.wikipedia.org/wiki/Basic_reproduction_number)<sup>4,7</sup> (that is, the amount of people one person will infect, on average) of the disease is quite simple to calculate: \\(R_0 =  \frac{\beta}{\gamma}\\).
 
-We're going to complicate things a little bit, though. Looking at disease numbers is boring and unimpactful! Instead of analyzing the differential equations, we're going to take a look at an actual simulation which uses those 4 variables. Let's pull up J and get cracking.
+We're going to complicate things a little bit, though. Just looking at disease numbers is boring and unimpactful! Instead of analyzing the differential equations, we're going to take a look at an actual simulation which uses those 4 variables. But first, we have to figure out what those variables should be.
 
-Let's take our "unit of time" to be one day. Let's look at some of the information that we have for the virus:
+Let's take our "unit of time" to be one day. Here's some of the information that we have for the virus:
 
 * We know that \\(R_0\\) is about [2.28](https://www.ncbi.nlm.nih.gov/pubmed/32097725)<sup>8</sup> for COVID-19.
 
-* We know that it has an incubation period of about 10 days -- this corresponds to a \\(\sigma\\) of about 
+* We know that it has an incubation period of about 10-ish days ([2-14, as per the CDC](https://www.cdc.gov/coronavirus/2019-ncov/symptoms-testing/symptoms.html)).
 
-* We know that once symptoms emerge, they persist about two weeks -- this corresponds to a \\(\gamma\\) of about 
+* We know that once symptoms emerge, they persist about two weeks.<sup>9</sup>
 
-* We know that 14%<sup>6</sup> of infected people become re-infected -- this corresponds to a \\(\xi\\) of about 
+* We know that 14%<sup>6</sup> of infected people become re-infected.
 
+We can calculate all the variables we need from these, starting with \\(\sigma\\). Each day, there's a certain chance \\(\sigma\\) for COVID-19 to begin showing symptoms. Each day, the chance that it cumulatively _hasn't_ shown symptoms is \\((1 - \sigma)^N\\), where \\(N\\) is the number of days. This is a simple binomial distribution, and for it to begin showing symptoms after 10 days on average means that we must simply solve for \\((1 - \sigma)^{10} = 0.5\\). So, \\(\sigma = 0.066967\\)
 
+Once symptoms emerge, they persist about two weeks. Let's do the same process we did above: \\((1 - \gamma)^{14} = 0.5\\) means we have \\(\gamma = 0.0483048\\).
 
+We can calculate \\(\beta\\) using \\(R_0 =  \frac{\beta}{\gamma}\\) with the \\(R_0\\) and \\(\gamma\\) values established above<sup>8</sup>. \\(2.28 = \frac{\beta}{0.0483048}\\) means \\(\beta = 0.110134944\\).
 
-I want to run a little simulation to figure it out, and to see the physical effects of social distancing and other 
+All's left is to calculate \\(\xi\\). I have no clue how we could do this, but let's just say (as a completely random, reasonable guess) that it takes about 30 days to lose immunity to COVID-19. \\((1 - \xi)^{30} = 0.5\\) gives us \\(\xi = 0.02284\\).
+
+Now that we have all our variables, let's boot up our J session and start writing this simulation!
+
+First, numeric definitions.
+
+```j
+ppl =: 10 NB. How many people are in our simulation?
+
+Beta  =: 0.110134944 NB. The rate at which susceptible people become exposed.
+Sigma =: 0.066967    NB. The rate at which exposed people become infectious.
+Gamma =: 0.0483048   NB. The rate at which infectious people recover.
+Xi    =: 0.02284     NB. The rate at which recovered people lose immunity and become susceptible.
+R     =: 2.28        NB. How many people will 1 person infect?
+CFR   =: 0.02        NB. Case Fatality Rate
+```
+
+Note that we added one extra parameter, the [Case Fatality Rate](https://wwwnc.cdc.gov/eid/article/26/6/20-0320_article)<sup>9</sup>. This is the percent of COVID-19 cases which end in death. The CDC suggests using 0.25% to 3%, so I'd say 2% is a solid medium, especially with as overwhelmed our US medical systems will be.
+
+If we want to simulate the disease's spread, we have to simulate social contact. So, let's make a [hermitian matrix](https://en.wikipedia.org/wiki/Hermitian_matrix) representing how close people are.
+
+```j
+   ] closeness =: 2 %~ (+ |:) ? (ppl,ppl) $ 0
+0.989266 0.433774 0.587923 0.860137 0.423383 0.669393 0.296438  0.658781 0.253612 0.327771
+0.433774 0.797844 0.412043 0.734478 0.693995 0.452715 0.585249   0.67874 0.591025 0.897202
+0.587923 0.412043 0.916071 0.336036 0.652928 0.531987 0.541966  0.477779 0.522089 0.293315
+0.860137 0.734478 0.336036 0.125376 0.438783 0.451785 0.695368  0.468632 0.508739 0.603744
+0.423383 0.693995 0.652928 0.438783 0.557975 0.450049 0.722475  0.560327 0.676762 0.809449
+0.669393 0.452715 0.531987 0.451785 0.450049 0.435358 0.839259  0.223557 0.835785 0.611344
+0.296438 0.585249 0.541966 0.695368 0.722475 0.839259 0.380239   0.36727 0.321142 0.258312
+0.658781  0.67874 0.477779 0.468632 0.560327 0.223557  0.36727 0.0571881  0.41249  0.63065
+0.253612 0.591025 0.522089 0.508739 0.676762 0.835785 0.321142   0.41249 0.483952 0.657467
+0.327771 0.897202 0.293315 0.603744 0.809449 0.611344 0.258312   0.63065 0.657467  0.83782
+```
+
+This matrix represents how likely the \\(i\\)th and \\(j\\)th person are to be in social contact with each other. Since it doesn't make sense for someone to give the virus to themselves, let's get rid of the middle diagonal.
+
+```j
+   ] risk =: closeness - closeness * =i.ppl 
+       0 0.433774 0.587923 0.860137 0.423383 0.669393 0.296438 0.658781 0.253612 0.327771
+0.433774        0 0.412043 0.734478 0.693995 0.452715 0.585249  0.67874 0.591025 0.897202
+0.587923 0.412043        0 0.336036 0.652928 0.531987 0.541966 0.477779 0.522089 0.293315
+0.860137 0.734478 0.336036        0 0.438783 0.451785 0.695368 0.468632 0.508739 0.603744
+0.423383 0.693995 0.652928 0.438783        0 0.450049 0.722475 0.560327 0.676762 0.809449
+0.669393 0.452715 0.531987 0.451785 0.450049        0 0.839259 0.223557 0.835785 0.611344
+0.296438 0.585249 0.541966 0.695368 0.722475 0.839259        0  0.36727 0.321142 0.258312
+0.658781  0.67874 0.477779 0.468632 0.560327 0.223557  0.36727        0  0.41249  0.63065
+0.253612 0.591025 0.522089 0.508739 0.676762 0.835785 0.321142  0.41249        0 0.657467
+0.327771 0.897202 0.293315 0.603744 0.809449 0.611344 0.258312  0.63065 0.657467        0
+```
+
+Now, let's make our people! Let `0` represent a dead person, `1` represents a susceptible person, `2` represents an exposed person, `3` represents an infectious person, and finally `4` represents a recovered person.
+
+Our population can then be 10 susceptible people with one infected person.
+
+```j
+   ] starting_pop =: 2 , (ppl - 1) $ 1
+2 1 1 1 1 1 1 1 1 1
+```
+
+Let's then define the `infect` function which, given a population, advances the disease by one timestep.
 
 ---
 
@@ -67,6 +130,8 @@ Sources:
 7. https://www.idmod.org/docs/hiv/model-seir.html
 
 8. https://www.ncbi.nlm.nih.gov/pubmed/32097725
+
+9. https://wwwnc.cdc.gov/eid/article/26/6/20-0320_article
 
 ---
 
