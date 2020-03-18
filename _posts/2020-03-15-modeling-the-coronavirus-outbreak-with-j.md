@@ -494,7 +494,7 @@ Let's now skip to the end of the year.
 
 Just by coming together as a society to cut down on the spread of COVID-19, without changing anything else, we can _halve_ the death toll by the end of the first year according to the model. That number, of course, relies on the assumptions we made on how we calculate social-ness. Let's try calculating it in a different way -- instead of being a flat additive ±0.1 modifier on \\(\beta\\), how about we make it multiplicative? 
 
-A COVID-19 [superspreader has infected up to 11 other people](https://www.newsobserver.com/news/nation-world/national/article241209786.html), which is about 5x what \\(R\\) suggests. This suggests that the standard deviation of human relationships probably hovers around \\(\frac{5}{3}\\), putting superspreaders in the top 0.3% of human contact if contact is normally distributed.
+A COVID-19 [superspreader has infected up to 11 other people](https://www.newsobserver.com/news/nation-world/national/article241209786.html)<sup>10</sup>, which is about 5x what \\(R\\) suggests. This suggests that the standard deviation of human relationships probably hovers around \\(\frac{5}{3}\\), putting superspreaders in the top 0.3% of human contact if contact is normally distributed.
 
 Our social risk matrix is now generated thusly:
 
@@ -559,7 +559,7 @@ As our social contact is now multiplicative with \\(\beta\\), we can now accurat
 └───────────┴───────┴──────────┴─────────┴────┘
 ```
 
-What if we cut our social contact down to one quarter? This is what I've been trying to do in real life -- I usually go out with people almost every day, and I have been limiting that now to once or twice per week. What if our whole society did that?**
+What if we cut our social contact down to one quarter? This is what I've been trying to do in real life -- I usually go out with people almost every day, and I have been limiting that now to once or twice per week. What if our whole society did that?<sup>**</sup>
 
 ```j
    infect_display^:365 starting_pop
@@ -611,9 +611,12 @@ Unsurprisingly, COVID-19 dies out after 24 days.
 
 Food for thought. If you liked this, or found this helpful, please throw a coffee my way at [https://paypal.me/tslimkemann](https://paypal.me/tslimkemann).
 
+<div style="margin-bottom:300px"></div>
+
 ---
 
-Sources:
+**Sources:**
+
 1. [https://thehill.com/homenews/state-watch/487489-worst-case-coronavirus-models-show-massive-us-toll](https://thehill.com/homenews/state-watch/487489-worst-case-coronavirus-models-show-massive-us-toll)
 
 2. [https://www.cdc.gov/csels/dsepd/ss1978/lesson3/section3.html](https://thehill.com/homenews/state-watch/487489-worst-case-coronavirus-models-show-massive-us-toll)
@@ -638,7 +641,7 @@ Sources:
 
 ---
 
-Footnotes:
+**Footnotes:**
 
 *: The basic SEIRS model is not actually the model used for COVID-19. The model used is much closer to the one presented in Li, Fuxiang, and Xiao-Qiang Zhao. "A Periodic SEIRS Epidemic Model with a Time-dependent Latent Period." Journal of Mathematical Biology 78.5 (2019): 1553-579. Web.
 

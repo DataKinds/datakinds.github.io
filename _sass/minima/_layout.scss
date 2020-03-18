@@ -12,11 +12,12 @@
   position: relative;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
+//@import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
 .site-title {
   @include relative-font-size(1.625);
   color: $title-color !important;
-  font-family: 'Press Start 2P', cursive;
+  //font-family: 'Press Start 2P', cursive;
+  font-family: monospace;
   font-weight: 300;
   line-height: $base-line-height * $base-font-size * 2.25;
   letter-spacing: -1px;
