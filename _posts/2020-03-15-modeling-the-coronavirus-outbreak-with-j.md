@@ -6,7 +6,7 @@ date: 2020-03-15 16:01 -0700
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
 
-_Foreword: I am not an epidemiologist and I don't claim to be. I am, however, a math major and an academic and I feel like I've done my due dilligence in reporting this accurately and correctly._
+_Foreword: I am not an epidemiologist and I don't claim to be. I am, however, a math major and an academic and I feel like I've done my due dilligence in reporting this accurately and correctly. The full code used is at the end of the post, if you'd rather not sift through data._
 
 If you've been watching the news, I assume you've heard about the COVID-19 pandemic. In light of [the CDC releasing a model predicting 62% of Americans will become infected](https://thehill.com/homenews/state-watch/487489-worst-case-coronavirus-models-show-massive-us-toll)<sup>1</sup>, I became interested in how they came to those numbers. In fact, how do we come to any conclusions as to the spread of disease at all?
 
@@ -350,7 +350,9 @@ Let's rerun our simulation, this time over 1,000 days with a population of 1,000
 3 2 3 2 1 1 2 1 2 2 1 2 1 3 3 2 1 3 2 1 1 2 1 3 1 1 3 2 3 2 4 2 1 3 2 2 2 3 1 2 2 2 2 2 1 2 1 1 2 2 1 1 2 1 2 2 2 2 2 2 2 2 2 2 3 3 2 4 3 3 2 2 2 2 3 2 2 1 2 1 2 3 2 3 4 3 2 1 2 2 2 3 3 1 2 3 1 3 4 1 1 2 1 2 1 2 2 2 3 1 2 1 1 1 3 2 2 1 1 3 2 2 2 1 4 3 3 2 ...
 3 2 3 2 1 1 2 1 2 2 2 2 1 3 3 2 1 3 2 1 2 2 1 3 1 1 3 2 3 2 4 2 1 3 2 2 2 3 1 2 2 2 2 2 2 2 1 1 2 2 2 1 2 1 2 2 2 2 2 2 2 2 2 2 3 3 2 4 3 3 2 2 2 2 3 2 2 1 2 1 3 3 2 3 4 3 2 1 2 2 2 3 3 1 2 3 1 3 4 1 1 2 1 2 1 2 2 2 3 1 2 1 1 1 3 2 2 1 1 3 2 2 3 1 4 3 3 2 ...
 3 2 4 2 1 1 2 1 2 2 2 2 1 3 3 2 1 3 2 2 2 2 2 3 1 1 3 2 3 2 4 2 1 4 2 2 2 3 1 2 2 2 2 2 2 2 1 1 2 2 2 1 2 1 2 2 2 2 2 3 2 2 2 2 3 3 2 4 3 3 2 2 2 2 3 2 2 1 2 1 3 3 2 3 4 3 2 1 3 2 2 3 3 2 2 3 2 3 4 1 1 3 1 2 1 2 2 3 4 1 3 1 2 1 3 3 2 1 1 3 2 2 3 1 4 3 3 3 ...
+
 ...snip...
+
 2 3 4 4 3 3 4 0 0 2 0 0 4 4 3 4 4 3 0 4 0 4 0 4 4 4 4 2 2 2 0 4 0 3 0 4 3 0 1 0 4 0 4 3 3 4 4 0 0 4 4 4 4 0 0 0 0 3 2 0 4 1 3 0 4 4 3 0 2 0 0 4 1 3 0 4 4 4 3 0 2 4 2 4 2 0 3 4 3 4 0 4 4 2 2 3 0 2 3 4 4 0 4 4 0 4 3 4 0 4 2 0 0 4 0 1 3 0 1 3 4 4 4 0 4 0 4 0 ...
 2 3 4 4 3 3 4 0 0 2 0 0 4 4 3 4 4 3 0 4 0 4 0 4 4 4 4 2 2 2 0 4 0 3 0 4 3 0 2 0 4 0 4 3 3 4 4 0 0 4 4 4 4 0 0 0 0 3 2 0 4 1 3 0 4 4 3 0 2 0 0 4 2 3 0 4 4 4 3 0 2 4 2 4 2 0 3 4 3 4 0 4 4 2 2 4 0 2 3 4 4 0 4 4 0 4 3 4 0 4 2 0 0 4 0 1 3 0 1 3 4 4 4 0 4 0 4 0 ...
 2 3 4 4 3 3 4 0 0 2 0 0 4 4 3 4 4 3 0 4 0 4 0 4 4 4 4 2 2 2 0 4 0 3 0 4 3 0 2 0 4 0 4 3 3 4 4 0 0 4 4 4 4 0 0 0 0 3 2 0 4 1 3 0 4 4 3 0 2 0 0 4 2 3 0 4 4 4 3 0 2 4 2 4 2 0 3 4 3 4 0 4 4 2 2 4 0 2 3 4 4 0 4 4 0 4 3 4 0 4 2 0 0 4 0 1 3 0 1 3 4 4 4 0 4 0 4 0 ...
@@ -393,24 +395,7 @@ infect_display =: 3 : 0
 ├───────────┼───────┼──────────┼─────────┼────┤
 │619        │334    │45        │2        │0   │
 └───────────┴───────┴──────────┴─────────┴────┘
-2 3 1 2 1 1 1 1 2 1 3 1 1 1 2 2 1 2 1 2 1 2 1 1 2 2 2 1 2 2 2 2 2 1 2 1 1 2 1 2 1 1 2 1 1 2 1 2 2 2 2 2 2 1 1 2 1 1 2 3 1 1 1 1 1 2 1 2 2 1 2 1 1 2 1 2 2 2 1 1 1 2 2 2 1 3 3 1 1 1 2 2 1 1 1 3 1 1 2 2 1 1 2 2 1 1 2 1 1 2 1 1 2 1 1 2 1 2 2 1 2 2 2 1 1 1 1 1 ...
-┌───────────┬───────┬──────────┬─────────┬────┐
-│Susceptible│Exposed│Infectious│Recovered│Dead│
-├───────────┼───────┼──────────┼─────────┼────┤
-│545        │388    │63        │4        │0   │
-└───────────┴───────┴──────────┴─────────┴────┘
-3 3 1 2 1 1 1 1 3 1 3 1 1 1 2 2 1 2 2 2 1 2 1 1 2 2 2 1 2 3 2 2 2 1 2 1 1 2 1 2 2 1 3 1 1 2 1 2 2 2 2 2 2 1 1 2 2 1 2 3 1 1 1 1 1 2 1 2 2 2 2 1 1 2 1 2 2 2 1 1 1 2 2 2 1 3 3 1 1 2 2 2 1 1 1 3 1 1 2 2 1 1 2 2 1 1 2 1 1 2 2 1 2 1 1 2 1 2 2 1 2 2 2 1 1 1 1 1 ...
-┌───────────┬───────┬──────────┬─────────┬────┐
-│Susceptible│Exposed│Infectious│Recovered│Dead│
-├───────────┼───────┼──────────┼─────────┼────┤
-│491        │414    │88        │7        │0   │
-└───────────┴───────┴──────────┴─────────┴────┘
-3 3 1 2 1 1 1 1 3 1 3 1 1 1 2 2 1 2 2 2 1 2 1 1 2 2 2 1 2 3 2 2 2 1 2 1 1 2 2 2 2 1 3 1 1 2 1 2 2 2 2 2 2 1 1 2 2 1 2 3 1 1 1 1 1 2 1 2 2 2 3 1 1 2 1 2 2 2 1 1 1 2 2 2 1 3 3 1 1 2 2 2 1 1 1 3 1 2 2 2 1 1 2 2 1 1 2 1 1 2 2 1 2 1 1 2 2 2 2 1 2 2 2 1 2 2 2 1 ...
-┌───────────┬───────┬──────────┬─────────┬────┐
-│Susceptible│Exposed│Infectious│Recovered│Dead│
-├───────────┼───────┼──────────┼─────────┼────┤
-│439        │436    │114       │11       │0   │
-└───────────┴───────┴──────────┴─────────┴────┘
+...
 ```
 
 After one day, we already see 114 people exposed to the disease. Therein lies the danger of COVID-19 -- it incubates in the body, undetected. This number is a bit of an exaggeration, as this population is closed (nobody enters and exits), and everyone interacts with everyone else every day. If Edgar Allen Poe knew about COVID-19, these are the parameters under which "The Masque of the Red Death" was written. So, just keep it in mind that these numbers don't entirely represent how the disease will spread in places less crowded than, say, Times Square.
@@ -447,7 +432,6 @@ Let's now skip to the end of the year.
 ├───────────┼───────┼──────────┼─────────┼────┤
 │81         │163    │196       │445      │115 │
 └───────────┴───────┴──────────┴─────────┴────┘
-4 2 4 3 3 3 3 3 2 4 4 0 2 0 2 2 4 0 3 4 4 1 1 4 4 3 3 4 2 0 2 4 4 0 2 0 3 2 4 2 3 4 3 2 4 4 4 4 3 4 4 4 3 0 4 3 4 3 0 4 3 4 0 1 0 4 0 2 4 4 2 3 0 2 4 3 3 3 2 0 4 2 3 2 2 4 4 2 0 0 2 3 3 4 1 4 4 4 4 0 4 0 4 2 0 4 2 4 1 0 3 4 0 3 4 4 2 1 4 4 4 2 0 0 4 1 4 3 ...
 ```
 
 115 dead. Let's enact some social distancing and give the _entire_ population the asociality modifier of `-0.1`.
@@ -479,19 +463,9 @@ Let's now skip to the end of the year.
 ├───────────┼───────┼──────────┼─────────┼────┤
 │955        │42     │3         │0        │0   │
 └───────────┴───────┴──────────┴─────────┴────┘
-2 2 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 2 1 1 1 2 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 2 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 2 1 ...
-┌───────────┬───────┬──────────┬─────────┬────┐
-│Susceptible│Exposed│Infectious│Recovered│Dead│
-├───────────┼───────┼──────────┼─────────┼────┤
-│946        │48     │6         │0        │0   │
-└───────────┴───────┴──────────┴─────────┴────┘
-2 2 1 3 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 2 1 1 1 2 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 2 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 2 1 ...
-┌───────────┬───────┬──────────┬─────────┬────┐
-│Susceptible│Exposed│Infectious│Recovered│Dead│
-├───────────┼───────┼──────────┼─────────┼────┤
-│936        │55     │9         │0        │0   │
-└───────────┴───────┴──────────┴─────────┴────┘
+
 ...snip...
+
 ┌───────────┬───────┬──────────┬─────────┬────┐
 │Susceptible│Exposed│Infectious│Recovered│Dead│
 ├───────────┼───────┼──────────┼─────────┼────┤
@@ -518,9 +492,11 @@ Let's now skip to the end of the year.
 1 4 1 3 3 1 1 4 4 1 1 3 1 1 0 1 4 1 2 1 3 1 1 0 1 3 1 1 1 4 1 3 3 3 3 2 1 3 1 1 4 1 3 4 4 1 1 1 1 0 1 4 4 1 1 1 0 4 1 1 1 4 2 1 1 1 1 1 4 1 1 1 3 2 1 4 0 4 4 1 1 1 4 1 2 4 4 3 4 4 4 1 4 0 1 3 2 2 4 4 1 1 2 4 4 1 2 2 1 1 1 1 4 2 3 1 1 1 2 1 4 1 1 1 4 2 2 1 ...
 ```
 
-Just by coming together as a society to cut down on the spread of COVID-19, without changing anything else, we can _halve_ the death toll by the end of the first year according to the model. That number, of course, relies on the assumptions we made on how we calculate social-ness. Let's try calculating it in a different way -- instead of being a flat additive ±0.1 modifier on \\(\beta\\), how about we make it multiplicative? A COVID-19 [superspreader has infected up to 11 other people](https://www.newsobserver.com/news/nation-world/national/article241209786.html), which is about 5x what \\(R\\) suggests.
+Just by coming together as a society to cut down on the spread of COVID-19, without changing anything else, we can _halve_ the death toll by the end of the first year according to the model. That number, of course, relies on the assumptions we made on how we calculate social-ness. Let's try calculating it in a different way -- instead of being a flat additive ±0.1 modifier on \\(\beta\\), how about we make it multiplicative? 
 
-Our social risk matrix now looks like this:
+A COVID-19 [superspreader has infected up to 11 other people](https://www.newsobserver.com/news/nation-world/national/article241209786.html), which is about 5x what \\(R\\) suggests. This suggests that the standard deviation of human relationships probably hovers around \\(\frac{5}{3}\\), putting superspreaders in the top 0.3% of human contact if contact is normally distributed.
+
+Our social risk matrix is now generated thusly:
 
 ```j
 ClosenessStdDev =: 5 % 3
@@ -531,13 +507,109 @@ closeness =: 2 %~ (+ |:) ClosenessMean + ClosenessStdDev * rand_norm (ppl,ppl) $
 risk =: closeness - closeness * =i.ppl 
 ```
 
-And it produces results like this (starting conditions same as before, 1000 people, 2 exposed, 365 days):
+And it produces risk matricies like this:
 
 ```j
-
+   risk
+       0   1.79563      0.7175     2.94724   2.02043  0.192731   1.91119  0.919267  1.44283  0.703641
+ 1.79563         0      2.5158    0.312935 _0.268321   1.52827    1.8885 _0.529835 0.636972  0.368671
+  0.7175    2.5158           0 _0.00583566  _1.69494   3.41282  0.539451   3.15925  2.79567  0.749702
+ 2.94724  0.312935 _0.00583566           0   1.80479  0.805175   1.01254   2.35566  1.63717 0.0811308
+ 2.02043 _0.268321    _1.69494     1.80479         0 _0.176758  0.678648   1.02585   1.6886   3.44681
+0.192731   1.52827     3.41282    0.805175 _0.176758         0  0.905996   2.21435  1.01778   1.96473
+ 1.91119    1.8885    0.539451     1.01254  0.678648  0.905996         0 _0.285226  2.50235   2.85363
+0.919267 _0.529835     3.15925     2.35566   1.02585   2.21435 _0.285226         0 _1.20884 _0.310217
+ 1.44283  0.636972     2.79567     1.63717    1.6886   1.01778   2.50235  _1.20884        0   2.53888
+0.703641  0.368671    0.749702   0.0811308   3.44681   1.96473   2.85363 _0.310217  2.53888         0
 ```
 
+The exposure risk is now mutiplicative: 
 
+```j
+ susceptible_to_exposed =. (Beta * susceptible) * (+/ can_spread) %~ +/ |: susceptible * infectiousness
+```
+
+And produces results like this (starting conditions same as before, 1000 people, 2 exposed, 365 days):
+
+```j
+   infect_display^:365 starting_pop
+
+...snip...
+
+4 1 1 4 3 4 2 4 4 3 4 4 4 3 4 4 3 3 2 2 4 4 3 1 2 4 2 4 0 4 3 2 2 2 3 1 4 4 4 4 4 4 4 4 4 4 4 4 4 2 4 3 4 0 0 4 2 3 4 4 4 4 0 3 4 0 0 2 2 4 4 4 4 0 4 4 4 3 2 0 3 2 0 4 0 4 2 3 1 2 4 4 0 0 0 3 4 1 3 4 1 4 3 4 0 1 2 2 2 4 4 1 1 0 0 4 4 0 1 4 3 3 0 4 4 1 4 0 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│86         │150    │192       │431      │141 │
+└───────────┴───────┴──────────┴─────────┴────┘
+```
+
+As our social contact is now multiplicative with \\(\beta\\), we can now accurately answer questions like "What if people were half as likely to have social contact?" by dividing the distribution in half. With all parameters the same, but with half as much multiplicative social contact, the death toll has gone down by a third:
+
+```j
+   infect_display^:365 starting_pop
+
+...snip...
+
+2 4 4 4 1 1 4 2 2 3 1 1 4 0 4 4 1 4 2 2 2 4 4 1 4 4 3 0 3 4 4 2 4 4 1 3 1 4 3 3 4 4 1 0 4 1 1 2 3 4 2 3 3 0 4 3 4 4 2 4 1 0 2 0 4 3 1 4 3 2 4 2 4 1 4 4 4 0 1 2 4 4 2 4 3 0 1 4 3 3 4 4 1 4 4 3 4 0 1 2 4 3 2 4 3 4 3 4 4 1 4 4 3 4 0 0 1 4 4 2 4 2 1 4 3 4 4 4 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│168        │136    │173       │422      │101 │
+└───────────┴───────┴──────────┴─────────┴────┘
+```
+
+What if we cut our social contact down to one quarter? This is what I've been trying to do in real life -- I usually go out with people almost every day, and I have been limiting that now to once or twice per week. What if our whole society did that?**
+
+```j
+   infect_display^:365 starting_pop
+
+...snip...
+
+1 2 2 4 4 2 1 4 3 2 2 1 3 2 4 1 3 4 3 3 1 1 4 4 0 1 4 3 1 3 0 1 1 1 1 4 4 3 2 1 0 4 3 4 1 1 1 4 3 4 4 3 4 0 4 3 2 1 1 1 1 0 4 0 4 0 4 1 0 1 0 3 4 3 3 2 4 2 2 1 3 1 4 1 4 1 1 1 3 1 1 3 4 0 4 1 3 1 3 4 1 1 1 1 1 1 1 4 2 1 2 4 4 1 2 3 0 2 2 4 4 2 4 1 4 2 2 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│299        │117    │172       │320      │92  │
+└───────────┴───────┴──────────┴─────────┴────┘
+```
+
+Just for fun, what would happen if nobody came into contact with each other at all anymore?
+
+```j
+   infect_display^:100 starting_pop
+2 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│998        │1      │1         │0        │0   │
+└───────────┴───────┴──────────┴─────────┴────┘
+
+...snip...
+
+4 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│998        │0      │1         │1        │0   │
+└───────────┴───────┴──────────┴─────────┴────┘
+4 4 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│998        │0      │0         │2        │0   │
+└───────────┴───────┴──────────┴─────────┴────┘
+4 4 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│998        │0      │0         │2        │0   │
+└───────────┴───────┴──────────┴─────────┴────┘
+```
+
+Unsurprisingly, COVID-19 dies out after 24 days.
+
+Food for thought. If you liked this, or found this helpful, please throw a coffee my way at [https://paypal.me/tslimkemann](https://paypal.me/tslimkemann).
 
 ---
 
@@ -569,3 +641,59 @@ Sources:
 Footnotes:
 
 *: The basic SEIRS model is not actually the model used for COVID-19. The model used is much closer to the one presented in Li, Fuxiang, and Xiao-Qiang Zhao. "A Periodic SEIRS Epidemic Model with a Time-dependent Latent Period." Journal of Mathematical Biology 78.5 (2019): 1553-579. Web.
+
+**: This model suggests some _serious_ seasonality to COVID-19. After analyzing all the data, the change here is so little in this simulation because it actually strikes in two waves -- once initially, and once again once immunity wears off after three months. Note the much higher number of susceptible people and the much lower number of recovered people.
+
+Full code:
+
+```j
+ppl =: 1000 NB. How many people are in our simulation?
+
+Beta  =: 0.110134944 NB. The rate at which susceptible people become exposed.
+Sigma =: 0.066967    NB. The rate at which exposed people become infectious.
+Gamma =: 0.0483048   NB. The rate at which infectious people recover.
+Xi    =: 0.02284     NB. The rate at which recovered people lose immunity and become susceptible.
+R     =: 2.28        NB. How many people will 1 person infect?
+CFR   =: 0.02        NB. Case Fatality Rate
+D     =: 0.00155285  NB. Death rate per day while symptomatic
+
+ClosenessStdDev =: 5 % 3
+ClosenessMean =: 1
+
+rand_norm =: 3 : '(2&o. 2p1 * ? y) * %: _2 * ^. ? y'
+closeness =: 4 %~ 2 %~ (+ |:) ClosenessMean + ClosenessStdDev * rand_norm (ppl,ppl) $ 0
+risk =: closeness - closeness * =i.ppl 
+NB. risk =: (ppl,ppl)$0
+
+NB. 0 = Dead
+NB. 1 = Susceptible
+NB. 2 = Exposed
+NB. 3 = Infectious
+NB. 4 = Recovered
+starting_pop =: 2 2 , (ppl - 2) $ 1
+
+infect =: 3 : 0
+ can_spread =. (1&< *. 4&>) y
+ susceptible =. y = 1
+ exposed     =. y = 2
+ infectious  =. y = 3
+ recovered   =. y = 4
+
+ infectiousness =. can_spread ,./ . * risk
+
+ susceptible_to_exposed =. (Beta * susceptible) * (+/ can_spread) %~ +/ |: susceptible * infectiousness
+ exposed_to_infectious =. Sigma * exposed
+ infectious_to_recovered =. Gamma * infectious
+ infectious_to_dead =. D * infectious
+ recovered_to_susceptible =. Xi * recovered
+ 
+ 1 (I.recovered_to_susceptible>?ppl$0)} 4 (I.infectious_to_recovered>?ppl$0)} 0 (I.infectious_to_dead>?ppl$0)} 3 (I.exposed_to_infectious>?ppl$0)} 2 (I.susceptible_to_exposed>?ppl$0)} y
+)
+
+infect_display =: 3 : 0
+ out =. infect y
+ smoutput out
+ smoutput ('Susceptible';'Exposed';'Infectious';'Recovered';'Dead'),:(+/1=out);(+/2=out);(+/3=out);(+/4=out);(+/0=out)
+ out
+)
+```
