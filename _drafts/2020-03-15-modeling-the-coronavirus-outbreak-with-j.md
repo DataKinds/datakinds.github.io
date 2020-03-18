@@ -65,9 +65,10 @@ Gamma =: 0.0483048   NB. The rate at which infectious people recover.
 Xi    =: 0.02284     NB. The rate at which recovered people lose immunity and become susceptible.
 R     =: 2.28        NB. How many people will 1 person infect?
 CFR   =: 0.02        NB. Case Fatality Rate
+D     =: 0.00155285  NB. Death rate per day while symptomatic
 ```
 
-Note that we added one extra parameter, the [Case Fatality Rate](https://wwwnc.cdc.gov/eid/article/26/6/20-0320_article)<sup>9</sup>. This is the percent of COVID-19 cases which end in death. The CDC suggests using 0.25% to 3%, so I'd say 2% is a solid medium, especially with as overwhelmed our US medical systems will be.
+Note that we added one extra parameter, the [Case Fatality Rate](https://wwwnc.cdc.gov/eid/article/26/6/20-0320_article)<sup>9</sup>. This is the percent of COVID-19 cases which end in death. The CDC suggests using 0.25% to 3%, so I'd say 2% is a solid medium, especially with as overwhelmed our US medical systems will be. We can then take that value, and the fact that it takes 13 days to go from symptoms to death<sup>9</sup> in the formula \\(0.98= (1-D)^13\\) to get that the probability of death while symptomatic per day is \\(D = 0.00155285\\)
 
 If we want to simulate the disease's spread, we have to simulate social contact. So, let's make a [hermitian matrix](https://en.wikipedia.org/wiki/Hermitian_matrix) representing how close people are.
 
@@ -183,7 +184,7 @@ infect =: 3 : 0
 )
 ``` 
 
-Now let's find each person's level of at risk social contact, and clamp that somehow. This gets a little hand wavy... what happens if all of a person's sick friends have a closeness rating of 1? Epidemiological models usually don't need to take social closeness into consideration when simulating populations, because they generally don't simulate individual people themselves. So, I'm instead going to average all of the values of someone's social closeness over the amount of possible people that can infect. This will effectively turn someone's social closeness into a binomial distribution, with a maximum value of `1` and a minimum value of `0` and a mode of `0.5`. I'd rather scale this down though, so it has a minimum of `-0.2`ish, a maximum of `0.2`ish, and a mode of `0`, so that being social/asocial is not the only defining aspect of whether someone falls ill. This looks like:
+Now let's find each person's level of at risk social contact, and clamp that somehow. This gets a little hand wavy... what happens if all of a person's sick friends have a closeness rating of 1? Epidemiological models usually don't need to take social closeness into consideration when simulating populations, because they generally don't simulate individual people themselves. So, I'm instead going to average all of the values of someone's social closeness over the amount of possible people that can infect. This will effectively turn someone's social closeness into a binomial distribution, with a maximum value of `1` and a minimum value of `0` and a mode of `0.5`. I'd rather scale this down though, so it has a minimum of `-0.1`ish, a maximum of `0.1`ish, and a mode of `0`, so that being social/asocial is not the only defining aspect of whether someone falls ill. This looks like:
 
 ```j
 5 %~ 0.5 -~ (+/ can_spread) %~ +/ |: susceptible * infectiousness
@@ -204,12 +205,339 @@ infect =: 3 : 0
  susceptible_to_exposed =. (Beta * susceptible) + 5 %~ 0.5 -~ (+/ can_spread) %~ +/ |: susceptible * infectiousness
  exposed_to_infectious =. Sigma * exposed
  infectious_to_recovered =. Gamma * infectious
- infectious_to_dead =. CFR * infectious
- recovered_to_susceptible =. Xi * infectious
+ infectious_to_dead =. D * infectious
+ recovered_to_susceptible =. Xi * recovered
  
  1 (I.recovered_to_susceptible>?ppl$0)} 4 (I.infectious_to_recovered>?ppl$0)} 0 (I.infectious_to_dead>?ppl$0)} 3 (I.exposed_to_infectious>?ppl$0)} 2 (I.susceptible_to_exposed>?ppl$0)} y
 )
 ```
+
+Finally, let's make a function which prints out our population.
+
+```j
+infect_display =: 3 : 0
+ out =. infect y
+ smoutput out
+ out
+)
+```
+
+We can finally simulate our population! Let's run our simulation for 100 days with 10 people.
+
+```j
+   starting_pop
+2 2 1 1 1 1 1 1 1 1
+   infect_display^:100 starting_pop
+2 2 1 1 2 1 2 1 1 1
+2 2 1 1 2 1 3 1 1 1
+2 2 1 1 2 1 3 1 1 2
+2 2 2 1 2 1 3 1 1 2
+3 2 2 1 2 1 3 2 1 2
+3 2 2 1 2 1 3 2 2 2
+3 2 2 1 2 1 3 2 2 2
+3 2 2 1 2 1 3 2 2 2
+4 2 2 2 2 1 3 3 2 2
+4 3 2 2 2 1 3 3 2 2
+4 3 2 2 2 1 3 3 2 2
+4 3 2 2 2 1 4 3 2 2
+4 3 2 2 2 1 4 3 2 2
+4 3 2 2 2 1 4 3 2 2
+4 3 2 2 2 1 4 3 2 2
+4 3 2 2 2 1 4 3 2 2
+4 3 2 2 2 1 4 3 2 2
+4 3 2 2 2 1 4 3 2 2
+4 3 2 2 2 1 4 3 2 2
+4 3 2 2 2 1 4 3 2 2
+4 3 3 2 2 1 4 3 2 2
+4 3 3 2 2 1 4 3 2 2
+4 4 3 2 2 2 4 3 2 2
+4 4 3 2 2 2 4 3 2 2
+4 4 3 2 2 2 4 3 2 2
+4 4 3 2 3 2 4 3 2 2
+4 4 3 3 3 2 4 4 2 2
+4 4 3 4 3 2 4 4 2 2
+4 4 1 4 3 2 4 4 3 2
+4 4 1 4 3 2 4 4 3 2
+4 4 2 4 3 2 4 4 3 2
+4 4 2 4 3 2 4 4 3 2
+4 4 2 4 3 2 4 4 3 2
+4 4 2 4 3 2 4 4 3 2
+4 4 2 4 0 2 4 4 3 2
+4 4 2 4 0 2 4 4 3 2
+4 4 2 4 0 2 4 4 3 2
+4 4 2 4 0 2 4 4 4 2
+4 4 2 4 0 2 4 4 4 2
+4 4 2 4 0 2 4 4 4 2
+4 4 2 4 0 2 4 4 4 2
+4 4 2 4 0 2 4 4 4 2
+4 4 3 4 0 2 4 4 4 2
+4 4 3 4 0 2 4 4 4 2
+4 4 3 4 0 2 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 1 4 4 4 3
+4 4 4 4 0 1 4 4 4 3
+4 4 4 4 0 1 4 4 4 3
+4 4 4 4 0 1 4 4 4 3
+4 4 4 4 0 1 4 4 4 1
+4 4 4 4 0 1 4 4 4 1
+4 4 4 4 0 1 4 4 4 1
+4 4 4 4 0 1 4 4 4 1
+4 4 4 4 0 1 4 4 4 1
+4 4 4 4 0 1 4 4 4 1
+4 4 4 4 0 1 4 4 4 1
+4 4 4 4 0 1 4 4 4 1
+4 4 4 4 0 1 4 4 4 1
+4 4 4 4 0 1 4 4 4 1
+4 4 4 4 0 1 4 4 4 1
+4 4 4 4 0 1 4 4 4 1
+4 4 4 4 0 1 4 4 4 1
+4 4 4 4 0 1 4 4 4 1
+4 4 4 4 0 1 4 4 4 2
+4 4 4 4 0 2 4 4 4 2
+4 4 4 4 0 2 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+4 4 4 4 0 3 4 4 4 2
+```
+
+Uh oh! Looks like 10% of our population passed away. 7 people became immune, 1 person was still infectious after 100 days (seems like they caught it real late), and 1 person was still asymptomatic. Nobody lost their immunity.
+
+Let's rerun our simulation, this time over 1,000 days with a population of 1,000. This one'll take a while, the social closeness matrix is now 1,000x1,000 = 1 million entries. We could do some optimizations, like ensuring in-place array transforms and using sparse matricies, but that's outside of the scope of this blog post.
+
+```j
+   infect_display^:1000 starting_pop
+2 2 1 2 1 1 1 1 1 1 1 1 1 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 2 1 2 1 1 1 1 1 1 2 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 1 1 2 1 2 1 2 1 1 2 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 2 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 2 ...
+2 2 1 2 1 1 1 1 1 1 1 2 1 2 2 2 1 1 1 1 1 1 1 2 1 1 1 1 2 1 2 1 1 2 1 2 1 2 1 1 1 1 2 2 1 1 1 1 2 1 1 1 1 1 1 2 1 1 1 1 1 1 1 2 2 1 1 2 1 2 2 2 1 2 2 2 1 1 1 1 1 2 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 2 1 1 2 1 1 1 1 1 2 2 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 2 ...
+3 2 1 2 1 1 1 1 1 1 1 2 1 2 3 2 1 1 1 1 1 1 1 2 1 1 1 1 2 1 2 1 1 2 1 2 1 3 1 1 1 1 2 2 1 1 1 1 2 1 1 1 1 1 1 2 1 1 1 1 2 1 1 2 2 2 1 3 1 3 2 2 1 2 2 2 1 1 1 1 1 2 1 2 2 1 1 1 1 1 2 1 1 1 2 2 1 1 2 1 1 2 1 1 1 1 1 2 2 1 1 1 1 1 1 2 1 1 1 1 1 1 2 1 1 1 1 2 ...
+3 2 1 2 1 1 1 1 1 1 1 2 1 2 3 2 1 1 1 1 1 1 1 3 1 1 1 1 2 1 2 1 1 2 1 2 1 3 1 1 1 1 2 2 1 1 1 1 2 1 1 1 2 1 1 2 2 1 2 2 2 1 1 2 2 2 1 3 1 3 2 2 1 2 2 2 1 1 1 1 1 2 1 2 2 1 1 1 1 2 2 1 1 1 2 2 1 1 3 1 1 2 1 1 1 1 1 2 2 1 2 1 1 1 1 2 1 1 1 2 1 1 2 1 2 1 1 2 ...
+3 2 2 2 1 1 1 1 1 1 1 2 1 2 3 2 1 2 1 1 1 1 1 3 1 1 1 2 2 1 2 1 1 3 1 2 1 3 1 1 1 1 2 2 1 1 1 1 2 1 1 1 2 1 1 2 2 1 2 2 2 1 1 2 2 2 1 3 1 3 2 2 1 2 2 2 1 1 1 1 1 2 1 2 3 1 1 1 1 2 2 1 1 1 2 2 1 1 3 1 1 2 1 1 1 2 1 2 3 1 2 1 1 1 2 2 1 1 1 3 1 1 2 1 2 1 1 2 ...
+3 2 2 2 1 1 1 1 1 1 1 2 1 3 3 2 1 2 1 1 1 1 1 3 1 1 1 2 3 2 3 1 1 3 1 2 2 3 1 1 1 1 2 2 1 2 1 1 2 1 1 1 2 1 1 2 2 1 2 2 2 2 2 2 2 2 2 3 2 3 2 2 1 2 2 2 1 1 1 1 2 3 1 2 4 1 1 1 1 2 2 1 1 1 2 2 1 1 3 1 1 2 1 2 1 2 1 2 3 1 2 1 1 1 2 2 2 1 1 3 1 1 2 1 3 1 2 2 ...
+3 2 2 2 1 1 1 1 1 1 1 2 1 3 3 2 1 3 1 1 1 1 1 3 1 1 2 2 3 2 3 1 1 3 1 2 2 3 1 2 1 1 2 2 1 2 1 1 2 1 1 1 2 1 1 2 2 2 2 2 2 2 2 2 2 2 2 3 2 3 2 2 1 2 2 2 1 1 2 1 2 3 1 2 4 2 1 1 1 2 2 1 1 1 2 2 1 2 3 1 1 2 1 2 1 2 1 2 3 1 2 1 1 1 2 2 2 1 1 3 1 1 2 1 4 1 2 2 ...
+3 2 2 2 1 1 2 1 1 1 1 2 1 3 3 2 1 3 2 1 1 1 1 3 1 1 2 2 3 2 3 1 1 3 1 2 2 3 1 2 1 1 2 2 1 2 1 1 2 1 1 1 2 1 1 2 2 2 2 2 2 2 2 2 2 2 2 4 2 3 2 2 1 2 2 2 2 1 2 1 2 3 1 3 4 3 2 1 1 2 2 2 2 1 2 2 1 2 3 1 1 2 1 2 1 2 1 2 3 1 2 1 1 1 3 2 2 1 1 3 1 1 2 1 4 2 2 2 ...
+3 2 2 2 1 1 2 1 1 1 1 2 1 3 3 2 1 3 2 1 1 1 1 3 1 1 2 2 3 2 3 1 1 3 1 2 2 3 1 2 1 2 2 2 1 2 1 1 2 2 1 1 2 1 2 2 2 2 2 2 2 2 2 2 2 3 2 4 3 3 2 2 1 2 2 2 2 1 2 1 2 3 1 3 4 3 2 1 1 2 2 2 3 1 2 3 1 3 3 1 1 2 1 2 1 2 1 2 3 1 2 1 1 1 3 2 2 1 1 3 1 2 2 1 4 2 2 2 ...
+3 2 2 2 1 1 2 1 2 2 1 2 1 3 3 2 1 3 2 1 1 1 1 3 1 1 2 2 3 2 3 2 1 3 1 2 2 3 1 2 2 2 2 2 1 2 1 1 2 2 1 1 2 1 2 2 2 2 2 2 2 2 2 2 2 3 2 4 3 3 2 2 1 2 2 2 2 1 2 1 2 3 1 3 4 3 2 1 1 2 2 3 3 1 2 3 1 3 3 1 1 2 1 2 1 2 2 2 3 1 2 1 1 1 3 2 2 1 1 3 2 2 2 1 4 2 2 2 ...
+3 2 3 2 1 1 2 1 2 2 1 2 1 3 3 2 1 3 2 1 1 2 1 3 1 1 3 2 3 2 4 2 1 3 2 2 2 3 1 2 2 2 2 2 1 2 1 1 2 2 1 1 2 1 2 2 2 2 2 2 2 2 2 2 3 3 2 4 3 3 2 2 2 2 3 2 2 1 2 1 2 3 2 3 4 3 2 1 2 2 2 3 3 1 2 3 1 3 4 1 1 2 1 2 1 2 2 2 3 1 2 1 1 1 3 2 2 1 1 3 2 2 2 1 4 3 3 2 ...
+3 2 3 2 1 1 2 1 2 2 2 2 1 3 3 2 1 3 2 1 2 2 1 3 1 1 3 2 3 2 4 2 1 3 2 2 2 3 1 2 2 2 2 2 2 2 1 1 2 2 2 1 2 1 2 2 2 2 2 2 2 2 2 2 3 3 2 4 3 3 2 2 2 2 3 2 2 1 2 1 3 3 2 3 4 3 2 1 2 2 2 3 3 1 2 3 1 3 4 1 1 2 1 2 1 2 2 2 3 1 2 1 1 1 3 2 2 1 1 3 2 2 3 1 4 3 3 2 ...
+3 2 4 2 1 1 2 1 2 2 2 2 1 3 3 2 1 3 2 2 2 2 2 3 1 1 3 2 3 2 4 2 1 4 2 2 2 3 1 2 2 2 2 2 2 2 1 1 2 2 2 1 2 1 2 2 2 2 2 3 2 2 2 2 3 3 2 4 3 3 2 2 2 2 3 2 2 1 2 1 3 3 2 3 4 3 2 1 3 2 2 3 3 2 2 3 2 3 4 1 1 3 1 2 1 2 2 3 4 1 3 1 2 1 3 3 2 1 1 3 2 2 3 1 4 3 3 3 ...
+...snip...
+2 3 4 4 3 3 4 0 0 2 0 0 4 4 3 4 4 3 0 4 0 4 0 4 4 4 4 2 2 2 0 4 0 3 0 4 3 0 1 0 4 0 4 3 3 4 4 0 0 4 4 4 4 0 0 0 0 3 2 0 4 1 3 0 4 4 3 0 2 0 0 4 1 3 0 4 4 4 3 0 2 4 2 4 2 0 3 4 3 4 0 4 4 2 2 3 0 2 3 4 4 0 4 4 0 4 3 4 0 4 2 0 0 4 0 1 3 0 1 3 4 4 4 0 4 0 4 0 ...
+2 3 4 4 3 3 4 0 0 2 0 0 4 4 3 4 4 3 0 4 0 4 0 4 4 4 4 2 2 2 0 4 0 3 0 4 3 0 2 0 4 0 4 3 3 4 4 0 0 4 4 4 4 0 0 0 0 3 2 0 4 1 3 0 4 4 3 0 2 0 0 4 2 3 0 4 4 4 3 0 2 4 2 4 2 0 3 4 3 4 0 4 4 2 2 4 0 2 3 4 4 0 4 4 0 4 3 4 0 4 2 0 0 4 0 1 3 0 1 3 4 4 4 0 4 0 4 0 ...
+2 3 4 4 3 3 4 0 0 2 0 0 4 4 3 4 4 3 0 4 0 4 0 4 4 4 4 2 2 2 0 4 0 3 0 4 3 0 2 0 4 0 4 3 3 4 4 0 0 4 4 4 4 0 0 0 0 3 2 0 4 1 3 0 4 4 3 0 2 0 0 4 2 3 0 4 4 4 3 0 2 4 2 4 2 0 3 4 3 4 0 4 4 2 2 4 0 2 3 4 4 0 4 4 0 4 3 4 0 4 2 0 0 4 0 1 3 0 1 3 4 4 4 0 4 0 4 0 ...
+```
+
+Remember, every `0` is a single dead person. In our simulations, a closed population that doesn't enact any sort of social distancing will suffer a _massive_ death toll. Let's make a little table of the various populations and rerun our simulation, this time over the course of a year.
+
+```j
+infect_display =: 3 : 0
+ out =. infect y
+ smoutput out
+ smoutput ('Susceptible';'Exposed';'Infectious';'Recovered';'Dead'),:(# 1=out);(# 2=out);(# 3=out);(# 4=out);(# 0=out)
+ out
+)
+```
+
+```j
+   infect_display^:365 starting_pop
+2 2 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 2 1 2 1 1 1 1 1 1 2 1 1 1 1 1 1 1 2 1 2 1 2 2 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 1 1 1 1 1 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│886        │114    │0         │0        │0   │
+└───────────┴───────┴──────────┴─────────┴────┘
+2 2 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 2 1 2 1 2 1 1 1 1 2 1 2 1 1 1 1 1 1 1 2 2 2 1 2 2 1 1 1 1 1 1 2 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 2 2 1 1 1 1 1 2 1 2 2 1 1 1 2 1 1 1 1 2 1 1 1 1 1 1 2 1 1 1 2 1 1 1 1 1 2 1 1 1 1 1 2 1 2 2 1 1 1 1 1 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│780        │207    │13        │0        │0   │
+└───────────┴───────┴──────────┴─────────┴────┘
+2 3 1 1 1 1 1 1 1 1 3 1 1 1 2 1 1 2 1 1 1 2 1 1 2 1 1 1 2 1 2 1 2 1 2 1 1 2 1 2 1 1 1 1 1 1 1 2 2 2 2 2 2 1 1 2 1 1 2 3 1 1 1 1 1 2 1 2 2 1 1 1 1 1 1 1 2 2 1 1 1 2 1 2 1 2 2 1 1 1 2 2 1 1 1 2 1 1 2 2 1 1 2 1 1 1 2 1 1 1 1 1 2 1 1 1 1 1 2 1 2 2 1 1 1 1 1 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│693        │279    │28        │0        │0   │
+└───────────┴───────┴──────────┴─────────┴────┘
+2 3 1 2 1 1 1 1 2 1 3 1 1 1 2 1 1 2 1 1 1 2 1 1 2 1 1 1 2 2 2 1 2 1 2 1 1 2 1 2 1 1 2 1 1 2 1 2 2 2 2 2 2 1 1 2 1 1 2 3 1 1 1 1 1 2 1 2 2 1 2 1 1 1 1 2 2 2 1 1 1 2 1 2 1 2 3 1 1 1 2 2 1 1 1 3 1 1 2 2 1 1 2 1 1 1 2 1 1 2 1 1 2 1 1 2 1 2 2 1 2 2 1 1 1 1 1 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│619        │334    │45        │2        │0   │
+└───────────┴───────┴──────────┴─────────┴────┘
+2 3 1 2 1 1 1 1 2 1 3 1 1 1 2 2 1 2 1 2 1 2 1 1 2 2 2 1 2 2 2 2 2 1 2 1 1 2 1 2 1 1 2 1 1 2 1 2 2 2 2 2 2 1 1 2 1 1 2 3 1 1 1 1 1 2 1 2 2 1 2 1 1 2 1 2 2 2 1 1 1 2 2 2 1 3 3 1 1 1 2 2 1 1 1 3 1 1 2 2 1 1 2 2 1 1 2 1 1 2 1 1 2 1 1 2 1 2 2 1 2 2 2 1 1 1 1 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│545        │388    │63        │4        │0   │
+└───────────┴───────┴──────────┴─────────┴────┘
+3 3 1 2 1 1 1 1 3 1 3 1 1 1 2 2 1 2 2 2 1 2 1 1 2 2 2 1 2 3 2 2 2 1 2 1 1 2 1 2 2 1 3 1 1 2 1 2 2 2 2 2 2 1 1 2 2 1 2 3 1 1 1 1 1 2 1 2 2 2 2 1 1 2 1 2 2 2 1 1 1 2 2 2 1 3 3 1 1 2 2 2 1 1 1 3 1 1 2 2 1 1 2 2 1 1 2 1 1 2 2 1 2 1 1 2 1 2 2 1 2 2 2 1 1 1 1 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│491        │414    │88        │7        │0   │
+└───────────┴───────┴──────────┴─────────┴────┘
+3 3 1 2 1 1 1 1 3 1 3 1 1 1 2 2 1 2 2 2 1 2 1 1 2 2 2 1 2 3 2 2 2 1 2 1 1 2 2 2 2 1 3 1 1 2 1 2 2 2 2 2 2 1 1 2 2 1 2 3 1 1 1 1 1 2 1 2 2 2 3 1 1 2 1 2 2 2 1 1 1 2 2 2 1 3 3 1 1 2 2 2 1 1 1 3 1 2 2 2 1 1 2 2 1 1 2 1 1 2 2 1 2 1 1 2 2 2 2 1 2 2 2 1 2 2 2 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│439        │436    │114       │11       │0   │
+└───────────┴───────┴──────────┴─────────┴────┘
+```
+
+After one day, we already see 114 people exposed to the disease. Therein lies the danger of COVID-19 -- it incubates in the body, undetected. This number is a bit of an exaggeration, as this population is closed (nobody enters and exits), and everyone interacts with everyone else every day. If Edgar Allen Poe knew about COVID-19, these are the parameters under which "The Masque of the Red Death" was written. So, just keep it in mind that these numbers don't entirely represent how the disease will spread in places less crowded than, say, Times Square.
+
+Let's now skip to the end of the year.
+
+```j
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│101        │163    │178       │443      │115 │
+└───────────┴───────┴──────────┴─────────┴────┘
+4 2 4 3 3 3 3 3 2 4 4 0 1 0 2 2 4 0 3 4 4 4 1 4 4 3 3 4 2 0 2 4 4 0 2 0 3 2 4 2 2 4 3 2 4 4 4 4 3 4 4 4 3 0 3 2 4 3 0 4 3 4 0 1 0 4 0 2 4 4 1 3 0 2 3 3 3 3 1 0 4 2 3 2 2 4 4 1 0 0 1 3 2 3 1 4 4 4 4 0 4 0 4 2 0 4 2 4 1 0 3 4 0 3 4 4 2 1 4 3 4 2 0 0 4 1 4 3 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│96         │165    │189       │435      │115 │
+└───────────┴───────┴──────────┴─────────┴────┘
+4 2 4 3 3 3 3 3 2 4 4 0 2 0 2 2 4 0 3 4 4 4 1 4 4 3 3 4 2 0 2 4 4 0 2 0 3 2 4 2 3 4 3 2 4 4 4 4 3 4 4 4 3 0 4 2 4 3 0 4 3 4 0 1 0 4 0 2 4 4 2 3 0 2 3 3 3 3 2 0 4 2 3 2 2 4 4 2 0 0 1 3 2 3 1 4 4 4 4 0 4 0 4 2 0 4 2 4 1 0 3 4 0 3 4 4 2 1 4 3 4 2 0 0 4 1 4 3 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│89         │164    │196       │436      │115 │
+└───────────┴───────┴──────────┴─────────┴────┘
+4 2 4 3 3 3 3 3 2 4 4 0 2 0 2 2 4 0 3 4 4 4 1 4 4 3 3 4 2 0 2 4 4 0 2 0 3 2 4 2 3 4 3 2 4 4 4 4 3 4 4 4 3 0 4 3 4 3 0 4 3 4 0 1 0 4 0 2 4 4 2 3 0 2 4 3 3 3 2 0 4 2 3 2 2 4 4 2 0 0 1 3 3 3 1 4 4 4 4 0 4 0 4 2 0 4 2 4 1 0 3 4 0 3 4 4 2 1 4 3 4 2 0 0 4 1 4 3 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│81         │163    │198       │443      │115 │
+└───────────┴───────┴──────────┴─────────┴────┘
+4 2 4 3 3 3 3 3 2 4 4 0 2 0 2 2 4 0 3 4 4 1 1 4 4 3 3 4 2 0 2 4 4 0 2 0 3 2 4 2 3 4 3 2 4 4 4 4 3 4 4 4 3 0 4 3 4 3 0 4 3 4 0 1 0 4 0 2 4 4 2 3 0 2 4 3 3 3 2 0 4 2 3 2 2 4 4 2 0 0 2 3 3 4 1 4 4 4 4 0 4 0 4 2 0 4 2 4 1 0 3 4 0 3 4 4 2 1 4 4 4 2 0 0 4 1 4 3 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│81         │163    │196       │445      │115 │
+└───────────┴───────┴──────────┴─────────┴────┘
+4 2 4 3 3 3 3 3 2 4 4 0 2 0 2 2 4 0 3 4 4 1 1 4 4 3 3 4 2 0 2 4 4 0 2 0 3 2 4 2 3 4 3 2 4 4 4 4 3 4 4 4 3 0 4 3 4 3 0 4 3 4 0 1 0 4 0 2 4 4 2 3 0 2 4 3 3 3 2 0 4 2 3 2 2 4 4 2 0 0 2 3 3 4 1 4 4 4 4 0 4 0 4 2 0 4 2 4 1 0 3 4 0 3 4 4 2 1 4 4 4 2 0 0 4 1 4 3 ...
+```
+
+115 dead. Let's enact some social distancing and give the _entire_ population the asociality modifier of `-0.1`.
+
+```j
+   risk =: (ppl,ppl)$0
+   infect_display^:365 starting_pop
+2 2 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│987        │13     │0         │0        │0   │
+└───────────┴───────┴──────────┴─────────┴────┘
+2 2 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│977        │23     │0         │0        │0   │
+└───────────┴───────┴──────────┴─────────┴────┘
+2 2 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│968        │31     │1         │0        │0   │
+└───────────┴───────┴──────────┴─────────┴────┘
+2 2 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 2 1 1 1 2 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 2 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│955        │42     │3         │0        │0   │
+└───────────┴───────┴──────────┴─────────┴────┘
+2 2 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 2 1 1 1 2 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 2 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 2 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│946        │48     │6         │0        │0   │
+└───────────┴───────┴──────────┴─────────┴────┘
+2 2 1 3 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 1 1 1 1 2 1 1 1 2 1 1 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 2 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 1 1 1 1 1 1 2 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│936        │55     │9         │0        │0   │
+└───────────┴───────┴──────────┴─────────┴────┘
+...snip...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│499        │84     │103       │251      │63  │
+└───────────┴───────┴──────────┴─────────┴────┘
+1 4 1 3 3 1 1 4 4 1 1 3 4 1 0 1 4 1 2 1 2 1 1 0 1 1 1 1 1 4 1 3 3 3 3 1 1 3 1 1 4 1 3 4 4 1 1 1 1 0 1 4 4 1 1 1 0 4 4 1 1 4 2 1 1 1 1 1 4 1 1 1 3 2 1 4 0 4 4 1 1 1 4 1 2 4 4 3 4 4 4 1 4 0 1 3 2 2 4 4 1 1 2 4 4 1 2 2 1 1 1 1 4 2 3 1 1 1 2 1 4 1 1 3 4 2 1 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│497        │86     │104       │250      │63  │
+└───────────┴───────┴──────────┴─────────┴────┘
+1 4 1 3 3 1 1 4 4 1 1 3 4 1 0 1 4 1 2 1 3 1 1 0 1 2 1 1 1 4 1 3 3 3 3 1 1 3 1 1 4 1 3 4 4 1 1 1 1 0 1 4 4 1 1 1 0 4 4 1 1 4 2 1 1 1 1 1 4 1 1 1 3 2 1 4 0 4 4 1 1 1 4 1 2 4 4 3 4 4 4 1 4 0 1 3 2 2 4 4 1 1 2 4 4 1 2 2 1 1 1 1 4 2 3 1 1 1 2 1 4 1 1 4 4 2 1 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│500        │83     │105       │248      │64  │
+└───────────┴───────┴──────────┴─────────┴────┘
+1 4 1 3 3 1 1 4 4 1 1 3 1 1 0 1 4 1 2 1 3 1 1 0 1 3 1 1 1 4 1 3 3 3 3 2 1 3 1 1 4 1 3 4 4 1 1 1 1 0 1 4 4 1 1 1 0 4 1 1 1 4 2 1 1 1 1 1 4 1 1 1 3 2 1 4 0 4 4 1 1 1 4 1 2 4 4 3 4 4 4 1 4 0 1 3 2 2 4 4 1 1 2 4 4 1 2 2 1 1 1 1 4 2 3 1 1 1 2 1 4 1 1 1 4 2 2 1 ...
+┌───────────┬───────┬──────────┬─────────┬────┐
+│Susceptible│Exposed│Infectious│Recovered│Dead│
+├───────────┼───────┼──────────┼─────────┼────┤
+│500        │89     │104       │243      │64  │
+└───────────┴───────┴──────────┴─────────┴────┘
+1 4 1 3 3 1 1 4 4 1 1 3 1 1 0 1 4 1 2 1 3 1 1 0 1 3 1 1 1 4 1 3 3 3 3 2 1 3 1 1 4 1 3 4 4 1 1 1 1 0 1 4 4 1 1 1 0 4 1 1 1 4 2 1 1 1 1 1 4 1 1 1 3 2 1 4 0 4 4 1 1 1 4 1 2 4 4 3 4 4 4 1 4 0 1 3 2 2 4 4 1 1 2 4 4 1 2 2 1 1 1 1 4 2 3 1 1 1 2 1 4 1 1 1 4 2 2 1 ...
+```
+
+Just by coming together as a society to cut down on the spread of COVID-19, without changing anything else, we can _halve_ the death toll by the end of the first year according to the model. That number, of course, relies on the assumptions we made on how we calculate social-ness. Let's try calculating it in a different way -- instead of being a flat additive ±0.1 modifier on \\(\beta\\), how about we make it multiplicative? A COVID-19 [superspreader has infected up to 11 other people](https://www.newsobserver.com/news/nation-world/national/article241209786.html), which is about 5x what \\(R\\) suggests.
+
+Our social risk matrix now looks like this:
+
+```j
+ClosenessStdDev =: 5 % 3
+ClosenessMean =: 1
+
+rand_norm =: 3 : '(2&o. 2p1 * ? y) * %: _2 * ^. ? y'
+closeness =: 2 %~ (+ |:) ClosenessMean + ClosenessStdDev * rand_norm (ppl,ppl) $ 0
+risk =: closeness - closeness * =i.ppl 
+```
+
+And it produces results like this (starting conditions same as before, 1000 people, 2 exposed, 365 days):
+
+```j
+
+```
+
+
 
 ---
 
@@ -231,6 +559,10 @@ Sources:
 8. https://www.ncbi.nlm.nih.gov/pubmed/32097725
 
 9. https://wwwnc.cdc.gov/eid/article/26/6/20-0320_article
+
+10. https://www.newsobserver.com/news/nation-world/national/article241209786.html
+
+
 
 ---
 
