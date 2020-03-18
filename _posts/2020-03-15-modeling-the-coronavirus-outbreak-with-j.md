@@ -68,7 +68,7 @@ CFR   =: 0.02        NB. Case Fatality Rate
 D     =: 0.00155285  NB. Death rate per day while symptomatic
 ```
 
-Note that we added one extra parameter, the [Case Fatality Rate](https://wwwnc.cdc.gov/eid/article/26/6/20-0320_article)<sup>9</sup>. This is the percent of COVID-19 cases which end in death. The CDC suggests using 0.25% to 3%, so I'd say 2% is a solid medium, especially with as overwhelmed our US medical systems will be. We can then take that value, and the fact that it takes 13 days to go from symptoms to death<sup>9</sup> in the formula \\(0.98= (1-D)^13\\) to get that the probability of death while symptomatic per day is \\(D = 0.00155285\\)
+Note that we added one extra parameter, the [Case Fatality Rate](https://wwwnc.cdc.gov/eid/article/26/6/20-0320_article)<sup>9</sup>. This is the percent of COVID-19 cases which end in death. The CDC suggests using 0.25% to 3%, so I'd say 2% is a solid medium, especially with as overwhelmed our US medical systems will be. We can then take that value, and the fact that it takes 13 days to go from symptoms to death<sup>9</sup> in the formula \\(0.98= (1-D)^{13}\\) to get that the probability of death while symptomatic per day is \\(D = 0.00155285\\)
 
 If we want to simulate the disease's spread, we have to simulate social contact. So, let's make a [hermitian matrix](https://en.wikipedia.org/wiki/Hermitian_matrix) representing how close people are.
 
@@ -614,25 +614,25 @@ Food for thought. If you liked this, or found this helpful, please throw a coffe
 ---
 
 Sources:
-1. https://thehill.com/homenews/state-watch/487489-worst-case-coronavirus-models-show-massive-us-toll
+1. [https://thehill.com/homenews/state-watch/487489-worst-case-coronavirus-models-show-massive-us-toll](https://thehill.com/homenews/state-watch/487489-worst-case-coronavirus-models-show-massive-us-toll)
 
-2. https://www.cdc.gov/csels/dsepd/ss1978/lesson3/section3.html
+2. [https://www.cdc.gov/csels/dsepd/ss1978/lesson3/section3.html](https://thehill.com/homenews/state-watch/487489-worst-case-coronavirus-models-show-massive-us-toll)
 
-3. https://www.open.edu/openlearn/health-sports-psychology/health/epidemiology-introduction/content-section-2.1.1
+3. [https://www.open.edu/openlearn/health-sports-psychology/health/epidemiology-introduction/content-section-2.1.1](https://www.open.edu/openlearn/health-sports-psychology/health/epidemiology-introduction/content-section-2.1.1)
 
-4. https://en.wikipedia.org/wiki/Basic_reproduction_number
+4. [https://en.wikipedia.org/wiki/Basic_reproduction_number](https://en.wikipedia.org/wiki/Basic_reproduction_number)
 
-5. https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology
+5. [https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology)
 
-6. https://www.forbes.com/sites/brucelee/2020/03/15/can-you-get-infected-by-coronavirus-twice-how-does-covid-19-immunity-work/
+6. [https://www.forbes.com/sites/brucelee/2020/03/15/can-you-get-infected-by-coronavirus-twice-how-does-covid-19-immunity-work/](https://www.forbes.com/sites/brucelee/2020/03/15/can-you-get-infected-by-coronavirus-twice-how-does-covid-19-immunity-work/)
 
-7. https://www.idmod.org/docs/hiv/model-seir.html
+7. [https://www.idmod.org/docs/hiv/model-seir.html](https://www.idmod.org/docs/hiv/model-seir.html)
 
-8. https://www.ncbi.nlm.nih.gov/pubmed/32097725
+8. [https://www.ncbi.nlm.nih.gov/pubmed/32097725](https://www.ncbi.nlm.nih.gov/pubmed/32097725)
 
-9. https://wwwnc.cdc.gov/eid/article/26/6/20-0320_article
+9. [https://wwwnc.cdc.gov/eid/article/26/6/20-0320_article](https://wwwnc.cdc.gov/eid/article/26/6/20-0320_article)
 
-10. https://www.newsobserver.com/news/nation-world/national/article241209786.html
+10. [https://www.newsobserver.com/news/nation-world/national/article241209786.html](https://www.newsobserver.com/news/nation-world/national/article241209786.html)
 
 
 
