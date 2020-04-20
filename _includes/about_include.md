@@ -7,9 +7,9 @@ If you like what I do on this blog or around the internet, please [become a patr
 Or, catch me around the internet at any of the following links:
 
 {% highlight haskell %}
-map (\s -> "My " ++ s) [
-    "Github",     -- https://github.com/Aearnus
-    "Twitter",    -- https://twitter.com/Aearnus
+(\s -> "My " ++ s) <$> [
+    "Github",     -- https://github.com/DataKinds/
+    "Twitter",    -- https://twitter.com/DataKinds
     "Reddit",     -- https://reddit.com/u/crazym4n
     "Hacker News" -- https://news.ycombinator.com/user?id=Aearnus
     "LinkedIn"    -- https://www.linkedin.com/in/tyler-limkemann-72a80a178/
@@ -17,17 +17,17 @@ map (\s -> "My " ++ s) [
 {% endhighlight %}
 
 Here are some of the projects I've worked on, in order of how cool I think they are...
-* [Charm](https://github.com/Aearnus/charm)
+* [Charm](https://github.com/DataKinds/charm)
     * A stack-based, concatenative language that treats program and data identically.
-* [Sixty Five Oh Two](https://github.com/Aearnus/sixty-five-oh-two)
+* [Sixty Five Oh Two](https://github.com/DataKinds/sixty-five-oh-two)
     * A Haskell eDSL for writing 65(C)02 assembly.
-* [Bytebeat Framework](https://github.com/Aearnus/bytebeat-framework)
+* [Bytebeat Framework](https://github.com/DataKinds/bytebeat-framework)
     * A set of Ruby scripts to automate and ease the process of creating one line music files ("bytebeats").
-* [Stocks 2](https://github.com/Aearnus/stocks-2)
+* [Stocks 2](https://github.com/DataKinds/stocks-2)
     * An open source stock market simulation game.
-* [hslua-repl](https://github.com/Aearnus/hslua-repl)
+* [hslua-repl](https://github.com/DataKinds/hslua-repl)
     * An improved Lua REPL written in Haskell.
-* [Mandelbrot Explorer](https://github.com/Aearnus/mandelbrot-explorer)
+* [Mandelbrot Explorer](https://github.com/DataKinds/mandelbrot-explorer)
     * A hardware accelerated escape time fractal renderer.
-* [Board Framework](https://github.com/Aearnus/board-framework)
+* [Board Framework](https://github.com/DataKinds/board-framework)
     * A framework for a generic image board.
