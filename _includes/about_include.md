@@ -1,6 +1,6 @@
-Hi, I'm Tyler! I'm a student at the University of Arizona for mathematics and theatre. I love functional programming and esoteric tech.
+Hi, I'm Tyler! I'm a year away from a masters in Mathematics, and a minor in Theatre and Linguistics. I love functional programming and esoteric tech.
 
-**I'm actively looking for work! If you know of/have any freelance opportunities, please contact me using the information at the bottom of the page!**
+~~**I'm actively looking for work! If you know of/have any freelance opportunities, please contact me using the information at the bottom of the page!**~~
 
 If you like what I do on this blog or around the internet, please [become a patron on Liberapay](https://liberapay.com/Aearnus) to get more content and software in the future.
 
@@ -12,7 +12,6 @@ Or, catch me around the internet at any of the following links:
     "Twitter",    -- https://twitter.com/DataKinds
     "Reddit",     -- https://reddit.com/u/crazym4n
     "Hacker News" -- https://news.ycombinator.com/user?id=Aearnus
-    "LinkedIn"    -- https://www.linkedin.com/in/tyler-limkemann-72a80a178/
 ]
 {% endhighlight %}
 
