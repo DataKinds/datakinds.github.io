@@ -1,0 +1,234 @@
+---
+layout: post
+title: "Raku in June 2020: Speed, Usability, and Politics"
+date: 2020-06-17 16:50 -0700
+---
+
+# Preface
+
+**Hey all. The date is June 17th, 2020. I don't want to wax poetic about current events in this post, so I will keep this incredibly brief: if you don't support the Black Lives Matter movement, the Black Trans Lives Matter movement, or if you think everything that's been happening doesn't really apply to you and that you don't need to do anything: please close this window and re-evaluate your priorities. This is not "unnecessarily political": everything we do as developers and engineers is inherently political. We control the modern digital world, and doing so without regard for the minority groups we may affect is dangerous and utterly reprehensible. A great link that's been going around with ways you can get involved is here: [https://blacklivesmatters.carrd.co/](https://blacklivesmatters.carrd.co/). If you'd like to educate yourself on the issues that are currently at hand, a book I've had highly recommended to me is [The New Jim Crow by Michelle Alexander](https://www.goodreads.com/book/show/6792458-the-new-jim-crow). Another piece that's more relevant than ever is the late Martin Luther King Jr.'s [Letter from a Birmingham Jail](https://www.africa.upenn.edu/Articles_Gen/Letter_Birmingham.html).** 
+
+It's been a few months since I looked at Raku. Last time I fiddled with it was when the language finally took the leap and renamed itself from Perl 6 to Raku. Heck, I'm still in the old Perl 6 GitHub organization, and I parted ways before the new Raku organization was established.
+
+A few months later and I've gotten the itch to play with it once again. Something about the corporate environment I work in on the daily really drove me away from wanting to use other, more mainstream technologies on my spare time. What's the fun in sitting down to work on a weekend passion project if you're just doing the exact same thing you do at your job?
+
+At work, we use Ruby on Rails -- so I've become acquainted with Ruby on a deeper level than I ever had before. Because of that, I'd like to use Ruby as a bit of a baseline for my judgments on Raku. I think it's an apt comparison because Ruby has many of the same goals as Raku does: it optimizes for developer happiness, it's not fast but it's fast enough for what it's used for, and it's incredibly expressive in ways that other languages couldn't be.
+
+# Installation
+
+It could not be easier to install either of these languages and to have a working environment up in minutes. I have zero complaints -- hell, I have less than 0 complaints. The tooling here is phenomenal: major props to [Michal Papis and the other folks working on RVM](https://github.com/orgs/rvm/people), and major props to [Patrick Böker, Tadeusz Sośnierz, and the other folks working on rakubrew](https://github.com/Raku/App-Rakubrew/graphs/contributors).
+
+Once RVM and rakubrew are installed, getting both environments ready for testing is this easy:
+
+```bash
+$ rvm install ruby-head
+### ... wait for a few minutes... ###
+$ rakubrew build moar-blead master
+### ... wait for a few minutes... ###
+```
+
+I'll be testing the current head versions of both Ruby and Raku. At the time of this writing, these are:
+
+* `ruby 2.8.0dev (2020-06-17T16:16:21Z master 41a4c80d28) [x86_64-linux]`
+* `This is Rakudo version 2020.05.1-292-gcd6172480 built on MoarVM version 2020.05-97-gb5bb4f8d1 implementing Raku 6.d.`
+
+Granted, I realize that Ruby 2.7 and 2.8 have made waves for being notoriously regressive. The JIT has to touch the disk to function (???), libraries generally only support up to 2.6.5, so on and so forth. In the spirit of fair competition I'm going to proceed with using the bleeding edge of both of these languages. 
+
+# Performance
+
+## Cold start
+
+I'm expecting Ruby to blow Raku out of the water with cold start performance -- MoarVM has an extremely significant warm up period. In my past experience, larger Raku projects can take up to almost 10 seconds to warm up and compile on first run, and while compiling, the system was more or less locked up. I'm eager to see if this is still the case. 
+
+To test this, I'm just going to invoke `ruby` and `raku` on an empty file some obscene number of times and time it.
+
+```bash
+$ time (for i in {1..200}; do ruby empty_file; done)
+
+real    0m14.165s
+user    0m12.273s
+sys     0m2.074s
+
+$ time (for i in {1..200}; do raku empty_file; done)
+
+real    0m24.450s
+user    0m25.020s
+sys     0m4.352s
+```
+
+Just as I predicted, Ruby outperformed Raku in cold start performance. There was not as much of a difference as I expected, though: Ruby's cold start performance was only 1.73 times that of Raku's.
+
+Just for consistency's sake, let's try it again with a higher iteration count.
+
+```bash
+$ time (for i in {1..1000}; do ruby empty_file; done)
+
+real    1m10.746s
+user    1m2.334s
+sys     0m9.077s
+
+$ time (for i in {1..1000}; do raku empty_file; done)
+
+real    2m1.846s
+user    2m4.770s
+sys     0m21.252s
+```
+
+Again, we're seeing that Ruby seems to start exactly 1.7 times faster than Raku. From my testing, that seems consistent.
+
+Raku starting up cold in 0.12 seconds is comparable to [the base JVM's startup time](https://purelyfunctional.tv/article/the-legend-of-long-jvm-startup-times/) and much less than plenty of other JIT compiled languages. Color me impressed.
+
+## Garbage collection
+
+In the real world, garbage collection is a _complicated_ beast. There's no one solution that fits every situation, and a GC that may speed through one benchmark might be an absolute dealbreaker for another benchmark. There are too many moving parts here to count: how many objects are being allocated? how big are the objects? how do they align with memory pages? how fast are you allocating them? how often are they being accessed?... well, you get the idea.
+
+To get a little image of the performance of Raku's GC in comparison to Ruby's GC, I'd like to look at both the time taken by a simple program and its memory usage.
+
+The programs I'm comparing will simply create X objects and then promptly end. I'm writing them to best practices in each language, regardless of any micro-optimizations I may be able to make with how the loop is structured or how the objects are created.
+
+The Ruby program:
+
+```rb
+class Simple
+    def initialize()
+        @hello = "Hello, world!"
+    end
+end
+
+100_000_000.times do |i|
+    simple = Simple.new()
+end
+```
+
+The Raku program:
+
+```p6
+class Simple {
+    has $.hello;
+    submethod BUILD() {
+        $!hello = "Hello, world!";
+    }
+}
+
+for ^100_000_000 -> $i {
+    my $simple = Simple.new()
+}
+```
+
+Valgrind's `massif` tool can make quick work of these scripts: running them under `valgrind --tool=massif` will give us a detailed graph showing memory allocation during these scripts runtimes. On the left will be the memory allocation graph for only one million items, and on the right will be the memory allocation graph for one hundred million items.
+
+For Raku:
+
+```
+    MB                                                                              MB
+68.54^                              #                                           66.90^#                                                                       
+     |                         @@   #                                                |#                                                                       
+     |                    @:   @ :::#::::@:::::::@:::::::@:::::::@:::::::@::::       |#::::::::::@::::::::::::::@::::@:::@::::@:::@::::@::::::::@::::::::@::::
+     |                  ::@:@::@ :::#::::@:::::::@:::::::@:::::::@:::::::@::::       |#:: ::: :::@::: : ::::::::@::::@:::@::::@:::@::::@::::::::@::::::::@::::
+     |             @::::::@:@: @ :::#::::@:::::::@:::::::@:::::::@:::::::@::::       |#:: ::: :::@::: : ::::::::@::::@:::@::::@:::@::::@::::::::@::::::::@::::
+     |             @:: :::@:@: @ :::#::::@:::::::@:::::::@:::::::@:::::::@::::       |#:: ::: :::@::: : ::::::::@::::@:::@::::@:::@::::@::::::::@::::::::@::::
+     |           ::@:: :::@:@: @ :::#::::@:::::::@:::::::@:::::::@:::::::@::::       |#:: ::: :::@::: : ::::::::@::::@:::@::::@:::@::::@::::::::@::::::::@::::
+     |         ::: @:: :::@:@: @ :::#::::@:::::::@:::::::@:::::::@:::::::@::::       |#:: ::: :::@::: : ::::::::@::::@:::@::::@:::@::::@::::::::@::::::::@::::
+     |        :::: @:: :::@:@: @ :::#::::@:::::::@:::::::@:::::::@:::::::@::::       |#:: ::: :::@::: : ::::::::@::::@:::@::::@:::@::::@::::::::@::::::::@::::
+     |       @:::: @:: :::@:@: @ :::#::::@:::::::@:::::::@:::::::@:::::::@::::       |#:: ::: :::@::: : ::::::::@::::@:::@::::@:::@::::@::::::::@::::::::@::::
+     |       @:::: @:: :::@:@: @ :::#::::@:::::::@:::::::@:::::::@:::::::@::::       |#:: ::: :::@::: : ::::::::@::::@:::@::::@:::@::::@::::::::@::::::::@::::
+     |       @:::: @:: :::@:@: @ :::#::::@:::::::@:::::::@:::::::@:::::::@::::       |#:: ::: :::@::: : ::::::::@::::@:::@::::@:::@::::@::::::::@::::::::@::::
+     |      :@:::: @:: :::@:@: @ :::#::::@:::::::@:::::::@:::::::@:::::::@::::       |#:: ::: :::@::: : ::::::::@::::@:::@::::@:::@::::@::::::::@::::::::@::::
+     |    :::@:::: @:: :::@:@: @ :::#::::@:::::::@:::::::@:::::::@:::::::@::::       |#:: ::: :::@::: : ::::::::@::::@:::@::::@:::@::::@::::::::@::::::::@::::
+     |   :: :@:::: @:: :::@:@: @ :::#::::@:::::::@:::::::@:::::::@:::::::@::::       |#:: ::: :::@::: : ::::::::@::::@:::@::::@:::@::::@::::::::@::::::::@::::
+     |  @:: :@:::: @:: :::@:@: @ :::#::::@:::::::@:::::::@:::::::@:::::::@::::       |#:: ::: :::@::: : ::::::::@::::@:::@::::@:::@::::@::::::::@::::::::@::::
+     |  @:: :@:::: @:: :::@:@: @ :::#::::@:::::::@:::::::@:::::::@:::::::@::::       |#:: ::: :::@::: : ::::::::@::::@:::@::::@:::@::::@::::::::@::::::::@::::
+     |  @:: :@:::: @:: :::@:@: @ :::#::::@:::::::@:::::::@:::::::@:::::::@::::       |#:: ::: :::@::: : ::::::::@::::@:::@::::@:::@::::@::::::::@::::::::@::::
+     | @@:: :@:::: @:: :::@:@: @ :::#::::@:::::::@:::::::@:::::::@:::::::@::::       |#:: ::: :::@::: : ::::::::@::::@:::@::::@:::@::::@::::::::@::::::::@::::
+     | @@:: :@:::: @:: :::@:@: @ :::#::::@:::::::@:::::::@:::::::@:::::::@::::       |#:: ::: :::@::: : ::::::::@::::@:::@::::@:::@::::@::::::::@::::::::@::::
+   0 +----------------------------------------------------------------------->Gi   0 +----------------------------------------------------------------------->Gi
+     0                                                                   2.079       0                                                                   118.4
+```
+
+For Ruby:
+
+```
+    MB                                                                              MB
+38.33^         ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::   38.33^::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: 
+     |     @@@@#                                                             :       |#                                                                      :
+     |@@:@@@@@@#                                                             :       |#                                                                      :
+     |@@:@@@@@@#                                                             :       |#                                                                      :
+     |@@:@@@@@@#                                                             :       |#                                                                      :
+     |@@:@@@@@@#                                                             :       |#                                                                      :
+     |@@:@@@@@@#                                                             :       |#                                                                      :
+     |@@:@@@@@@#                                                             :       |#                                                                      :
+     |@@:@@@@@@#                                                             :       |#                                                                      :
+     |@@:@@@@@@#                                                             :       |#                                                                      :
+     |@@:@@@@@@#                                                             :       |#                                                                      :
+     |@@:@@@@@@#                                                             :       |#                                                                      :
+     |@@:@@@@@@#                                                             :       |#                                                                      :
+     |@@:@@@@@@#                                                             :       |#                                                                      :
+     |@@:@@@@@@#                                                             :       |#                                                                      :
+     |@@:@@@@@@#                                                             :       |#                                                                      :
+     |@@:@@@@@@#                                                             :       |#                                                                      :
+     |@@:@@@@@@#                                                             :       |#                                                                      :
+     |@@:@@@@@@#                                                             :       |#                                                                      :
+     |@@:@@@@@@#                                                             :       |#                                                                      :
+   0 +----------------------------------------------------------------------->Gi   0 +----------------------------------------------------------------------->Gi
+     0                                                                   1.802       0                                                                   156.7
+```
+
+As you can see, Ruby's peak memory usage for both of these runtimes is 38.33 MB. This might be thanks to Ruby 2.7's heap compaction GC, which keeps short lived objects like our `Simple`s compacted into a singular `calloc`'ed block. Hard to tell whether Ruby's running its garbage collector more, or it's keeping its memory footprint smaller through other means.
+
+Raku's memory footprint peaks at about 67 MB. It seems that Raku does indeed run a few very large garbage collection ticks while items are still being allocated, which is visible through the left graph when you can see dips in the upward slope on the left side. 
+
+This info will only really be put into context once we see how much time is actually spent in the garbage collector. To do this, we can just time those scripts with the GC turned on, then with the GC turned off.
+
+Turns out that Raku spends 12.77% of that script in the garbage collector (found using `raku --profile`), whereas Ruby spends 19.6% of its time in the garbage collector (found using `GC::Profiler`). On top of that, Raku actually executes that entire loop a few seconds faster than Ruby, probably thanks to Raku's hot code detection. 
+
+My final verdict is this: Ruby has a smaller memory footprint than Raku. For short lived, small objects being allocated quickly: Raku's garbage collector runs faster than Ruby's. That's a result that I honestly did not expect to see going into writing this. I am pleased and impressed with these results.
+
+## Other performance considerations
+
+No benchmark's perfect, this one included. Nothing can actually emulate how these languages will hold up under real world workloads. For a while, I considered doing a little benchmark comparison of Cro and Rails -- the two most popular web frameworks for each language, respectively. I ended up deciding against doing this because of how fundamentally different these two frameworks are. Comparing the performance of the two might mean something if you were, say, a project manager trying to decide which framework to use for a project, but it means little to nothing to us for the sake of comparing the languages themselves.
+
+If you've got any other ideas for things to benchmark, please drop a note using the contact info down below.
+
+# Usability
+
+For me, there are two things that go into how usable a scripting language is: the documentation and the quality of the REPL. My day to day workflow for writing Rails at my job usually consists of having `rails console` open on a monitor at all times just in case I needed to check the value of an expression or something like that. So, the quality of the REPL means a lot to how productive I can be in a language.
+
+## REPL
+
+I'm going to ignore third-party drop in replacements for now -- it's pretty clear that [Pry](https://github.com/pry/pry) would blow pretty much everything else out of the water.
+
+Both `irb` and `raku` are extremely barebones, providing not even so much as a help dialog upon starting. 
+
+`irb` has a few nice features, such as syntax highlighting and telling you exactly what scope of parens/quotes/braces you're in by changing the character directly before the prompt. It also highlights syntax errors in bright red as you type them. Pressing up and down in `irb` actually goes back and forth between cohesive blocks of code instead of just single lines. These are all tiny features, but they add up to make using `irb` to be quite a pleasant experience. It really does feel like you spend less time wrangling with the REPL and more time just writing code.
+
+`raku` unfortunately does not have any of these features. All of `raku`'s features come directly from `readline`. In the future, I would love to see at the very least the ability for the REPL to tell you how deeply scoped you currently are: as of now, to show that you're inside quotes or whatever else it simply turns the `> ` that it uses as a prompt into a `* `. There is a lot left to be desired here.
+
+## Documentation
+
+I actually have more complaints with Ruby's documentation than I do with Raku's. To avoid re-iterating over complaints I've written multiple times before, I'm just going to [link to a Twitter thread where I talk about my complaints with Yard, Ruby's most common documentation generator](https://twitter.com/DataKinds/status/1261434678860369920?s=20).
+
+On top of that, Ruby's documentation has a persistent problem where following a link to [https://ruby-doc.org/](https://ruby-doc.org/) -- especially from Google -- will almost always bring you to a page from a Ruby version years passed.
+
+![Results for "ruby float"](/assets/imgs/raku-2020/01.png)
+
+Googling "ruby float" will pull up the documentation for Ruby 2.5.0, a version which is now three years old. The page itself doesn't have an easy way to choose your Ruby version either, forcing you to edit the URL manually or to add the version to your Google query. 
+
+This seems like a small complaint, and it is, but it's definitely just one of many annoyances I have with Ruby's documentation. It adds up.
+
+Raku, on the other hand, has fantastic documentation. The main page at [https://docs.raku.org/](https://docs.raku.org/) automatically shows documentation for the newest version of the language. The search bar is fast and responsive. Writing your own documentation for Raku doesn't even require any external tools -- every doc is written using [POD comments](https://docs.raku.org/language/pod) which are automatically parsed by a tool that comes with the language distribution. I don't really see how it could be improved upon, to be quite honest.
+
+# Politics
+
+I'd mostly like to focus on the aftermath of renaming Raku from Perl 6. Now that it's all said and done, there are still a few things that need to be addressed to fully embrace the future of Raku.
+
+The biggest issue in my opinion is SEO. Trying to Google for anything "raku" or "raku lang" pulls up entirely unrelated results, whereas Googling for "perl 6" pulls up Raku results. I know nothing about search engines, but my naive guess is that this is just a matter of time for Google and other search engines to reindex all of the pages which have only changed names relatively recently. I'm not sure how long something like that generally takes, but it is quite frustrating that it's been a good few months and trying to search for "raku <x>" usually does nothing but pull up pictures of pottery. 
+
+There are still a few kinks to be sorted out -- much of the internal code still refers to it as Perl 6, and some of the repositories still wear Perl 6 in their names as well. These are, again, issues of time. If there was all the person power in the world dedicated to scrubbing each occurrence of "Perl 6" from off the internet, then perhaps it'd be over faster.
+
+In the grand scheme of things, the rename was not as rocky as it could have been. That's not to say that it went smoothly, but I've seen other projects implode immediately after trying to rebrand, and that's absolutely not what happened here.
+
+# Conclusion
+
+I'm deeply pleased with the state of Raku right now. It has progressed so much in the months since I've used it. Before, I was leery about devoting the time to use Raku as a daily tool. I had concerns that it wasn't portable enough, that it wasn't fast enough, etc, etc. I definitely saw it as more of a toy than a real workhorse. But to see so much progress be made so fast, and to see Raku legitimately beat out Ruby in the contrived little benchmark I set up, I'm more than pleased to add it to my toolkit and to treat it with the time and respect that I may not have given it before.
+
+_Comments? Concerns? Want to get angry at me? Message me using the contact links listed below._
