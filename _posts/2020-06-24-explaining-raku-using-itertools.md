@@ -4,12 +4,6 @@ title: Explaining Raku using Python's Itertools
 date: 2020-06-24 19:20 -0700
 ---
 
-# WORK IN PROGRESS
-# WORK IN PROGRESS
-# WORK IN PROGRESS
-# WORK IN PROGRESS
-# WORK IN PROGRESS
-
 A few days ago, I posted [Python's Itertools in Pure Raku](https://datakinds.github.io/2020/06/24/python-s-itertools-in-pure-raku) and I got [quite a few responses](https://www.reddit.com/r/rakulang/comments/heycja/pythons_itertools_in_pure_raku/fvuhz37/) [asking me to](https://www.reddit.com/r/rakulang/comments/heycja/pythons_itertools_in_pure_raku/fvvz8js/) [elaborate on these examples](https://www.reddit.com/r/rakulang/comments/heycja/pythons_itertools_in_pure_raku/fvvnvq2/). This page will then act as a useful addendum to the [Python to Raku nutshell](https://docs.raku.org/language/py-nutshell) page in the Raku docs.
 
 Python's [`itertools`](https://docs.python.org/3/library/itertools.html) package is the gold standard for working with iterable streams of data. 
@@ -301,7 +295,7 @@ sub product(+p) {
 }
 ```
 
-There's a few new things to introduce here. Before this, we used single star (`*@`) [slurpy arguments](https://docs.raku.org/type/Signature#Types_of_slurpy_array_parameters). I opted to use a [different kind of slurpy argument](https://docs.raku.org/type/Signature#index-entry-+_(Single_argument_rule_slurpy)) just to show that it exists. We then [reduce] our list `p` using the cross product operator [infix `X`](https://docs.raku.org/language/operators#infix_X) to create all of our cross products.
+There's a few new things to introduce here. Before this, we used single star (`*@`) [slurpy arguments](https://docs.raku.org/type/Signature#Types_of_slurpy_array_parameters). I opted to use a [different kind of slurpy argument](https://docs.raku.org/type/Signature#index-entry-+_(Single_argument_rule_slurpy)) just to show that it exists. We then [reduce](https://docs.raku.org/language/operators#Reduction_metaoperators) our list `p` using the cross product operator [infix `X`](https://docs.raku.org/language/operators#infix_X) to create all of our cross products.
 
 # Permutations
 
