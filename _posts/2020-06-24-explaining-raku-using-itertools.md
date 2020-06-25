@@ -4,6 +4,12 @@ title: Explaining Raku using Python's Itertools
 date: 2020-06-24 19:20 -0700
 ---
 
+# WORK IN PROGRESS
+# WORK IN PROGRESS
+# WORK IN PROGRESS
+# WORK IN PROGRESS
+# WORK IN PROGRESS
+
 A few days ago, I posted [Python's Itertools in Pure Raku](https://datakinds.github.io/2020/06/24/python-s-itertools-in-pure-raku) and I got [quite a few responses](https://www.reddit.com/r/rakulang/comments/heycja/pythons_itertools_in_pure_raku/fvuhz37/) [asking me to](https://www.reddit.com/r/rakulang/comments/heycja/pythons_itertools_in_pure_raku/fvvz8js/) [elaborate on these examples](https://www.reddit.com/r/rakulang/comments/heycja/pythons_itertools_in_pure_raku/fvvnvq2/). This page will then act as a useful addendum to the [Python to Raku nutshell](https://docs.raku.org/language/py-nutshell) page in the Raku docs.
 
 Python's [`itertools`](https://docs.python.org/3/library/itertools.html) package is the gold standard for working with iterable streams of data. 
@@ -106,9 +112,16 @@ Here are some links if you need a refresher: [Whatever object (`*`)](https://doc
 
 # Accumulate
 
-[`accumulate()`](https://docs.python.org/3/library/itertools.html#itertools.accumulate):
+[`accumulate()` docs](https://docs.python.org/3/library/itertools.html#itertools.accumulate).
+
+Accumulate is the first function that we've seen that takes a predicate function instead of a scalar or list-like value. To pass in a predicate function, we can use the [callable sigil `&`](https://docs.raku.org/language/variables#index-entry-sigil_&) to tell Raku that the argument we're passing in can be executed. Our subroutine signature's now going to look like this:
+
 ```raku
--> @p, &func = * + * { [\[&func]] @p }
+sub accumulate(@p, &func = * + *) { ??? }
+```
+
+```raku
+sub accumulate(@p, &func = * + *) { [\[&func]] @p }
 ```
 
 ---
