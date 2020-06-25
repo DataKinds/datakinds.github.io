@@ -92,7 +92,7 @@ sub cycle(@p) {
 
 There's a lot going on here, but in English, this reads like "concatenate (slip) infinite copies of `@p`". 
 
-The [prefix `|`](https://docs.raku.org/language/operators#prefix_|) turns our `@p` into a [Slip](https://docs.raku.org/type/Slip), which is a class that automatically flattens the list that it's inserted into. The Raku-ism for concatenating two lists is to coerce them both into slips and create a new list out of those, which looks like: `|@a, |@b` for some lists `@a` and `@b`.
+The <a href="https://docs.raku.org/language/operators#prefix_|">prefix <code class="highlighter-rouge">|</code></a> turns our `@p` into a [Slip](https://docs.raku.org/type/Slip), which is a class that automatically flattens the list that it's inserted into. The Raku-ism for concatenating two lists is to coerce them both into slips and create a new list out of those, which looks like: `|@a, |@b` for some lists `@a` and `@b`.
 
 Once we've created the [Slip](https://docs.raku.org/type/Slip) from `@p`, we concatenate an infinite amount of them by passing whatever (`*`) to the list repetition operator [infix `xx`](https://docs.raku.org/language/operators#infix_xx).
 
@@ -120,71 +120,164 @@ Accumulate is the first function that we've seen that takes a predicate function
 sub accumulate(@p, &func = * + *) { ??? }
 ```
 
+This time, we're setting the default argument of `&func` to `* + *`. If you look at [Python's default argument for accumulate](https://docs.python.org/3/library/itertools.html#itertools.accumulate), you'll see that they're using a default argument of `operator.add`: a function which adds two values which are passed to it. 
+
+If you've made the jump and guessed that somehow `* + *` is a function which takes two arguments and adds them together, you'd be 100% correct. Using whatever (`*`) in a statement actually coerces the entire statement to a [`WhateverCode` object](https://docs.raku.org/type/WhateverCode) and allows it to act as a function in its own right. If all these stars are making you see stars, the Perl 6 Advent Calendar blog has a [good post disambiguating all of them](https://perl6advent.wordpress.com/2017/12/11/all-the-stars-of-perl-6/).
+
+Now that we understand `accumulate`'s signature, let's move on to the body of the function:
+
 ```raku
-sub accumulate(@p, &func = * + *) { [\[&func]] @p }
+sub accumulate(@p, &func = * + *) {
+    [\[&func]] @p
+}
 ```
 
----
+If you're an APL programmer, using `\` in an accumulator should be ringing a bell to you. This is a little bit simpler than it seems: `[ ]` is the [reduction metaoperator](https://docs.raku.org/language/operators#Reduction_metaoperators). In order to use a non-operator callable inside of it we must surround that callable with an extra pair of brackets, and in order accumulate intermediate results we use a `\` inside of the metaoperator itself. That's all that's going on here.
 
-[`chain() / chain.from_iterable()`](https://docs.python.org/3/library/itertools.html#itertools.chain):
+# Chain
+
+[`chain()` / `chain.from_iterable()` docs](https://docs.python.org/3/library/itertools.html#itertools.chain).
 
 This is the default behavior of [slurpy arguments](https://docs.raku.org/type/Signature#Types_of_slurpy_array_parameters).
-```raku
--> *@p { @p }
-```
-
----
-
-[`compress()`](https://docs.python.org/3/library/itertools.html#itertools.compress):
 
 ```raku
--> @d, @s { flat @d Zxx @s }
+sub chain(*@p) {
+    @p
+}
 ```
 
----
+# Compress
 
-[`dropwhile()`](https://docs.python.org/3/library/itertools.html#itertools.dropwhile):
+[`compress()` docs](https://docs.python.org/3/library/itertools.html#itertools.compress).
+
+This one might take a little bit to build up to, so let's take it step by step until we've built the whole function. The final product looks like this:
 
 ```raku
--> &pred, @seq { lazy gather for @seq { take $_ if &pred ff * } }
+sub compress(@d, @s) {
+    flat @d Zxx (+<<?<<@s)
+}
 ```
 
----
+Its operation is easy enough to explain in English. For every element in `@d`, we return it if its corresponding value in `@s` is truthy. Let's start with a much easier question. How do we tell which values in `@s` are truthy?
 
-[`filterfalse()`](https://docs.python.org/3/library/itertools.html#itertools.filterfalse):
+Raku has the [prefix `?` operator](https://docs.raku.org/language/operators#prefix_?) which coerces its argument to a boolean. The only problem is that it coerces the _whole_ argument, meaning it coerces lists to a single value:
+
+```raku
+> (0,1,2,3).WHAT
+(List)
+> ?(0,1,2,3)
+True
+```
+
+In other words, we want to be able to coerce every element individually to a bool, not the whole thing. There are a couple ways to do this. We could use a classic for loop, we could use `map`, or we could use [hyper operators](https://docs.raku.org/language/operators#Hyper_operators). Just like [the reduction metaoperator `[ ]`](https://docs.raku.org/language/operators#Reduction_metaoperators) from before, you can make any operator into a hyper operator by using `<<` and `>>`. Let's see how this changes things:
+
+```raku
+> (0,1,2,3).WHAT
+(List)
+> ?<<(0,1,2,3)
+(False True True True)
+```
+
+Aha! It's exactly what we want. Let's use the same trick to coerce them back to numbers, using the numeric context operator [prefix `+`](https://docs.raku.org/language/operators#prefix_+):
+
+```raku
+> +<<?<<(0,1,2,3)
+(0 1 1 1)
+```
+
+Again, an APL programmer will see exactly where I'm going with this. Using the list we've created to replicate elements in `@s` will give us exactly what we want from `compress`. To do this, we can use the [zip metaoperator `Z`](https://docs.raku.org/language/operators#Zip_metaoperator) to pair off corresponding elements in each list automatically. Combining this with the list repetition operator [infix `xx`](https://docs.raku.org/language/operators#infix_xx) that we learned about earlier gets us very close to what we need:
+
+```raku
+> (0,1,2,3) Zxx (0,2,4,6)
+(() (1 1) (2 2 2 2) (3 3 3 3 3 3))
+```
+
+Now we just have to flatten the final list with [`flat`](https://docs.raku.org/routine/flat):
+
+```raku
+> flat (0,1,2,3) Zxx (0,2,4,6)
+(1 1 2 2 2 2 3 3 3 3 3 3)
+```
+
+And once we put the rest of the pieces together, we're done!
+
+```raku
+> flat (0,1,2,3) Zxx +<<?<<(0,2,4,6)
+(1 2 3)
+```
+
+(Note: functional programmers may notice that we could have instead used a single call to [`flatmap`](https://docs.raku.org/routine/flatmap). If you give this a try, let me know 😉)
+
+# Drop while
+
+[`dropwhile()` docs](https://docs.python.org/3/library/itertools.html#itertools.dropwhile).
+
+```raku
+sub dropwhile(&pred, @seq) {
+    gather for @seq {
+        take $_ if (none &pred) ff *
+    }
+}
+```
+
+We've seen a lot of this before! Here are some refreshers if you need them: the [callable sigil `&`](https://docs.raku.org/language/variables#index-entry-sigil_&), the [`gather / take` control flow structures](https://docs.raku.org/language/control#gather/take), the [Whatever object (`*`)](https://docs.raku.org/type/Whatever).
+
+That [`for` loop](https://docs.raku.org/language/control#index-entry-control_flow__for-for) looks a little bit different than the one we've already seen. It doesn't have a current iteration variable! That's like writing a Python loop `for value in list` as `for list`... which makes no sense in Python, but it makes perfect sense in Raku! Raku has a special variable called [`$_` which is called the "topic variable"](https://docs.raku.org/language/variables#index-entry-topic_variable). `$_` gets set to whatever you're currently talking about in your code -- in `for` loops it is the current loop variable, in `given` blocks it's the given variable, in [smartmatches](https://docs.raku.org/language/operators#infix_~~) it's the left hand side, etc, etc, etc.
+
+So `dropwhile` simply says "take (and yield, if you will) the `$_` variable if `(none &pred) ff *` holds".
+
+`(none &pred) ff *` uses two things you haven't seen before: the [`none` junction](https://docs.raku.org/type/Junction) and the flip-flop operator [infix `ff`](https://docs.raku.org/language/operators#infix_ff).
+
+Junctions are another ball game entirely, and if you'd like to learn more about them, I wrote another blog post here: [GADTs and Superpositions in Raku](https://datakinds.github.io/2019/04/08/gadts-in-perl-6). The import gist here is that the `none` junction is only true if all of its constituents are false. Its one constituent is, in this case, the `&pred` callable.
+
+Once `none &pred` returns True (meaning once `&pred` returns false), the flip-flop operator, well, flip-flops. By default, the flip-flop operator always returns False until its left side returns True, in which it'll return True until its right side returns True. It bounces back and forth between these two conditions forever.
+
+We can override `ff`'s default functionality however by passing whatever (`*`) to the right side of it. This makes `ff` only flip-flop once and never again, returning True for the rest of time once the left side returns True.
+
+# Filter false
+
+[`filterfalse()` docs](https://docs.python.org/3/library/itertools.html#itertools.filterfalse).
 
 This is a builtin: the [`grep` method, using a `none` Junction](https://docs.raku.org/type/List#routine_grep).
 
----
+# Group by
 
-[`groupby()`](https://docs.python.org/3/library/itertools.html#itertools.groupby):
+[`groupby()` docs](https://docs.python.org/3/library/itertools.html#itertools.groupby).
 
 This is a builtin: the [`categorize` method](https://docs.raku.org/type/List#routine_categorize) or the [`classify` method](https://docs.raku.org/type/List#routine_classify).
 
----
+# Islice
 
-[`islice()`](https://docs.python.org/3/library/itertools.html#itertools.islice):
+[`islice()` docs](https://docs.python.org/3/library/itertools.html#itertools.islice).
 
 This is a builtin: basic [positional list slices](https://docs.raku.org/type/List#routine_categorize) are capable of this.
 
----
+# Starmap
 
-[`starmap()`](https://docs.python.org/3/library/itertools.html#itertools.starmap):
+[`starmap()` docs](https://docs.python.org/3/library/itertools.html#itertools.starmap).
 
 ```raku
--> &func, @seq { @seq>>.&{ func(|$_) } }
+sub starmap(&func, @seq) {
+    @seq>>.&{ func(|$_) }
+}
 ```
 
----
+You've seen almost everything here except for the [methodop `.&` operator](https://docs.raku.org/language/operators#methodop_.&), allowing us to call our `{ func(|$_) }` [block](https://docs.raku.org/language/control#Blocks) as a method.
 
-[`takewhile()`](https://docs.python.org/3/library/itertools.html#itertools.takewhile):
+# Take while
 
-I could write this the same as `dropwhile()` but just break out of the `for` loop early, but I'm gonna take full advantage of the [sequence operator](https://docs.raku.org/language/operators#infix_...) here instead.
+[`takewhile()` docs](https://docs.python.org/3/library/itertools.html#itertools.takewhile).
+
+
 ```raku
--> &pred, @seq { |@seq ...^ { !pred($_) } }
+sub takewhile(&pred, @seq) {
+    |@seq ...^ { !pred($_) }
+}
 ```
 
----
+Some refreshers if you need them: the [infix `...^`](https://docs.raku.org/language/operators#infix_...) operator, the <a href="https://docs.raku.org/language/operators#prefix_|">prefix <code class="highlighter-rouge">|</code></a> operator, and the [`Block` object](https://docs.raku.org/type/Block).
+
+# Tee
 
 [`tee()`](https://docs.python.org/3/library/itertools.html#itertools.tee):
 
@@ -192,46 +285,52 @@ Not really sure that this one makes sense to implement, as we're technically wor
 
 For that matter, `Seq` does provide a builtin, the [`cache` method](https://docs.raku.org/type/Seq#(PositionalBindFailover)_method_cache), that may be used effectively the same way in practice.
 
----
+# Zip longest
 
 [`zip_longest()`](https://docs.python.org/3/library/itertools.html#itertools.zip_longest):
 
-Probably the hardest one to implement. Nothing in Raku really naturally does this operation. Without accounting for length, and stopping at the shortest list, it would simply be:
-```raku
--> **@p { [Z] @p }
-```
-Going to think about this one overnight, actually. I feel like there's an elegant way to do this really quickly but I can't put my finger on it. Pester me using the links down below if I haven't filled this one in yet.
+(todo)
 
----
+# Product
 
 [`product()`](https://docs.python.org/3/library/itertools.html#itertools.product):
 
 ```raku
--> +p { [X] p }
+sub product(+p) {
+    [X] p
+}
 ```
 
----
+There's a few new things to introduce here. Before this, we used single star (`*@`) [slurpy arguments](https://docs.raku.org/type/Signature#Types_of_slurpy_array_parameters). I opted to use a [different kind of slurpy argument](https://docs.raku.org/type/Signature#index-entry-+_(Single_argument_rule_slurpy)) just to show that it exists. We then [reduce] our list `p` using the cross product operator [infix `X`](https://docs.raku.org/language/operators#infix_X) to create all of our cross products.
+
+# Permutations
 
 [`permutations()`](https://docs.python.org/3/library/itertools.html#itertools.permutations):
 
 This is a builtin: the [`permutations` method](https://docs.raku.org/routine/permutations).
 
----
+# Combinations
 
 [`combinations()`](https://docs.python.org/3/library/itertools.html#itertools.combinations):
 
 This is a builtin: the [`combinations` method](https://docs.raku.org/routine/combinations).
 
----
+# Combinations with replacements
 
-[`combinations_with_replacement()`](https://docs.python.org/3/library/itertools.html#itertools.combinations):
+[`combinations_with_replacement()`](https://docs.python.org/3/library/itertools.html#itertools.combinations)
 
 ```raku
--> @p, $r { |@p.combinations($r), |([Z] @p xx $r) }
+sub combinations_with_replacement(@p, $r) {
+    |@p.combinations($r), |([Z] @p xx $r)
+}
 ```
+
+Left as an exercise to the reader 😊.
 
 ---
 
-Well, that's about all of them. Every `itertools` function written on one page, in Raku one liners. This is all just food for thought: there really is no reason for Python to be as verbose and yet so lacking in features, and I suppose this is some sort of proof.
+Well, that's about all of them. Every `itertools` function written on one page in pure Raku. Hope you enjoyed and maybe learned something!
 
 Message me using the contact info below, if you'd like.
+
+If you found this useful, why not [toss me a few bucks to support my blogging habit](https://paypal.me/tslimkemann)?
