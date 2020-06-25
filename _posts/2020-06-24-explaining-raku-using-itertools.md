@@ -330,3 +330,15 @@ Well, that's about all of them. Every `itertools` function written on one page i
 Message me using the contact info below, if you'd like.
 
 If you found this useful, why not [toss me a few bucks to support my blogging habit](https://paypal.me/tslimkemann)?
+
+# Comments
+
+---
+
+[/u/raiph from the Raku subreddit](https://www.reddit.com/r/rakulang/comments/heycja/pythons_itertools_in_pure_raku/fvxzre6/?context=3) mentioned the `Inline::Python` library: 
+
+```raku
+use itertools:from<Python> ;
+say count(10) ; # 10 11 12 13 14 ...
+say cycle('ABCD') ; # A B C D A B C D ...
+```
