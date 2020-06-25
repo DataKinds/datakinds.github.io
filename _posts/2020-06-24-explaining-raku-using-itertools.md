@@ -275,7 +275,7 @@ Some refreshers if you need them: the [infix `...^`](https://docs.raku.org/langu
 
 # Tee
 
-[`tee()`](https://docs.python.org/3/library/itertools.html#itertools.tee):
+[`tee()` docs](https://docs.python.org/3/library/itertools.html#itertools.tee).
 
 Not really sure that this one makes sense to implement, as we're technically working with lazy lists for the most part here and not generated sequences. 
 
@@ -283,13 +283,13 @@ For that matter, `Seq` does provide a builtin, the [`cache` method](https://docs
 
 # Zip longest
 
-[`zip_longest()`](https://docs.python.org/3/library/itertools.html#itertools.zip_longest):
+[`zip_longest()` docs](https://docs.python.org/3/library/itertools.html#itertools.zip_longest).
 
 (todo)
 
 # Product
 
-[`product()`](https://docs.python.org/3/library/itertools.html#itertools.product):
+[`product()` docs](https://docs.python.org/3/library/itertools.html#itertools.product).
 
 ```raku
 sub product(+p) {
@@ -301,19 +301,19 @@ There's a few new things to introduce here. Before this, we used single star (`*
 
 # Permutations
 
-[`permutations()`](https://docs.python.org/3/library/itertools.html#itertools.permutations):
+[`permutations()` docs](https://docs.python.org/3/library/itertools.html#itertools.permutations).
 
 This is a builtin: the [`permutations` method](https://docs.raku.org/routine/permutations).
 
 # Combinations
 
-[`combinations()`](https://docs.python.org/3/library/itertools.html#itertools.combinations):
+[`combinations()` docs](https://docs.python.org/3/library/itertools.html#itertools.combinations).
 
 This is a builtin: the [`combinations` method](https://docs.raku.org/routine/combinations).
 
 # Combinations with replacements
 
-[`combinations_with_replacement()`](https://docs.python.org/3/library/itertools.html#itertools.combinations)
+[`combinations_with_replacement()` docs](https://docs.python.org/3/library/itertools.html#itertools.combinations).
 
 ```raku
 sub combinations_with_replacement(@p, $r) {
