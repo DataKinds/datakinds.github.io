@@ -214,6 +214,8 @@ sub dropwhile(&pred, @seq) {
 }
 ```
 
+(Thanks to Rogue from the [Raku discord server](https://discord.gg/gg2a3T6) for a correction in this section.)
+
 We've seen a lot of this before! Here are some refreshers if you need them: the [callable sigil `&`](https://docs.raku.org/language/variables#index-entry-sigil_&), the [`gather / take` control flow structures](https://docs.raku.org/language/control#gather/take), the [Whatever object (`*`)](https://docs.raku.org/type/Whatever).
 
 That [`for` loop](https://docs.raku.org/language/control#index-entry-control_flow__for-for) looks a little bit different than the one we've already seen. It doesn't have a current iteration variable! That's like writing a Python loop `for value in list` as `for list`... which makes no sense in Python, but it makes perfect sense in Raku! Raku has a special variable called [`$_` which is called the "topic variable"](https://docs.raku.org/language/variables#index-entry-topic_variable). `$_` gets set to whatever you're currently talking about in your code -- in `for` loops it is the current loop variable, in `given` blocks it's the given variable, in [smartmatches](https://docs.raku.org/language/operators#infix_~~) it's the left hand side, etc, etc, etc.
