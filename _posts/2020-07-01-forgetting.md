@@ -1,0 +1,26 @@
+---
+layout: post
+title: Forgetting and the Texture of Pitch
+date: 2020-07-01 14:41 -0700
+category: essay
+---
+
+---
+
+Today I read a news article that described a traumatic accident that happened a few years ago to a 19 year old named Alex. They had decided to climb on top of a parked train. This train was the kind of train that's powered by high voltage wires running overhead. Something lead to the next, perhaps the current wasn't properly grounded or Alex accidentally came close enough to one of these wires for it to arc, and as quickly as they noticed the sharp crack of electricity flowing through them they were in the hospital burn ward getting treated for burns on 70 percent of their body.
+
+One particularly troubling fact is how Alex described the experience: "I don't remember the accident, it's just pitch black in my memory" ([1]). To call a memory "pitch black" is to be able to recall something's existence but not recall the texture of the thing itself. It is as if the mind has smeared a bit of waxy pitch over its very own folds, sealing away a memory forever. 
+
+I haven't had that same experience. To "forget", to me, is not the smooth untextured safety of pitch. It is the chaotic sequencing of timeframes which don't quite line up. It's onion skinning an animation where a cruel puppeteer has stolen a stack of frames from the center of the protagonist's big battle scene. Sure, you can smudge something together if you draw sloppily enough, but you're forever left with the question of what detail might have been lost in the center. Forgetting isn't about texture, it's about continuity.
+
+The other week, I fell asleep during a movie for the first time in my life. It was the movie Elf -- a year round classic. I dozed off watching Will Ferrell first meet Zooey Deschanel for the first time. I snoozed hard enough that I was vividly aware that I had lost consciousness. In my semi-lucid dreamful state I could just hardly hear the droning of Elf in the background of the massive fish bowl I was swimming through. Sometimes when I'm fast asleep it's hard to cope with the knowledge that there's an entire universe outside my dream which I could enter once again if I just had the strength to wake up. So I'll force myself to wake up. I'll punch myself in my dream, I'll pinch every inch of exposed skin and piss myself until my dream body's so uncomfortable that I have no choice but to come to. Sometimes I'll dream that I'm finally awake and be sent up a never-ending spiral of false awakenings until my physical body is so anxious that it simply cannot sleep any longer.
+
+And so I eventually woke back up to Zooey Deschanel gently leading a makeshift chorus of townspeople singing "Santa Claus is Coming to Town". What had happened in between? I knew the movie Elf enough to know that I had missed a majority of it, that there were segments in the middle which I know exist but I don't know their contents. They are not black and they are not pitch. Those segments, I knew, had to logically link the events at the start of the movie to the events at the end of the movie. After thinking about it for a bit, my brain had created some sort of neural search space interpolated amalgamation that it deemed satisfying enough as a stand in for a real memory of the middle of Elf. Much like a bloom filter, I could answer questions of what must have happened in the movie: "Did Zooey Deschanel get together with Will Ferrell? Yeah!" But I could not add details or reiterate plot points. This pseudo-memory is not pitch black. It is warbled and colorful and loud, it is blurred and maddening and too smooth for me to be comfortable trusting it entirely. It is faces and abstract representations of plot points and it is born out of a life long understanding of causality. It relies rather precariously on all the knowledge that I've had in my life: how long movies usually are, how plot points are generally connected together, how people generally act both on screen and off.
+
+So I only come to wonder what Alex sees in those few moments in their mind. Where did they fall asleep? Where does their mind go to search for causality in their accident? Is the last thing they remember climbing up on the train then being in the hospital? How maddening it must be to have to interpolate between such diametrically opposed settings. If the brain is a network of connections, then the path from "train" to "hospital" will be long and meandering -- not anywhere near as straightforward as, say, the plot of Elf. 
+
+It is perhaps comforting to say that your brain doesn't try to enforce cause-and-effect like that. To put a mental, perhaps even subconscious, bandage over it and say that you just "blacked out" for a moment, during an event, maybe over a whole night. To say that you can only recall "pitch black" is ignoring the texture of the memory, it is ignoring every last bit of your brain which is screaming for a cause and crying for an effect. We are the human animal hardwired to make reason and to create logic from chaos, and perhaps "pitch black" is the best way our conscious mind knows how to verbalize that mental strain of scanning our near infinite-dimensional neural space for some small semblance of consistency. Perhaps it's for the best.
+
+---
+
+[1]: https://www.youtube.com/watch?v=0VkAlD0Phkc
