@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Forgetting and the Texture of Pitch
+title: Forgetting, and the Texture of Pitch
 date: 2020-07-01 14:41 -0700
 category: essay
 ---
