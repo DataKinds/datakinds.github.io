@@ -1,0 +1,16 @@
+<html lang="en-us"><head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Twitter Embed</title>
+
+  </head>
+
+  <body>
+    <div id="canvas-wrapper">
+      <canvas id="canvas" oncontextmenu="event.preventDefault()" tabindex="-1" style="display: initial; cursor: default;" width="800" height="600"></canvas>
+    </div>
+
+
+
+
+    </body></html>
