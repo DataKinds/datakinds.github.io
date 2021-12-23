@@ -4,6 +4,7 @@ title: What would "Socialism with American Characteristics" look like?
 date: 2021-12-22 21:21 -0700
 ---
 
+In 1982, Deng Xiaoping took over as supreme leader of China after Mao Zedong recognized his failures in the Cultural Revolution and stepped down.
 
 
 > What is the ideological line? To adhere to Marxism and to integrate it with Chinese realities -- in other words, to seek truth from facts, as advocated by Comrade Mao Zedong, and to uphold his basic ideas.
