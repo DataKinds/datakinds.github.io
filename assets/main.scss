@@ -2,11 +2,95 @@
 # Only the main Sass file needs front matter (the dashes are enough)
 ---
 
-@import "minima";
+@import "bootstrap/scss/bootstrap-reboot.scss";
+// @import "minima";
+
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Changa+One:ital@0;1&display=swap');
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Changa One', cursive;
+}
+
+a {
+    color: darken(#5FA5EC, 20%);
+}
+
+body {
+    font-family: 'Balsamiq Sans', sans-serif;
+    font-size: 16px;
+}
+
+.site-title {
+    text-decoration: none;
+    color: rgb(73, 29, 0);
+}
 
 .big-banner {
     padding: 10px;
     border-radius: 10px;
     border: thick double #32a1ce;
     background-color: #cce7f1;
+}
+@media screen and (max-width: 800px) {
+    .wrapper {
+        $gap: 20px;
+        margin-left: $gap !important;
+        margin-right: $gap !important;
+        width: calc(100% - 2 * $gap) !important;
+        max-width: unset !important;
+    }
+
+    $narrow-bkg-offset: 80%;
+    header.site-header {
+        background-position: $narrow-bkg-offset top !important;
+    }
+    
+    main {
+        background-position: $narrow-bkg-offset 50% !important;
+    }
+    footer {
+        background-position: $narrow-bkg-offset top;
+    }
+    
+}
+.wrapper {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: 400px;
+    // border: 10px ridge #FA9305;
+    border-width: 30px;
+    border-style: solid;
+    border-image-source: url('/assets/border.png');
+    border-image-slice: 32 32 32 32;
+    background-image: linear-gradient(to bottom, #eca65f, #fbc571, #eca65f)
+}
+
+$bkg-size: 3000px;
+
+header.site-header {
+    background-image: url('/assets/header.png');
+    background-size: $bkg-size;
+    background-position: right top;
+    height: 665px; 
+}
+
+main {
+    background-image: url('/assets/body_tiled.png');
+    background-size: $bkg-size;
+    background-position: right 50%;
+}
+
+footer {
+    background-image: url('/assets/footer.png');
+    background-size: $bkg-size;
+    background-position: right top;
+    background-repeat: no-repeat;
+}
+
+.social-media-list {
+    .svg-icon {
+        display: inline;
+        width: 1em;
+        height: 1em;
+    }
 }

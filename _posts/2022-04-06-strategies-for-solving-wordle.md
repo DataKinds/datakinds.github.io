@@ -6,7 +6,7 @@ date: 2022-04-06 11:29 -0700
 
 The other day, my partner and I were competing to see who could solve the day's Wordle the quickest. She got it in 4 guesses. I... didn't get it after all 6 guesses. In an effort to not repeat that kind of humiliation, I wrote a program to help you narrow down your Wordle guesses based on the information that the game gives you after every guess.
 
-If you haven't seen 3b1b's excellent video series on Wordle and information theory, [watch it first](). The only reason I found this problem interesting at all was because 3b1b made it interesting.
+If you haven't seen 3b1b's excellent video series on Wordle and information theory, [watch it first](). The only reason I found this problem interesting at all was because 3b1b made it interesting. One thing that bothered me about the video, though, was that he used the Wordle wordlist directly. I feel like that goes against the spirit of the problem, regardless of what he said.
 
 # Shut up and give me the code!
 
