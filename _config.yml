@@ -23,7 +23,7 @@ url: "https://datakinds.github.io/" # the base hostname & protocol for your site
 permalink: /:year/:month/:day/:title
 twitter_username: 'DataKinds'
 github_username: DataKinds
-discord_username: at#7521
+discord_username: at#0754
 
 # Build settings
 markdown: kramdown
