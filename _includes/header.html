@@ -3,7 +3,13 @@
   <div class="wrapper">
     {%- assign default_paths = site.pages | map: "path" -%}
     {%- assign page_paths = site.header_pages | default: default_paths -%}
-    <h1><a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a></h1>
+    <h1 style="display: inline-block">
+      <a class="site-title" rel="author" href="/">{{ site.title | escape }}</a>
+    </h1> | 
+    <h1 style="display: inline-block">
+      <a class="site-title" rel="author" href="/tokipona/">{{ site.nimi }} <small>(click me!)</small></a> 
+    </h1>
+    <br>
 
     <!-- {%- if page_paths -%}
       <nav class="site-nav">
@@ -28,8 +34,7 @@
         </div>
       </nav>
     {%- endif -%} -->
-    
-    <a class="page-link" href="https://discord.gg/SJbHqWH" style="font-size:8pt;">Link to The Programming Language Theory Discord</a>
+
 
   </div>
 </header>
