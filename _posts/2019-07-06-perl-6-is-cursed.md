@@ -2,6 +2,7 @@
 layout: post
 title: '"Perl 6 is Cursed! I hate it!"'
 date: 2019-07-06 16:46 -0700
+tags: raku
 ---
 
 _... and other myths people tell themselves to sleep well at night..._

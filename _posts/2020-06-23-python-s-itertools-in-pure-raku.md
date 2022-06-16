@@ -2,6 +2,7 @@
 layout: post
 title: Python's Itertools in Pure Raku
 date: 2020-06-23 22:44 -0700
+tags: raku
 ---
 
 Python's [`itertools`](https://docs.python.org/3/library/itertools.html) package is the gold standard for working with iterable streams of data. 

@@ -2,6 +2,7 @@
 layout: post
 title: Perl6 is the World's Worst ML (with addendum by Damian Conway)
 date: 2019-04-05 02:39 -0700
+tags: raku
 ---
 
 While reading through the docs for [Perl6's multi-dispatch](https://docs.perl6.org/language/functions#Multi-dispatch), I noticed something familiar: the language chooses which `multi` function to call depending on which routine's signature matches the argument first. Since Perl6 uses the smartmatch operator `~~` to match up type signatures, that means that we can also match on arguments by value....

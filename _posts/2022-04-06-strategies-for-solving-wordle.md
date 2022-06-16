@@ -2,6 +2,7 @@
 layout: post
 title: Considerations in Solving Wordle
 date: 2022-04-06 11:29 -0700
+tags: raku
 ---
 
 The other day, my partner and I were competing to see who could solve the day's Wordle the quickest. She got it in 4 guesses. I... didn't get it after all 6 guesses. In an effort to not repeat that kind of humiliation, I wrote a program to help you narrow down your Wordle guesses based on the information that the game gives you after every guess.

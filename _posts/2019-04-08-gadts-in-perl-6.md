@@ -2,6 +2,7 @@
 layout: post
 title: GADTs and Superpositions in Perl 6
 date: 2019-04-08 14:16 -0700
+tags: raku
 ---
 
 ![Of course, this implies that comprehensibility and nonsense are equally likely, which is not true in the general case. Especially when working with Perl 6.](/assets/imgs/gadts-in-perl6/comic.png "Of course, this implies that comprehensibility and nonsense are equally likely, which is not true in the general case. Especially when working with Perl 6.")
