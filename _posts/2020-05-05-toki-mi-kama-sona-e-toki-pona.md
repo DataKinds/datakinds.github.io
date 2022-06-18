@@ -2,7 +2,7 @@
 layout: post
 title: toki! mi kama sona e toki pona
 date: 2020-05-05 08:55 -0700
-tags: tokipona
+tags: toki-pona
 ---
 
 toki a!
