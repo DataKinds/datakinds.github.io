@@ -99,3 +99,22 @@ footer {
     text-justify: inter-word;
     font-size: 19px;
 }
+
+p {
+    img {
+        width: 100%;
+    }
+}
+
+table.tp-gloss {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    border: solid;
+
+    tr {
+        border-bottom: solid;
+    }
+    td {
+        padding: 0.5em 0.7em;
+    }
+}
