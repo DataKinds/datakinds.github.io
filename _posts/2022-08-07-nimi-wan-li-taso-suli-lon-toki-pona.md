@@ -28,3 +28,27 @@ sina ken ala lukin e ni la mi ken sitelen e poki. o lukin:
 > mi (lon lon) lon (lon lon).
 
 sina ken toki e nimi suli mute anu seme? sina ken pakala e nimi suli mi anu seme? o toki tawa mi kepeken ilo Siko lon @at#0754.
+
+---
+
+jan Kekan San li toki e nasin ni tawa mi.
+
+nasin ni li pana sona tan nimi "tawa" mute mute. sina ken lukin e "tawa tawa tawa... tawa tawa" kepeken nasin pi nanpa ante lili <https://en.wikipedia.org/wiki/Fourth,_fifth,_and_sixth_derivatives_of_position>. 
+
+> nimi "tawa" li ken nimi "speed" li ken nimi "speeder" lon toki Inli
+> 
+> nimi "tawa tawa" li ken nimi "accelerate" li ken nimi "accelerator" lon toki Inli
+> 
+> nimi "tawa tawa tawa" li ken nimi "jerk" li ken nimi "jerker" lon toki Inli
+> 
+> nimi "tawa tawa tawa tawa" li ken nimi "snap" li ken nimi "snapper" lon toki Inli
+> 
+> nimi "tawa tawa tawa tawa tawa" li ken nimi "crackle" li ken nimi "crackler" lon toki Inli
+> 
+> nimi "tawa tawa tawa tawa tawa tawa" li ken nimi "pop" li ken nimi "popper" lon toki Inli
+>
+> nimi "tawa" pi nanpa ale li ken pana sona kepeken nasin sama.
+
+kin la mi pali e nimi "mi (tawa tawa...) tawa (tawa tawa...)". nasin ni la mi ken pali e nimi mute pona kepeken nimi wan.
+
+o pona mute tawa jan Kekan San tan pana sona. 
