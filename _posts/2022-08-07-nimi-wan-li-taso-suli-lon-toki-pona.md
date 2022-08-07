@@ -2,6 +2,7 @@
 layout: post
 title: "[3/100] nimi wan li taso suli lon toki pona"
 date: 2022-08-07 11:50 -0700
+tags: 100-blog-posts toki-pona
 ---
 
 toki. mi wile pali e nimi suli kepeken nimi wan. sina lon ilo Siko la sina kute e nimi ni:
