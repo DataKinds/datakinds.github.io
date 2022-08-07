@@ -19,8 +19,12 @@ sina toki e ni la sina ken tawa. pini tawa la sina lon ma tawa.
 
 taso, mi ken suli mute. mi toki lawa mute. pini toki lawa la mi pali e ni:
 
-> mi lon lon lon lon. 
+> mi lon lon lon lon lon. 
 
-sina toki e ni la sina lon lon (lon la sina lon). lon la sina lon ma lon. ni ale la sina lon lon lon lon.
+sina toki e ni la sina lon lon (lon la sina lon). lon la sina lon ma lon. ni ale la sina lon lon lon lon lon.
+
+sina ken ala lukin e ni la mi ken sitelen e poki. o lukin:
+
+> mi (lon lon) lon (lon lon).
 
 sina ken toki e nimi suli mute anu seme? sina ken pakala e nimi suli mi anu seme? o toki tawa mi kepeken ilo Siko lon @at#0754.
