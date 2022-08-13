@@ -17,19 +17,19 @@ ni li nasin pona. taso... ona li sama ala tan seme? sina ken ala ante tan seme? 
 
 ijo wan li ken weka e len sona la ijo wan li ni: 
 
-**nimi ale li jo e poki tan.**
+**nimi ale li jo e poki kon.**
 
-poki tan li seme? o lukin:
+poki kon li seme? o lukin:
 
-mi sitelen e nimi "tomo" lon poki tan ona: 
+mi sitelen e nimi "tomo" lon poki kon ona: 
 
 ![](/assets/imgs/2022-08-12-19-31-20.png)
 
-lon la poki tan ona li jo e ijo mute. mi ken sitelen e ijo:
+lon la poki kon ona li jo e ijo mute. mi ken sitelen e ijo:
 
 ![](/assets/imgs/2022-08-12-19-44-50.png)
 
-mi ken sitelen e nimi ante e poki tan ante:
+mi ken sitelen e nimi ante e poki kon ante:
 
 ![](/assets/imgs/2022-08-12-20-01-38.png)
 
@@ -39,17 +39,17 @@ o lukin! nimi "tomo" en nimi "building" li jo e sitelen sama. mi ken wan e ni tu
 
 taso, mi ken ala wan e sitelen ale pi nimi "tomo" e sitelen ale pi nimi "building". nimi "building" taso li jo e sitelen pi jan pali. kin la nimi "tomo" taso li jo e sitelen pi tomo telo e sitelen pi tomo lape. 
 
-nimi "tomo" li sama ala nimi "building" tan sitelen ni. poki tan ni tu li jo e sitelen ante. 
+nimi "tomo" li sama ala nimi "building" tan sitelen ni. poki kon ni tu li jo e sitelen ante. 
 
-mi ken sitelen e poki tan mute ante. taso, poki tan ala li ken sama ni: poki tan pi nimi "tomo".
+mi ken sitelen e poki kon mute ante. taso, poki kon ala li ken sama ni: poki kon pi nimi "tomo".
 
 ![](/assets/imgs/2022-08-12-20-59-15.png)
 
-nimi "bedroom" li lon insa poki tan pi nimi "tomo". ni li wawa tan ni: bedroom ale li tomo. (taso, tomo ale li bedroom ala).
+nimi "bedroom" li lon insa poki kon pi nimi "tomo". ni li wawa tan ni: bedroom ale li tomo. (taso, tomo ale li bedroom ala).
 
-ijo ale li toki e ni: nimi "tomo" li ken sama pi nimi mute. nimi mute ni li lon poka poki tan pi nimi "tomo".
+ijo ale li toki e ni: nimi "tomo" li ken sama pi nimi mute. nimi mute ni li lon poka poki kon pi nimi "tomo".
 
-sina sitelen e poki tan ale la sina pali e jaki. nanpa sitelen li suli ike. nanpa pi poki tan li suli ike. nimi li wawa!
+sina sitelen e poki kon ale la sina pali e jaki. nanpa sitelen li suli ike. nanpa pi poki kon li suli ike. nimi li wawa!
 
 ---
 
