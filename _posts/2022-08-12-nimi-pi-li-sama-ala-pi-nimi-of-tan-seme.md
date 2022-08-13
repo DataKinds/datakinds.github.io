@@ -41,11 +41,11 @@ taso, mi ken ala wan e sitelen ale pi nimi "tomo" e sitelen ale pi nimi "buildin
 
 nimi "tomo" li sama ala nimi "building" tan sitelen ni. poki kon ni tu li jo e sitelen ante. 
 
-mi ken sitelen e poki kon mute ante. taso, poki kon ala li ken sama ni: poki kon pi nimi "tomo".
+mi ken sitelen e poki kon mute ante. taso, poki kon ante li ken ala sama poki kon pi nimi "tomo".
 
 ![](/assets/imgs/2022-08-12-20-59-15.png)
 
-nimi "bedroom" li lon insa poki kon pi nimi "tomo". ni li wawa tan ni: bedroom ale li tomo. (taso, tomo ale li bedroom ala).
+nimi "bedroom" li lon insa poki kon pi nimi "tomo". ni li wawa tan ni: bedroom ale li tomo. (taso, tomo ale ala li bedroom).
 
 ijo ale li toki e ni: nimi "tomo" li ken sama pi nimi mute. nimi mute ni li lon poka poki kon pi nimi "tomo".
 
