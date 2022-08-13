@@ -17,7 +17,7 @@ ni li nasin pona. taso... ona li sama ala tan seme? sina ken ala ante tan seme? 
 
 ijo wan li ken weka e len sona la ijo wan li ni: 
 
-**nimi wan ale li jo e poki tan.**
+**nimi ale li jo e poki tan.**
 
 poki tan li seme? o lukin:
 
