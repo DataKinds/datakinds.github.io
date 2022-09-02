@@ -31,13 +31,17 @@ body {
     border: thick double #32a1ce;
     background-color: #cce7f1;
 }
-@media screen and (max-width: 800px) {
+
+$max-screen-width: 800px;
+$wrapper-gap: 20px;
+$max-wrapper-width: $max-screen-width - 2 * $wrapper-gap;
+@media screen and (max-width: $max-screen-width) {
     .wrapper {
-        $gap: 20px;
-        margin-left: $gap !important;
-        margin-right: $gap !important;
-        width: calc(100% - 2 * $gap) !important;
+        margin-left: $wrapper-gap !important;
+        margin-right: $wrapper-gap !important;
+        width: calc(100% - 2 * $wrapper-gap) !important;
         max-width: unset !important;
+        min-width: unset !important;
     }
 
     $narrow-bkg-offset: 80%;
@@ -54,9 +58,9 @@ body {
     
 }
 .wrapper {
-    max-width: 700px;
+    max-width: $max-wrapper-width;
     margin-left: auto;
-    margin-right: 400px;
+    margin-right: 160px;
     // border: 10px ridge #FA9305;
     border-width: 30px;
     border-style: solid;
