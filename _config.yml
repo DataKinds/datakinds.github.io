@@ -27,7 +27,7 @@ discord_username: at#0754
 
 # Build settings
 markdown: kramdown
-theme: minima
+theme: beepis
 plugins:
   - jekyll-feed
 
