@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&family=Playwrite+US+Trad:wght@100..400&display=swap');
+
+* {
+    font-family: "Neuton", serif;
+}
+
+h1 {
+    font-weight: 800;
+}
+
+html {
+    background-color: rgb(21, 21, 32);
+    color: rgb(245, 247, 236);
+}
+
+.handwritten {
+    font-family: "Playwrite US Trad", cursive;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.site-title {
+    text-decoration: none;
+    color: unset;
+}
+
+.site-title > h1 {
+    filter: drop-shadow(0 0 0.75rem crimson);
+}

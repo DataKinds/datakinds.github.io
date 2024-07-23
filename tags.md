@@ -1,5 +1,5 @@
 ---
-layout: home_no_about
+layout: home
 ---
 <h2>Browse by tag!</h2>
 
