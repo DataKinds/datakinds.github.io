@@ -4,13 +4,17 @@
     {%- assign page_paths = site.header_pages | default: default_paths -%}
     <div>
       <a class="site-title" rel="author" href="/"> 
-        <span class="handwritten">hello traveller, you've stumbled upon</span>
+        <span class="handwritten">hello traveler, you've stumbled upon</span>
         <h1 style="display: inline-block">DK'S ABODE</h1>
       </a>
     </div>
-    <h1 style="display: inline-block">
-      <a class="site-title" rel="author" href="/toki-pona/">{{ site.nimi }} <small>(click me!)</small></a> 
-    </h1>
+    <div class="fancy"></div>
+    <span class="handwritten">other places you may visit include...</span>
+    <a class="site-title" rel="author" href="/toki-pona/">
+      <h1 style="display: inline-block">
+        {{ site.nimi }}
+      </h1>
+    </a> 
     <br>
 
     <!-- {%- if page_paths -%}
