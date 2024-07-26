@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Perl6 is the World's Worst ML (with addendum by Damian Conway)
+title: Raku is the World's Worst ML (with addendum by Damian Conway)
 date: 2019-04-05 02:39 -0700
 tags: raku
 ---
 
-While reading through the docs for [Perl6's multi-dispatch](https://docs.perl6.org/language/functions#Multi-dispatch), I noticed something familiar: the language chooses which `multi` function to call depending on which routine's signature matches the argument first. Since Perl6 uses the smartmatch operator `~~` to match up type signatures, that means that we can also match on arguments by value....
+While reading through the docs for [Raku's multi-dispatch](https://docs.perl6.org/language/functions#Multi-dispatch), I noticed something familiar: the language chooses which `multi` function to call depending on which routine's signature matches the argument first. Since Raku uses the smartmatch operator `~~` to match up type signatures, that means that we can also match on arguments by value....
 
 10 minutes later, and I've created this abomination:
 
@@ -29,7 +29,7 @@ main = print $ len [1, 2, 3, 4, 5, 10] -- => 6
 
 ---
 
-The Perl6 code uses a few fun tricks that I'd like to point out. 
+The Raku code uses a few fun tricks that I'd like to point out. 
 
 The `proto` declaration is entirely optional, just as the type signature in the Haskell version is entirely optional. I left them both in beacuse it's fun to compare the two versions.
 
@@ -49,7 +49,7 @@ sub just(::A $x --> Maybe[::A]) { class Just does Maybe[::A] { has $.V = $x; }.n
 sub nothing(Any:U $t --> Maybe[$t]) { class Nothing does Maybe[$t] { }.new }
 ```
 
-Here, we define `Maybe` as a parametric role. We define the constructors `just` and `nothing` as routines that return parametrized classes `Just` and `Nothing` respectively. Unfortunately, because Perl6 lacks any sort of meaningful type inference, the constructor for `Nothing` still needs to take in the uninhabited type which it will unify with as an argument.
+Here, we define `Maybe` as a parametric role. We define the constructors `just` and `nothing` as routines that return parametrized classes `Just` and `Nothing` respectively. Unfortunately, because Raku lacks any sort of meaningful type inference, the constructor for `Nothing` still needs to take in the uninhabited type which it will unify with as an argument.
 
 Now, we can pattern match on the classes produced by our constructors to interact with our `Maybe` values.
 
@@ -83,17 +83,17 @@ print_maybe (Nothing) = putStrLn "nothing"
 
 Sorry. Hope you enjoyed this :)
 
-If this piqued your interest, check out the [Haskell to Perl6 page of the docs](https://docs.perl6.org/language/haskell-to-p6 "Haskell to Perl6"), or [download Perl6](https://perl6.org/ "Download Perl6") and give it a try for yourself.
+If this piqued your interest, check out the [Haskell to Raku page of the docs](https://docs.perl6.org/language/haskell-to-p6 "Haskell to Raku"), or [download Raku](https://perl6.org/ "Download Raku") and give it a try for yourself.
 
 # Addendum (updated July 6th, 2019)
 
-Here's [Damian Conway, a Perl 6 language designer](http://damian.conway.org/About_us/Bio_formal.html), on the goals of the Perl 6 language in relation to this post:
+Here's [Damian Conway, a Raku language designer](http://damian.conway.org/About_us/Bio_formal.html), on the goals of the Raku language in relation to this post:
 
-> One of the original Perl 6 design philosophies was that complexity
+> One of the original Raku design philosophies was that complexity
 > is intrinsically irreducible...but extrinsically redistributable.
 > See: "The waterbed theory of language design".
 >
-> In line with that belief, Perl 6 almost always attempts to redistribute
+> In line with that belief, Raku almost always attempts to redistribute
 > its syntactic complexity towards declarations...and away from calls.
 > Mainly because declarations are typically written once, by a small
 > number of expert developers, whereas calls are typically written many
@@ -109,19 +109,19 @@ Here's [Damian Conway, a Perl 6 language designer](http://damian.conway.org/Abou
 > unalloyed benefit (because there are plenty of plausible syntactic
 > variations that wouldn't Do The Right Thing so obligingly).
 > But in all those cases, the resulting error message is guaranteed to
-> be clear and helpful, because any Perl 6 error message that is LTA
+> be clear and helpful, because any Raku error message that is LTA
 > ("Less Than Awesome") is officially considered to be a bug!
 >
-> The forgiving nature of Perl 6 syntax reflects several more
+> The forgiving nature of Raku syntax reflects several more
 > of its fundamental design principles:
 >
-> 	* Perl 6 tries to do what you meant, not merely what your said.
-> 	* Perl 6 has a long--but gentle--learning curve.
+> 	* Raku tries to do what you meant, not merely what your said.
+> 	* Raku has a long--but gentle--learning curve.
 > 	* It's perfectly okay to write "baby Perl".
 > 	* There's far more than one way to do it.
 >
 >
-> Ultimately, I think that we're pretty happy with Perl 6 being the
+> Ultimately, I think that we're pretty happy with Raku being the
 > "World's Worst ML", so long as it can also (simultaneously) be:
 > the "World's Worst Smalltalk", the "World's Worst Lisp",
 > the "World's Worst Snobol", the "World's Worst QCL",
@@ -147,24 +147,24 @@ and argues that this is all just as readable (if not more) than the Haskell vers
 
 I responded:
 
-> > Thank you & all the Perl 6 design team for making such a fascinating language :)
+> > Thank you & all the Raku design team for making such a fascinating language :)
 > 
-> Sorry for the inflammatory blog title, but there's no way to get clicks better than throwing around big words like "world's worst" -- even if later revealed that it was meant as a form of praise. I'm truly impressed that Perl 6 can emulate the semantics of an ML-like language so closely. I didn't even touch on `where` blocks in the post because I couldn't think of any fun examples, but that just drives the point home even more.
+> Sorry for the inflammatory blog title, but there's no way to get clicks better than throwing around big words like "world's worst" -- even if later revealed that it was meant as a form of praise. I'm truly impressed that Raku can emulate the semantics of an ML-like language so closely. I didn't even touch on `where` blocks in the post because I couldn't think of any fun examples, but that just drives the point home even more.
 > 
 > Let me respond to a few points you brought up in your reply:
 > 
 > * I have some strong opinions about _actual_ badly designed MLs, but that's another conversation entirely :^)
 > 
-> * I definitely didn't completely intend to write such an abomination of a Perl 6 example for the `len` function, haha. The post was written in jest at the fact that I wrote code that I thought was so obviously un-Perl-esq -- but it blows my mind that with a few little readability changes it turns into code that's quite readable and pragmatic. I've only been writing Perl 6 for something along the lines of four days, so I appreciate the cleaner code examples (I might've gotten a little bit carried away with abusing the `-->` operator. And using `Positional` instead `@` is much cleaner as well, thank you).
+> * I definitely didn't completely intend to write such an abomination of a Raku example for the `len` function, haha. The post was written in jest at the fact that I wrote code that I thought was so obviously un-Perl-esq -- but it blows my mind that with a few little readability changes it turns into code that's quite readable and pragmatic. I've only been writing Raku for something along the lines of four days, so I appreciate the cleaner code examples (I might've gotten a little bit carried away with abusing the `-->` operator. And using `Positional` instead `@` is much cleaner as well, thank you).
 > 
-> > Perl 6 almost always attempts to redistribute its syntactic complexity towards declarations...and away from calls.
-> * This makes a lot of sense -- I've noticed a lot of things in Perl 6 that are "deceptively simple". It's very well designed in that aspect; for example, an ordinary user never has to worry about how a Signature is matched against its arguments, whereas a power user has the opportunity to manually interact with Signatures, Captures, and the like. It doesn't feel like "complexity" is the right word to use for this behavior, since it's all largely contained in a way that you'll never have to fiddle with it on a normal day. Given/when (or react/whenever) blocks are another example of this sort of well designed contained complexity in my opinion. In a normal use case, the programmer never has to worry about what `given` actually does, or how `whenever` matches against what comes out of a supply; but the option is always there to delve deeper.
+> > Raku almost always attempts to redistribute its syntactic complexity towards declarations...and away from calls.
+> * This makes a lot of sense -- I've noticed a lot of things in Raku that are "deceptively simple". It's very well designed in that aspect; for example, an ordinary user never has to worry about how a Signature is matched against its arguments, whereas a power user has the opportunity to manually interact with Signatures, Captures, and the like. It doesn't feel like "complexity" is the right word to use for this behavior, since it's all largely contained in a way that you'll never have to fiddle with it on a normal day. Given/when (or react/whenever) blocks are another example of this sort of well designed contained complexity in my opinion. In a normal use case, the programmer never has to worry about what `given` actually does, or how `whenever` matches against what comes out of a supply; but the option is always there to delve deeper.
 > 
-> > The forgiving nature of Perl 6 syntax reflects several more of its fundamental design principles: <snipped>
+> > The forgiving nature of Raku syntax reflects several more of its fundamental design principles: <snipped>
 > * Where are the design principals located? That sounds like an interesting thing to write about on its own.
 > 
-> > Ultimately, I think that we're pretty happy with Perl 6 being the....
-> * Between the ability to define expressive grammars, implement custom operator syntax, write macros, etc, it feels like you could emulate most any paradigm you'd desire inside of Perl 6. In a previous blog post I wrote (https://aearnus.github.io/2018/07/09/programming-language-diversity), I talked about how I felt like that flexibility was key to a language surviving and thriving.
+> > Ultimately, I think that we're pretty happy with Raku being the....
+> * Between the ability to define expressive grammars, implement custom operator syntax, write macros, etc, it feels like you could emulate most any paradigm you'd desire inside of Raku. In a previous blog post I wrote (https://aearnus.github.io/2018/07/09/programming-language-diversity), I talked about how I felt like that flexibility was key to a language surviving and thriving.
 
 His response:
 
@@ -211,14 +211,14 @@ His response:
 > 
 > > * Between the ability to define expressive grammars, implement custom
 > >   operator syntax, write macros, etc, it feels like you could emulate
-> >   most any paradigm you'd desire inside of Perl 6.
+> >   most any paradigm you'd desire inside of Raku.
 > 
 > That's certainly our goal: a language that lets you solve problems
 > the way *you* solve problems.
 > 
-> I have a class called "Transparadigm Perl 6" where I show the same
+> I have a class called "Transparadigm Raku" where I show the same
 > solution in a wide range of different paradigms (and in a range of
-> intermixed hybrid paradigms - hence "transparadigm")...all in Perl 6.
+> intermixed hybrid paradigms - hence "transparadigm")...all in Raku.
 > 
 > For example:
 > ```
@@ -324,7 +324,7 @@ His response:
 > just aren't good at that.
 > 
 > That's why I devoted two decades of my life to helping ensure that
-> Perl 6 lets you solve problems in whatever (reasonable) way that
+> Raku lets you solve problems in whatever (reasonable) way that
 > suits you...and suits your problem! By all means solve the majority of
 > your problem functionally, but implement the inherently stateful parts
 > of your program with objects, and handle the intrinsically linguistic

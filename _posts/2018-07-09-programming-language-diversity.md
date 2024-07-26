@@ -92,7 +92,7 @@ A language's death also means the death of the ideas the language contains. That
 
 Are programming languages actually dying?
 ---
-Yes, and it's because of this lack of diversity. Some languages, like Prolog, will dominate their niche until something better comes along. But, take Python for example. Depending on who you ask, Python is the quintessential dynamic scripting language. So, it's the language that gets all the funding and library development, while other languages (with much better ideas 😛) are left in the dust to die. Ruby and Perl/Perl 6, namely, are now considered dead languages that you shouldn't learn if you want a job in programming. Putting the fact that I'm a Ruby fanboy aside, this is awful because if these languages die, we lose ideas such as anonymous blocks, sigils, or full fledged PCRE.
+Yes, and it's because of this lack of diversity. Some languages, like Prolog, will dominate their niche until something better comes along. But, take Python for example. Depending on who you ask, Python is the quintessential dynamic scripting language. So, it's the language that gets all the funding and library development, while other languages (with much better ideas 😛) are left in the dust to die. Ruby and Perl/Raku, namely, are now considered dead languages that you shouldn't learn if you want a job in programming. Putting the fact that I'm a Ruby fanboy aside, this is awful because if these languages die, we lose ideas such as anonymous blocks, sigils, or full fledged PCRE.
 
 Regardless of your opinion on non-Python scripting languages, losing them would be losing a large part of humanity's collective programming knowledge.
 

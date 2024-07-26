@@ -145,7 +145,7 @@ int x = 8; int y = 7; ([=]() { return x + y; })();
 (|x, y| { x + y })(8, 7)
 ```
 
-### Perl 6
+### Raku
 <div class="hvrer"></div>
 ```p6
 { $^x + $^y }(8, 7);

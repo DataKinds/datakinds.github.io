@@ -116,7 +116,7 @@ sub accumulate(@p, &func = * + *) { ??? }
 
 This time, we're setting the default argument of `&func` to `* + *`. If you look at [Python's default argument for accumulate](https://docs.python.org/3/library/itertools.html#itertools.accumulate), you'll see that they're using a default argument of `operator.add`: a function which adds two values which are passed to it. 
 
-If you've made the jump and guessed that somehow `* + *` is a function which takes two arguments and adds them together, you'd be 100% correct. Using whatever (`*`) in a statement actually coerces the entire statement to a [`WhateverCode` object](https://docs.raku.org/type/WhateverCode) and allows it to act as a function in its own right. If all these stars are making you see stars, the Perl 6 Advent Calendar blog has a [good post disambiguating all of them](https://perl6advent.wordpress.com/2017/12/11/all-the-stars-of-perl-6/).
+If you've made the jump and guessed that somehow `* + *` is a function which takes two arguments and adds them together, you'd be 100% correct. Using whatever (`*`) in a statement actually coerces the entire statement to a [`WhateverCode` object](https://docs.raku.org/type/WhateverCode) and allows it to act as a function in its own right. If all these stars are making you see stars, the Raku Advent Calendar blog has a [good post disambiguating all of them](https://perl6advent.wordpress.com/2017/12/11/all-the-stars-of-perl-6/).
 
 Now that we understand `accumulate`'s signature, let's move on to the body of the function:
 

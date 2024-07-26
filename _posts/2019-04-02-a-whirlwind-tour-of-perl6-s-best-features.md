@@ -1,19 +1,19 @@
 ---
 layout: post
-title: A Whirlwind Tour of Perl6's Best Features
+title: A Whirlwind Tour of Raku's Best Features
 date: 2019-04-02 17:31 -0700
 ---
-It's rare that I find a language that I truly feel innovates upon established conventions and features. Perl6 came out in late 2015 to little fanfare -- it was written off by the Perl community as unnecessary change and by the larger programming community as, well, still Perl. I feel that Perl6 fills the same niche that Lisp does: there are a hundred short and elegant ways to do the same thing, and it's up to the programmer to decide which one works best for them. It's extensible and customizable so therefore [it'll last a long time](https://aearnus.github.io/2018/07/09/programming-language-diversity).
+It's rare that I find a language that I truly feel innovates upon established conventions and features. Raku came out in late 2015 to little fanfare -- it was written off by the Perl community as unnecessary change and by the larger programming community as, well, still Perl. I feel that Raku fills the same niche that Lisp does: there are a hundred short and elegant ways to do the same thing, and it's up to the programmer to decide which one works best for them. It's extensible and customizable so therefore [it'll last a long time](https://aearnus.github.io/2018/07/09/programming-language-diversity).
 
-In the spirit of Perl, Perl6 is extremely terse and can be fairly hard to read. There's a lot that goes on behind the scenes that you would hardly catch if you weren't acquainted with the language. To get up to speed, I found the [Learn X in Y minutes page for Perl6](https://learnxinyminutes.com/docs/perl6/) _extremely_ helpful. Before continuing, you should skim through that page.
+In the spirit of Perl, Raku is extremely terse and can be fairly hard to read. There's a lot that goes on behind the scenes that you would hardly catch if you weren't acquainted with the language. To get up to speed, I found the [Learn X in Y minutes page for Raku](https://learnxinyminutes.com/docs/perl6/) _extremely_ helpful. Before continuing, you should skim through that page.
 
-I've only been writing Perl6 for a couple of days, so please excuse any errors & message me using the links at the bottom or the discord at the top so I could correct them.
+I've only been writing Raku for a couple of days, so please excuse any errors & message me using the links at the bottom or the discord at the top so I could correct them.
 
 # The Whatever Star
 
 (yes, that's its real name.)
 
-The whatever star inhereits its namesake from the wildcard character, which gets replaced by "whatever" when evaluated by your shell. In Perl6, the whatever star creates an implicit block which can be used in place of anything that expects a `Callable`. This process is called _whatever-currying_. Here are the docs: [https://docs.perl6.org/type/WhateverCode](https://docs.perl6.org/type/WhateverCode).
+The whatever star inhereits its namesake from the wildcard character, which gets replaced by "whatever" when evaluated by your shell. In Raku, the whatever star creates an implicit block which can be used in place of anything that expects a `Callable`. This process is called _whatever-currying_. Here are the docs: [https://docs.perl6.org/type/WhateverCode](https://docs.perl6.org/type/WhateverCode).
 
 This is useful for a wide variety of reasons. Here's an example I feel is relatively succinct:
 
@@ -25,7 +25,7 @@ I won't delve too deeply into breaking this down, but this is a list representin
 
 # Implicit Chaining
 
-There is a special variable in Perl6 named `$_`. It has type `(Any)` and essentially takes on whatever value that would make sense in the moment. In for loops it becomes the looping parameter, and in blocks of code it becomes the implicit parameter. It can be set explicitly using `given` constructs (but more on that later). A special feature of Perl6's syntax is that the `.` operator implicity calls functions on `$_` if a left operand isn't passed into it. Along with implicit return statements, this encourages a rather elegant form of method chaining -- akin to Ruby's [tap](https://ruby-doc.org/core-2.6.2/Object.html#method-i-tap) or [pointfree style Haskell](https://wiki.haskell.org/Pointfree).
+There is a special variable in Raku named `$_`. It has type `(Any)` and essentially takes on whatever value that would make sense in the moment. In for loops it becomes the looping parameter, and in blocks of code it becomes the implicit parameter. It can be set explicitly using `given` constructs (but more on that later). A special feature of Raku's syntax is that the `.` operator implicity calls functions on `$_` if a left operand isn't passed into it. Along with implicit return statements, this encourages a rather elegant form of method chaining -- akin to Ruby's [tap](https://ruby-doc.org/core-2.6.2/Object.html#method-i-tap) or [pointfree style Haskell](https://wiki.haskell.org/Pointfree).
 
 Here's a contrived example: given a list of lists, filter the lists down to only their even elements and print the new lists.
 
@@ -52,11 +52,11 @@ In my opinion, this idea of implicit chaining opens the opportunity to write ele
 
 I don't remember who this quote is attributed to, but I believe I heard it while hanging around APL folks. It rings true -- functions with tons of arguments become less and less clear the more arguments you have. It's sort of like the unix philosophy: do one thing and do it well. Massive monolithic functions (or objects, or classes...) are a significant code smell.
 
-Perl6 encourages the programmer to dispose of massive functions like this by providing an extremely flexible way to define operators. The [operators page in the Perl6 docs](https://docs.perl6.org/language/operators) is extraordinarily long but _very_ worth it to scroll through.
+Raku encourages the programmer to dispose of massive functions like this by providing an extremely flexible way to define operators. The [operators page in the Raku docs](https://docs.perl6.org/language/operators) is extraordinarily long but _very_ worth it to scroll through.
 
-Most languages that provide the ability to define custom operators have a notion of precedence (sometimes called fixity or strength). Haskell, for example, allows you to define operators as `infixl` (left associative infix) or `infixr` (right associative infix) along with a number 0 through 9 describing how tightly they bind to their arguments. What's unique about Perl6 though is the fine grained control that it offers the programmer over the associativity rules of the operator. In addition to left associative and right associative, Perl6 allows you to specify whether an operator is _non-associative_, _list associative_, or _chain associative_. The specific rules for these are listed in the docs so I won't bother rehashing it here, but like I said before, it's very much so worth reading if you're unfamiliar.
+Most languages that provide the ability to define custom operators have a notion of precedence (sometimes called fixity or strength). Haskell, for example, allows you to define operators as `infixl` (left associative infix) or `infixr` (right associative infix) along with a number 0 through 9 describing how tightly they bind to their arguments. What's unique about Raku though is the fine grained control that it offers the programmer over the associativity rules of the operator. In addition to left associative and right associative, Raku allows you to specify whether an operator is _non-associative_, _list associative_, or _chain associative_. The specific rules for these are listed in the docs so I won't bother rehashing it here, but like I said before, it's very much so worth reading if you're unfamiliar.
 
-Here's a real world example of where this has come in handy for me. Perl6 has no predefined operator to string lines of text together, so I defined one myself:
+Here's a real world example of where this has come in handy for me. Raku has no predefined operator to string lines of text together, so I defined one myself:
 
 ```perl
 sub infix:<~~~>($a, $b) { $a ~ "\n" ~ $b };
@@ -73,9 +73,9 @@ say 'trepl version 0. https://github.com/aearnus/'
 
 # WHO, WHAT, WHERE, WHICH, WHY, and HOW
 
-I love how Perl6 names things. It's cute and silly enough to be memorable, and descriptive enough to never leave me confused.
+I love how Raku names things. It's cute and silly enough to be memorable, and descriptive enough to never leave me confused.
 
-`WHO`, `WHAT`, `WHERE`, `WHICH`, `WHY`, and `HOW` are methods that are defined on every object by default. They facilitate much of the reflection and dynamicism that is possible in Perl6. They're all part of the [MOP](https://docs.perl6.org/language/mop#Metamethods), Perl6's _meta object protocol_.
+`WHO`, `WHAT`, `WHERE`, `WHICH`, `WHY`, and `HOW` are methods that are defined on every object by default. They facilitate much of the reflection and dynamicism that is possible in Raku. They're all part of the [MOP](https://docs.perl6.org/language/mop#Metamethods), Raku's _meta object protocol_.
 
 `WHO` returns the package that the object was defined in.
 
@@ -87,7 +87,7 @@ I love how Perl6 names things. It's cute and silly enough to be memorable, and d
 
 `WHY` returns documentation about the object.
 
-`HOW` is important: it returns the metaclass object, which the developers have slyly named the _Higher Order Workings_ object. It provides an interface to all the runtime dynamicism that Perl6 allows.
+`HOW` is important: it returns the metaclass object, which the developers have slyly named the _Higher Order Workings_ object. It provides an interface to all the runtime dynamicism that Raku allows.
 
 There is special syntax to call a method on an object's `HOW` object, and that syntax is `.^`.
 
@@ -119,11 +119,11 @@ and much more. You can even introspect a `HOW` object:
 (archetypes new new_type add_fallback compose roles role_typecheck_list is_composed setup_junction_fallback find_method_fallback has_fallbacks set_name set_shortname name shortname WHY set_why ver auth api set_ver set_auth set_api add_stash add_attribute compose_attributes set_rw rw get_attribute_for_usage attributes add_method methods method_table submethod_table declares_method lookup cache cache_get cache_add add_private_method private_method_table find_private_method set_autogen_proto add_multi_method multi_methods_to_incorporate incorporate_multi_candidates add_meta_method meta_method_table compose_meta_methods add_role roles_to_compose exclude_parent add_parent parents hides hidden set_hidden set_default_parent_type has_default_parent_type get_default_parent_type compute_mro c3_merge mro mro_unhidden find_method find_method_qualified can publish_method_cache isa does type_check publish_type_cache add_trustee trusts is_trusted create_BUILDPLAN BUILDPLAN BUILDALLPLAN set_is_mixin is_mixin set_mixin_attribute mixin_attribute flush_cache setup_mixin_cache mixin generate_mixin mixin_base is_array_type array_type set_array_type get_boolification_mode set_boolification_mode publish_boolification_spec compose_repr repr_composed set_default_invoke_handler set_invocation_attr set_invocation_handler has_invocation_attr invocation_attr_class ...)
 ```
 
-By encapsulating all these metamethods into one object, Perl6 makes an obvious delineation between methods that you _should_ use and methods that you _can_ use. Having the power to do whatver you want is a good thing -- but should be used with caution. Other languages (looking at you, Ruby) don't make this distinction, and thus often [expose these unsafe functions as first order methods of every single object](https://ruby-doc.org/core-2.6.2/Object.html#method-i-instance_variable_get).
+By encapsulating all these metamethods into one object, Raku makes an obvious delineation between methods that you _should_ use and methods that you _can_ use. Having the power to do whatver you want is a good thing -- but should be used with caution. Other languages (looking at you, Ruby) don't make this distinction, and thus often [expose these unsafe functions as first order methods of every single object](https://ruby-doc.org/core-2.6.2/Object.html#method-i-instance_variable_get).
 
 # Traits (particularly, `is rw`)
 
-Every language should have traits, a strong type system, subset types, etc, etc. It makes programming easier and it means you can offload much of the required mental energy onto the compiler. Perl6's gradual typing is a perfect example of this -- but I have so many things to say about the type system that it would be enough to fill 10 blog posts in their entirety. Instead, I'll focus on one specific example where the type system comes in handy: the `is rw` trait.
+Every language should have traits, a strong type system, subset types, etc, etc. It makes programming easier and it means you can offload much of the required mental energy onto the compiler. Raku's gradual typing is a perfect example of this -- but I have so many things to say about the type system that it would be enough to fill 10 blog posts in their entirety. Instead, I'll focus on one specific example where the type system comes in handy: the `is rw` trait.
 
 Consider this snippet of Ruby code. This isn't some contrived example, I've actually run into this problem in real life before. It sneaks up in unsuspecting ways.
 
@@ -152,7 +152,7 @@ Despite the fact that we called the exact same function on what seemed to be the
 
 It comes down to how Ruby handles _copy semantics_: with a bare type argument like Num, passing it into a function copies the argument into the scope of the function. With a more complicated type such as a user defined class or a list, passing it into a function copies a _reference_ of the argument into the scope of the function. Ruby handles this implicitly, trying to do the right thing without much programmer intervention. Unfortunately, this level of implicit-ness often leads to hard-to-spot bugs. I may love Ruby, but this is a glaring and fatal flaw with the language.
 
-Perl6 takes [a note from the Book of Rust](https://doc.rust-lang.org/std/marker/trait.Copy.html) and implements a trait which allows the programmer to annotate whether a type implements _copy semantics_ or _move semantics_. By default, all types in Perl6 implement some form of _immutable move semantics_ -- passing a class like `UhOh` into a function will not work, as neither `value` nor `UhOh` are `rw`, and thus this bug is negated entirely. To achieve the reference passing behavior exhibited above, one must explicitly implement the `is rw` trait, saying that every instance of that class is readable and writable.
+Raku takes [a note from the Book of Rust](https://doc.rust-lang.org/std/marker/trait.Copy.html) and implements a trait which allows the programmer to annotate whether a type implements _copy semantics_ or _move semantics_. By default, all types in Raku implement some form of _immutable move semantics_ -- passing a class like `UhOh` into a function will not work, as neither `value` nor `UhOh` are `rw`, and thus this bug is negated entirely. To achieve the reference passing behavior exhibited above, one must explicitly implement the `is rw` trait, saying that every instance of that class is readable and writable.
 
 Nothing will explain this better than a code example, so without further ado:
 
@@ -183,11 +183,11 @@ This is a feature that is so inherently Perl that I cannot imagine it ever being
 
 It is an operator, `~~`, that calls `.ACCEPTS` on the right hand argument and aliases `$_` to its left hand argument. Every object implements `.ACCEPTS` in some way, shape, or form; and its sole purpose is to do exactly what it should do.
 
-Sound vague? It is. Smartmatch is used in two important ways in Perl6: to power the `given... when` construct, and to match type signatures.
+Sound vague? It is. Smartmatch is used in two important ways in Raku: to power the `given... when` construct, and to match type signatures.
 
 ### Given... When
 
-This is Perl6's form of a case statement, but calling it a case statement wouldn't do it justice. Here's an example of how it can be used:
+This is Raku's form of a case statement, but calling it a case statement wouldn't do it justice. Here's an example of how it can be used:
 
 ```perl
 given $str {
@@ -212,7 +212,7 @@ As you could imagine, this is a very powerful and extendable operator. There are
 
 ### Type Signatures
 
-In Perl6, type signatures are treated the same as any other object. A function's type signature can be inspected using `.signature`, and you can do runtime type signature matching using the smartmatch operator `~~` on a `Capture` object.
+In Raku, type signatures are treated the same as any other object. A function's type signature can be inspected using `.signature`, and you can do runtime type signature matching using the smartmatch operator `~~` on a `Capture` object.
 
 Check out this example:
 
@@ -228,21 +228,21 @@ say \('hello'.WHAT) ~~ &f.signature; # => False
 
 ---
 
-Read more about smartmatching [here](https://docs.perl6.org/language/operators#index-entry-smartmatch_operator "Perl6's Smartmatch Operator") or [here](https://docs.perl6.org/routine/ACCEPTS "Perl6's .ACCEPTS").
+Read more about smartmatching [here](https://docs.perl6.org/language/operators#index-entry-smartmatch_operator "Raku's Smartmatch Operator") or [here](https://docs.perl6.org/routine/ACCEPTS "Raku's .ACCEPTS").
 
 # P6CRE and the Grammar Engine
 
-I haven't quite had an opportunity to play around with this yet, but Perl6 revamped the way that it handles regexes. In the spirit of cute names, I'll refer to it as P6CRE (pronounced picture?): the Perl6 Compatible Regex Engine. They've revamped how regexes traditionally work, allowing for spaces between identifiers, full unicode class support, extra quantifiers, readability improvments, [so on and so forth](https://docs.perl6.org/language/regexes).
+I haven't quite had an opportunity to play around with this yet, but Raku revamped the way that it handles regexes. In the spirit of cute names, I'll refer to it as P6CRE (pronounced picture?): the Raku Compatible Regex Engine. They've revamped how regexes traditionally work, allowing for spaces between identifiers, full unicode class support, extra quantifiers, readability improvments, [so on and so forth](https://docs.perl6.org/language/regexes).
 
-Along with P6CRE, [an entire grammar system reminiscent of PEG grammars is provided to you for free](https://docs.perl6.org/language/grammars). This system is extremely powerful... powerful enough that [Perl6's parser is actually implemented using the Perl6 grammar engine](https://github.com/perl6/nqp/blob/master/src/NQP/Grammar.nqp). I can't say much more about it considering I haven't gotten to use it, but I'm eager to take on a project where I can put it to good use.
+Along with P6CRE, [an entire grammar system reminiscent of PEG grammars is provided to you for free](https://docs.perl6.org/language/grammars). This system is extremely powerful... powerful enough that [Raku's parser is actually implemented using the Raku grammar engine](https://github.com/perl6/nqp/blob/master/src/NQP/Grammar.nqp). I can't say much more about it considering I haven't gotten to use it, but I'm eager to take on a project where I can put it to good use.
 
 # In Conclusion...
 
-If you haven't gotten a chance to check out Perl6, [here's your opportunity](https://perl6.org/). If you want to read more code examples, check out the examples tab on the website or visit their page at [RosettaCode](https://rosettacode.org/wiki/Category:Perl_6).
+If you haven't gotten a chance to check out Raku, [here's your opportunity](https://perl6.org/). If you want to read more code examples, check out the examples tab on the website or visit their page at [RosettaCode](https://rosettacode.org/wiki/Category:Perl_6).
 
-Thanks to the Perl6 discord server at [https://discord.gg/gg2a3T6](https://discord.gg/gg2a3T6) and #perl6 at freenode for helping me through some confusing moments. Special thanks to the Perl6 developers and timotimo from #perl6 for being extra patient with me while I was frustrated :)
+Thanks to the Raku discord server at [https://discord.gg/gg2a3T6](https://discord.gg/gg2a3T6) and #perl6 at freenode for helping me through some confusing moments. Special thanks to the Raku developers and timotimo from #perl6 for being extra patient with me while I was frustrated :)
 
-Have any favorite Perl6 features that I missed out on? Want to leave a comment? Message me using the contact info below.
+Have any favorite Raku features that I missed out on? Want to leave a comment? Message me using the contact info below.
 
 ---
 
@@ -283,7 +283,7 @@ Rory O'Kane writes (formatting slightly modified):
 > the bug never would have happened.
 >
 > Apart from naming the method differently, if you wanted to achieve the
-> same effect in Ruby as the Perl 6 `rw` trait that you demonstrate, you
+> same effect in Ruby as the Raku `rw` trait that you demonstrate, you
 > could call the `#freeze` method on the object after constructing it:
 >
 > ~~~ruby
@@ -318,7 +318,7 @@ Rory O'Kane writes (formatting slightly modified):
 > your object.
 >
 > Anyway, that is a corrected description of how Ruby can help you
-> prevent unintended mutation. It’s good that Perl 6 has a solution for
+> prevent unintended mutation. It’s good that Raku has a solution for
 > that problem too.
 >
 > # Ruby and Smartmatch
@@ -341,7 +341,7 @@ Rory O'Kane writes (formatting slightly modified):
 > descendants. Ruby doesn’t have an object representation of function
 > signatures, though, so you can’t check whether an object would be
 > accepted as a parameter to a method as you demonstrated you can in
-> Perl 6.
+> Raku.
 >
 > [snipped all but the quote -- my response to the comment about `#===`]
 > > For example, `#===` is supposed to be symmetric and associative, 
@@ -353,9 +353,9 @@ Rory O'Kane writes (formatting slightly modified):
 > `'cool' === /oo/` evaluates to `false` (via the `String#===` method).
 >
 > As far as I can tell, Ruby’s `===` really is equivalent in meaning to
-> Perl 6’s `ACCEPTS`/`~~`. The only functional difference I can see is
-> that Perl 6 defines custom `ACCEPTS` implementations for a few more
+> Raku’s `ACCEPTS`/`~~`. The only functional difference I can see is
+> that Raku defines custom `ACCEPTS` implementations for a few more
 > classes than Ruby does. For example, Ruby doesn’t override `Array#===`
-> or `Enumerable#===`, treating them the same as `#==`, while Perl 6’s
+> or `Enumerable#===`, treating them the same as `#==`, while Raku’s
 > `ACCEPTS` implementation for `List` has custom handling of “Whatever”
 > elements and lazy `Iterable`s.
