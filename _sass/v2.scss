@@ -20,6 +20,13 @@ body {
     margin-right: 40px;
 }
 
+blockquote {
+    margin: 0 0;
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 8px double #54023d;
+}
+
 .inline-block {
     display: inline-block;
 }
@@ -86,7 +93,7 @@ body {
 
 .post-content {
     margin: 0 auto;
-    max-width: 75em;
+    max-width: 70em;
     padding: 15px 40px;
     border-radius: 10px;
     background-color: rgb(11, 11, 18);
