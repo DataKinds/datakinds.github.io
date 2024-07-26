@@ -2,9 +2,10 @@
 layout: post
 title: A Matrix Based Model Of Soft Body Physics
 date: 2019-04-30 16:43 -0700
+warning_banner: "allergy notice: this page contains latex. If you have your Javascript disabled, please enable it for the best possible experience reading this blog post. I promise that's the only script on this site!"
 ---
 
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+Ever since I was little, I've been enamored with physics simulations. There's something so innately satisfying about having a world at your fingertips to interact with as you please. That interest has rekindled in me over the past few days as I've been thinking about coding up a little physics toy to mess around with now that I'm a much better programmer than I was when I was 10.
 
 <div id="mathjax-definitions" style="display:none;">
 $$
@@ -14,9 +15,6 @@ $$
 $$
 </div>
 
-(allergy notice: this page contains latex. If you have your Javascript disabled, please enable it for the best possible experience reading this blog post. I promise that's the only script on this site!)
-
-Ever since I was little, I've been enamored with physics simulations. There's something so innately satisfying about having a world at your fingertips to interact with as you please. That interest has rekindled in me over the past few days as I've been thinking about coding up a little physics toy to mess around with now that I'm a much better programmer than I was when I was 10.
 
 This lead me down the road of considering different ways to model physical bodies. Using bounding boxes may be a tried and true method, but who am I for taking the well worn path?
 

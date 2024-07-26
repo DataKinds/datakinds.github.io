@@ -47,7 +47,11 @@ body {
     color: rgb(252, 255, 180);
     font-weight: 700;
     font-size: large;
-    filter: drop-shadow(0 0 0.1rem rgb(255, 255, 225));
+    filter: drop-shadow(0 0 0.1rem rgba(255, 255, 225, 0.696));
+}
+
+.post-link:visited {
+    color: rgb(221, 198, 255);
 }
 
 .fancy {
@@ -62,6 +66,10 @@ body {
 .flex {
     display: flex;
     align-items: center
+}
+
+.big-flex {
+    flex-grow: 1;
 }
 
 .justify-around {
@@ -81,4 +89,20 @@ ul.post-list {
 .post-preview {
     font-size: small;
     margin: 0 3em;
+}
+
+.big-banner {
+    padding: 10px;
+    border-radius: 10px;
+    border: thick double #32a1ce;
+    background-color: #cce7f1;
+    color: rgb(31, 35, 38);
+}
+
+.warning-banner {
+    padding: 10px;
+    border-radius: 10px;
+    border: thick double #d95e35;
+    background-color: #aa5338;
+    margin-bottom: 30px;
 }
