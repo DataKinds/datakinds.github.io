@@ -7,44 +7,64 @@ layout: default
   itemscope
   itemtype="http://schema.org/BlogPosting"
 >
-  <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">
-      {{ page.title | escape }}
-    </h1>
-    <p class="post-meta">
+  <h2 class="post-title p-name" itemprop="name headline">
+    {{ page.title | escape }}
+  </h2>
+  <header class="post-subheader">
+    <div class="post-meta">
       <time
-        class="dt-published"
+        class="handwritten dt-published"
         datetime="{{ page.date | date_to_xmlschema }}"
         itemprop="datePublished"
       >
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y"
-        -%} {{ page.date | date: date_format }}
+        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+        ... composed for your pleasure on {{ page.date | date: date_format }} 
       </time>
-      {%- if page.category -%}
-      <span class="p-author h-card">Category: {{ page.category }}</span>
-      {%- endif -%} {%- if page.author -%} •
-      <span itemprop="author" itemscope itemtype="http://schema.org/Person"
-        ><span class="p-author h-card" itemprop="name"
-          >{{ page.author }}</span
-        ></span
-      >
-      {%- endif -%}
-    </p>
+    </div>
+
+    {%- if page.tags.size > 0 -%}
+      <div class="post-meta handwritten">... tagged {{ page.tags | join: ', ' }}</div>
+    {%- else -%}
+      <div class="post-meta handwritten">... no tags :3</div>
+    {%- endif -%}
+
+    {%- if page.category -%}
+    <span class="p-author h-card">Category: {{ page.category }}</span>
+    {%- endif -%} 
+    {%- if page.author -%} •
+      <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-author h-card" itemprop="name">
+          {{ page.author }}
+        </span>
+      </span>
+    {%- endif -%}
   </header>
 
-  {%- if page.warning_banner -%}
-    <div class="warning-banner flex">
-      <div style="font-size:40px">🚨</div>
-      <div class="warning-banner-content big-flex">
-        <strong>{{ page.warning_banner }}</strong>
+  <div class="banners">
+    {%- if page.warning_banner -%}
+      <div class="warning-banner flex">
+        <div style="font-size:40px">🚨</div>
+        <div class="warning-banner-content big-flex">
+          <strong>{{ page.warning_banner }}</strong>
+        </div>
       </div>
+    {%- endif -%}
+    {%- if page.info_banner -%}
+      <div class="info-banner flex">
+        <div style="font-size:40px">ℹ️</div>
+        <div class="info-banner-content big-flex">
+          <strong>{{ page.info_banner | markdownify }}</strong>
+        </div>
+      </div>
+    {%- endif -%}
+    <div class="big-banner flex">
+      <div style="font-size:40px">🚨</div>
+      <strong class="big-flex">the banner says: trans rights!</strong>
     </div>
-  {%- endif -%}
-
-  <div class="big-banner flex">
-    <div style="font-size:40px">🚨</div>
-    <strong class="big-flex">the banner says: trans rights!</strong>
   </div>
+  <div style="margin-bottom:10px" class="fancy"></div>
+
+
   <div class="post-content e-content" itemprop="articleBody">{{ content }}</div>
 
   {%- if site.disqus.shortname -%} {%- include disqus_comments.html -%} {%-

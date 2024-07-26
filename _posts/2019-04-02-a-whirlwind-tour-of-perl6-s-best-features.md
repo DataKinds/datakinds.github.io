@@ -17,7 +17,7 @@ The whatever star inhereits its namesake from the wildcard character, which gets
 
 This is useful for a wide variety of reasons. Here's an example I feel is relatively succinct:
 
-```perl6
+```perl
 1,1,*+* ...^ * >= 100
 ```
 
