@@ -5,16 +5,26 @@
     <div>
       <a class="site-title" rel="author" href="/"> 
         <span class="handwritten">hello traveler, you've stumbled upon</span>
-        <h1 style="display: inline-block">DK'S ABODE</h1>
+        <h1 style="display:inline-block;margin-left:0.5em">DK'S ABODE</h1>
+      </a>
+    </div>
+    <div class="flex justify-around">
+      <div class="fancy"></div>
+      <span style="margin: 0 20px" class="handwritten">other places you may visit include...</span>
+      <div class="fancy"></div>
+    </div>
+    <div class="flex justify-around">
+      <a class="site-subtitle" rel="author" href="/toki-pona/">
+        <h2 style="display:inline-block">{{ site.nimi }}</h2>
+      </a>
+      <a class="site-subtitle" rel="author" href="/tags/">
+        <h2 style="display:inline-block">browse by tag</h2>
+      </a>
+      <a class="site-subtitle" rel="author" href="https://scp-wiki.wikidot.com/random:random-scp">
+        <h2 style="display:inline-block">random scp</h2>
       </a>
     </div>
     <div class="fancy"></div>
-    <span class="handwritten">other places you may visit include...</span>
-    <a class="site-title" rel="author" href="/toki-pona/">
-      <h1 style="display: inline-block">
-        {{ site.nimi }}
-      </h1>
-    </a> 
     <br>
 
     <!-- {%- if page_paths -%}

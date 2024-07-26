@@ -17,21 +17,37 @@ body {
     margin-left: 40px;
     margin-right: 40px;
 }
+
+.inline-block {
+    display: inline-block;
+}
+
 .handwritten {
     font-family: "Playwrite US Trad", cursive;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
+    white-space: nowrap;
 }
 
 .site-title {
     text-decoration: none;
     color: unset;
+    filter: drop-shadow(0 0 0.75rem rgb(255, 88, 122));
 }
 
-.site-title > h1 {
-    filter: drop-shadow(0 0 0.75rem crimson);
-    margin-left: 0.5em;
+.site-subtitle {
+    text-decoration: none;
+    color: unset;
+    filter: drop-shadow(0 0 0.75rem rgb(133, 245, 255));
+}
+
+.post-link {
+    text-decoration: none;
+    color: rgb(252, 255, 180);
+    font-weight: 700;
+    font-size: large;
+    filter: drop-shadow(0 0 0.1rem rgb(255, 255, 225));
 }
 
 .fancy {
@@ -41,4 +57,28 @@ body {
     background-repeat: repeat-x;
     width: 100%;
     height: 10px;
+}
+
+.flex {
+    display: flex;
+    align-items: center
+}
+
+.justify-around {
+    justify-content: space-around;
+}
+
+@counter-style sparkles {
+    system: cyclic;
+    suffix: "  ";
+    symbols: "₊˚." "✨" "🌟" "❇️" "💥" "🌠" "✩" "⋆☾⋆" "⁺₊✧" "🎆" "🔆" "💎" "💖" "🎇"
+}
+
+ul.post-list {
+    list-style: sparkles;
+}
+
+.post-preview {
+    font-size: small;
+    margin: 0 3em;
 }

@@ -1,7 +1,7 @@
 ---
 layout: home
+title: browse by tag
 ---
-<h2>Browse by tag!</h2>
 
 <div class="tags-expo">
     <div class="tags-expo-list">

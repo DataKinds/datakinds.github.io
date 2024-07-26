@@ -1,0 +1,20 @@
+<h2 class="post-list-heading">{{ page.list_title | default: "posts" }}</h2>
+<ul class="post-list">
+  {%- for post in site.posts -%}
+  <li>
+    {%- assign date_format = site.date_format | default: "%b %d %Y" -%}
+    <h4 style="margin:0 0;margin-left:0;" class="inline-block">
+        <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+    </h4> — 
+    <span class="post-meta">{{ post.date | date: date_format }}</span> —
+    {%- if post.tags.size > 0 -%}
+        <span class="post-tags">tagged {{ post.tags | join: ', ' }}</span>
+    {%- else -%}
+        <span class="post-tags">no tags</span>
+    {%- endif -%}
+    <br>
+    <div class="post-preview">{{ post.content | markdownify | strip_html | truncatewords: 50  }}</div>
+  </li>
+  {%- endfor -%}
+</ul>
+<p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | relative_url }}">via RSS</a></p>
