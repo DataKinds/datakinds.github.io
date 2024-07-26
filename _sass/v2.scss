@@ -27,6 +27,38 @@ blockquote {
     border-left: 8px double #54023d;
 }
 
+a {
+    text-decoration: underline dashed;
+    color:rgb(133, 245, 255)
+}
+a:visited {
+    text-decoration: underline dashed;
+    color:rgb(255, 133, 228)
+}
+
+.fancy {
+    background-image: url(/assets/cute.svg);
+    filter: invert(100%);
+    background-size: 20px;
+    background-repeat: repeat-x;
+    width: 100%;
+    height: 10px;
+}
+
+.flex {
+    display: flex;
+    align-items: center
+}
+
+.big-flex {
+    flex-grow: 1;
+}
+
+.justify-around {
+    justify-content: space-around;
+}
+
+
 .inline-block {
     display: inline-block;
 }
@@ -41,13 +73,13 @@ blockquote {
 
 .site-title {
     text-decoration: none;
-    color: unset;
+    color: white !important;
     filter: drop-shadow(0 0 0.75rem rgb(255, 88, 122));
 }
 
 .site-subtitle {
     text-decoration: none;
-    color: unset;
+    color: white !important;
     filter: drop-shadow(0 0 0.75rem rgb(133, 245, 255));
     white-space: nowrap;
     margin: 0 10px;
@@ -93,6 +125,7 @@ blockquote {
 
 .post-content {
     margin: 0 auto;
+    margin-bottom: 10px;
     max-width: 70em;
     padding: 15px 40px;
     border-radius: 10px;
@@ -108,26 +141,11 @@ blockquote {
     line-height: 0;
 }
 
-.fancy {
-    background-image: url(/assets/cute.svg);
-    filter: invert(100%);
-    background-size: 20px;
-    background-repeat: repeat-x;
-    width: 100%;
-    height: 10px;
-}
-
-.flex {
-    display: flex;
-    align-items: center
-}
-
-.big-flex {
-    flex-grow: 1;
-}
-
-.justify-around {
-    justify-content: space-around;
+.footer-title {
+    color: unset;
+    filter: drop-shadow(0 0 0.75rem rgb(171, 23, 197));
+    white-space: nowrap;
+    margin: 0 10px;
 }
 
 @counter-style sparkles {
@@ -139,10 +157,12 @@ blockquote {
 ul.post-list {
     list-style: sparkles;
 }
-.post-list-heading {
+
+:is(.post-list-heading, .page-heading) {
     margin-top: 0px;
     margin-bottom: 5px;
 }
+
 .post-preview {
     font-size: small;
     margin: 0 3em;

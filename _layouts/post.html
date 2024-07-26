@@ -17,13 +17,18 @@ layout: default
         datetime="{{ page.date | date_to_xmlschema }}"
         itemprop="datePublished"
       >
-        {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-        ... composed for your pleasure on {{ page.date | date: date_format }} 
+        {%- assign date_format = site.minima.date_format | default: "%B %-d, %Y" -%}
+        ... composed for your pleasure on <strong>{{ page.date | date: date_format }}</strong>
       </time>
     </div>
 
     {%- if page.tags.size > 0 -%}
-      <div class="post-meta handwritten">... tagged {{ page.tags | join: ', ' }}</div>
+      <div class="post-meta handwritten">... tagged&nbsp;
+        {%- for tag in page.tags -%}
+          <a style="text-decoration:none" href="/tags/#{{ tag | slugify }}"><strong>{{ tag }}</strong></a>
+          {%- unless forloop.last -%},&nbsp;{%- endunless -%}
+        {%- endfor -%}
+      </div>
     {%- else -%}
       <div class="post-meta handwritten">... no tags :3</div>
     {%- endif -%}
