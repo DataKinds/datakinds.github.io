@@ -2,13 +2,10 @@
 layout: post
 title: Gradient Descent in \(\mathbb{R}^n\) (part 1)
 date: 2021-03-10 21:49 -0700
+warning_banner: "allergy notice: this page contains \\(\\LaTeX\\) and interactive graphs. If you have your Javascript disabled, please enable it for the best possible experience reading this blog post."
 ---
 
 <script src="https://unpkg.com/function-plot/dist/function-plot.js"></script>
-
-(allergy notice: this page contains \\(\\LaTeX\\) and interactive graphs. If you have your Javascript disabled, please enable it for the best possible experience reading this blog post.)
-
-\\(\\)
 
 # Motivation
 

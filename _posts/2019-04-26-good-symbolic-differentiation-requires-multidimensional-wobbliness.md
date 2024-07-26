@@ -2,11 +2,8 @@
 layout: post
 title: Good Symbolic Differentiation Requires Multidimensional Wobbliness
 date: 2019-04-26 09:15 -0700
+warning_banner: "allergy notice: this page contains \\(\\LaTeX\\). If you have your Javascript disabled, please enable it for the best possible experience reading this blog post. I promise that's the only script on this site!"
 ---
-
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
-
-(allergy notice: this page contains latex. If you have your Javascript disabled, please enable it for the best possible experience reading this blog post. I promise that's the only script on this site!)
 
 Over the past couple of days, I've been working on a Haskell script to do symbolic differentiation. Despite the fact that I'm more than a few semesters into a math degree, I've learned a ton while working on this little project. Differentiation can be a harder problem than it seems -- especially when we've been trained to trust our intuition about things.
 
