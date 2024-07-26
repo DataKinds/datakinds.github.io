@@ -9,7 +9,7 @@ While reading through the docs for [Perl6's multi-dispatch](https://docs.perl6.o
 
 10 minutes later, and I've created this abomination:
 
-```perl6
+```perl
 proto len(@ --> Int) {*}
 multi len([] --> 0) { }
 multi len(@ [$, *@rest] --> Int) { 1 + samewith(@rest) }
@@ -43,7 +43,7 @@ Finally, the `1 + samewith(@rest)` line recurses through the list. `samewith` (d
 
 No ML would be complete without some sort of abstract data type. Fortunately, we can emulate ADTs using classes and parametrized roles. Let's start by defining our `Maybe` ADT ([reference for the uninitiated](https://en.wikibooks.org/wiki/Haskell/Understanding_monads/Maybe "Haskell Maybe monad")).
 
-```perl6
+```perl
 role Maybe[::A] { }
 sub just(::A $x --> Maybe[::A]) { class Just does Maybe[::A] { has $.V = $x; }.new }
 sub nothing(Any:U $t --> Maybe[$t]) { class Nothing does Maybe[$t] { }.new }
@@ -53,7 +53,7 @@ Here, we define `Maybe` as a parametric role. We define the constructors `just` 
 
 Now, we can pattern match on the classes produced by our constructors to interact with our `Maybe` values.
 
-```perl6
+```perl
 my @maybes = just(1), just(2), nothing(Int), just(4), nothing(Int);
 
 proto print-maybe(Maybe $) {*}

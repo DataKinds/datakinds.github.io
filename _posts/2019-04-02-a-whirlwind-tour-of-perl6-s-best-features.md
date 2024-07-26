@@ -29,7 +29,7 @@ There is a special variable in Perl6 named `$_`. It has type `(Any)` and essenti
 
 Here's a contrived example: given a list of lists, filter the lists down to only their even elements and print the new lists.
 
-```perl6
+```perl
 > (1..2 X 1..2).map: { .grep(* %% 2).say }
 ()
 (2)
@@ -39,7 +39,7 @@ Here's a contrived example: given a list of lists, filter the lists down to only
 
 The significant code here is `{ .grep(* %% 2).say }`. This is a block that takes an implicit argument (passed in as `$_`), filters out eveything that isn't divisible by 2 (`.grep(* %% 2)`), and prints it to standard output. We can use this block as a standalone callable to see this in action:
 
-```perl6
+```perl
 > { .grep(* %% 2).say }(1..10)
 (2 4 6 8 10)
 ```
@@ -58,13 +58,13 @@ Most languages that provide the ability to define custom operators have a notion
 
 Here's a real world example of where this has come in handy for me. Perl6 has no predefined operator to string lines of text together, so I defined one myself:
 
-```perl6
+```perl
 sub infix:<~~~>($a, $b) { $a ~ "\n" ~ $b };
 ```
 
 Then, I used it to write a multiline string without having to fudge with things like heredocs or the like:
 
-```perl6
+```perl
 say 'trepl version 0. https://github.com/aearnus/'
 ~~~ "running the language { $*PERL.gist } on { $*PERL.compiler.gist }"
 ~~~ 'type `;help` for help, or type `;quit` or `;exit` to leave.'
@@ -93,28 +93,28 @@ There is special syntax to call a method on an object's `HOW` object, and that s
 
 Here are a few fun things that you can do with a `HOW` object. Using `my $x = "Hello, world!"`, we can introspect it to find its name,
 
-```perl6
+```perl
 > $x.^name
 Str
 ```
 
 what methods you can call on it,
 
-```perl6
+```perl
 > $x.^methods
 (BUILD Capture Int Num chomp starts-with ends-with substr-eq contains indices index rindex pred succ comb match subst-mutate subst lines parse-base samecase samemark samespace word-by-word trim-leading trim-trailing trim words WORDS_AUTODEREF encode NFC NFD NFKC NFKD unival univals wordcase trans parse-names uniparse indent codes chars uc lc tc fc tclc flip ord WHY WHICH Bool Str Stringy DUMP ACCEPTS chop Numeric gist perl ords split substr substr-rw BUILDALL)
 ```
 
 its method resolution order (what classes are traversed to call a method on this object?),
 
-```perl6
+```perl
 > $x.^mro
 ((Str) (Cool) (Any) (Mu))
 ```
 
 and much more. You can even introspect a `HOW` object:
 
-```perl6
+```perl
 > $x.HOW.^methods
 (archetypes new new_type add_fallback compose roles role_typecheck_list is_composed setup_junction_fallback find_method_fallback has_fallbacks set_name set_shortname name shortname WHY set_why ver auth api set_ver set_auth set_api add_stash add_attribute compose_attributes set_rw rw get_attribute_for_usage attributes add_method methods method_table submethod_table declares_method lookup cache cache_get cache_add add_private_method private_method_table find_private_method set_autogen_proto add_multi_method multi_methods_to_incorporate incorporate_multi_candidates add_meta_method meta_method_table compose_meta_methods add_role roles_to_compose exclude_parent add_parent parents hides hidden set_hidden set_default_parent_type has_default_parent_type get_default_parent_type compute_mro c3_merge mro mro_unhidden find_method find_method_qualified can publish_method_cache isa does type_check publish_type_cache add_trustee trusts is_trusted create_BUILDPLAN BUILDPLAN BUILDALLPLAN set_is_mixin is_mixin set_mixin_attribute mixin_attribute flush_cache setup_mixin_cache mixin generate_mixin mixin_base is_array_type array_type set_array_type get_boolification_mode set_boolification_mode publish_boolification_spec compose_repr repr_composed set_default_invoke_handler set_invocation_attr set_invocation_handler has_invocation_attr invocation_attr_class ...)
 ```
@@ -156,7 +156,7 @@ Perl6 takes [a note from the Book of Rust](https://doc.rust-lang.org/std/marker/
 
 Nothing will explain this better than a code example, so without further ado:
 
-```perl6
+```perl
 class Okay {
 	has $.value is required;
 }
@@ -189,7 +189,7 @@ Sound vague? It is. Smartmatch is used in two important ways in Perl6: to power 
 
 This is Perl6's form of a case statement, but calling it a case statement wouldn't do it justice. Here's an example of how it can be used:
 
-```perl6
+```perl
 given $str {
 	when /hello/ { say 'user typed in "hello"' }
 	when /world/ { say 'user typed in "world"' }
@@ -198,7 +198,7 @@ given $str {
 
 This block runs the first block if `$str ~~ /hello/` returns `True`, and the second block if `$str ~~ /world/` returns `True`. In this very specific case, this is akin to a switch/case block but matching on regexes instead. We're not limited to just regexes though, we can mix and match with whatever type smartmatch accepts:
 
-```perl6
+```perl
 given $str {
 	when 10 { say 'user typed in the number 10' }
 	when /hello/ { say 'user typed in "hello"' }
@@ -216,7 +216,7 @@ In Perl6, type signatures are treated the same as any other object. A function's
 
 Check out this example:
 
-```perl6
+```perl
 sub f(Int $x --> Int) {
 	$x + 1
 }

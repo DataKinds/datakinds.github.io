@@ -14,7 +14,7 @@ Out of every idea that people have had over the years, I think that the idea of 
 
 What I mean by "stringy context" is the idea that there are certain situations in which the language likes coercing things into strings. In Perl 6, you can create a stringy context by appending values with `~`:
 
-```perl6
+```perl
 ~(1, 2, 3, 4) # this list of numbers becomes `1 2 3 4` in a stringy context
 ~[] # an empty array becomes `` in a stringy context
 ```
@@ -23,7 +23,7 @@ Sure, coercing things to strings isn't the most exciting thing in the world. But
 
 Stringy contexts can be created in other ways, such as by interpolating things into double quoted strings:
 
-```perl6
+```perl
 my $favorite-number = 10;
 "my favorite number is $favorite-number";
 > 'my favorite number is 10'
@@ -31,7 +31,7 @@ my $favorite-number = 10;
 
 This is _slick_, but it's not groundbreaking. The groundbreaking-ness comes from blurring the lines between what constitutes as a string and what constitutes as any other datatype. JavaScript was among the first real languages that tried this, but fell victim to its strange coercion rules and bad defaults. Let's take a look at how it works in Perl 6, through [the `Cool` class](https://docs.perl6.org/type/Cool):
 
-```perl6
+```perl
 # angle brackets create a list of strings
 <1 2 3 3003 6006 9009> 
 > (1 2 3 3003 6006 9009)
@@ -53,7 +53,7 @@ Antirez already said most of what there is to say about Tcl's manipulation of st
 
 There's also a string-to-code isomorpism in Perl 6:
 
-```perl6
+```perl
 # some complicated type
 my $c = Collation.new
 > collation-level => 85, Country => International, Language => None, primary => 1, secondary => 1, tertiary => 1, quaternary => 1

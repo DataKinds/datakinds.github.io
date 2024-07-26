@@ -13,7 +13,7 @@ tags: raku
 
 In my [last post](https://aearnus.github.io/2019/04/05/perl6-is-the-world-s-worst-ml "Perl 6 is the World's Worst ML"), I talked about this bit of code for implementing a [Maybe ADT](https://en.wikibooks.org/wiki/Haskell/Understanding_monads/Maybe "Maybe monad") in Perl 6:
 
-```perl6
+```perl
 role Maybe[::A] { }
 sub just(::A $x --> Maybe[::A]) { class Just does Maybe[::A] { has $.V = $x; }.new }
 sub nothing(Any:U $t --> Maybe[$t]) { class Nothing does Maybe[$t] { }.new }
@@ -23,7 +23,7 @@ I knew this code was bad but at the time I couldn't figure out how to improve up
 
 A junction is a special type that represents a _superposition of eigenstates that collapse down to a single value in a boolean context_. In English, it's a type that is hand-crafted to match against values in special ways. Consider this simple conditional:
 
-```perl6
+```perl
 if 2 + 2 == 4 or 2 + 2 == 6 {
     say 'perl6 can do math!'
 }
@@ -33,7 +33,7 @@ if 2 + 2 == 4 or 2 + 2 == 6 {
 
 This conditional can be rewritten using a junction as:
 
-```perl6
+```perl
 if 2 + 2 == 4|6 {
     say 'perl6 can do math /and/ collapse superpositions!'
 }
@@ -41,7 +41,7 @@ if 2 + 2 == 4|6 {
 
 In this case, the `==` operator _autothreads_ over the junction, effectively mapping each value to whether or not it equals `2 + 2`. We can see this by looking at this session:
 
-```perl6
+```perl
 trepl> 4|6             # This is simply the junction of values `4` and `6`.
 ==> any(4, 6)
 
@@ -93,7 +93,7 @@ That's all you'll need to know about GADTs in order to appreciate the Perl 6 hea
 
 Now we're ready to represent `Maybe[::T]` as a GADT instead of a hacky role as we did at the top. For clarity's sake, we'll discard with this notion of `Maybe` and instead redefine `OurNullable`. Let me show you the whole thing before we break it down into pieces.
 
-```perl6
+```perl
 # Helper function
 sub prefix:«>»($x) { $x.v; }
 
@@ -126,7 +126,7 @@ First, we define a helper function `prefix:«>»($x)` at the top of the file. Th
 
 ### Constructor 1: OurNull
 
-```perl6
+```perl
 class OurNull { has $.t is required;
                 method ACCEPTS($other) { $other.WHAT eqv OurNull and $other.t ~~ $!t } }
 sub ourNull(Any:U $t) { OurNull.new: t => $t }
@@ -138,7 +138,7 @@ The `ACCEPTS` function is used during typechecking -- we only succeed in typeche
 
 ### Constructor 2: OurFull
 
-```perl6
+```perl
 # Constructor 2
 class OurFull { has $.v is required;
                 method ACCEPTS($other) {
@@ -153,7 +153,7 @@ We use "undefined" instances of `OurFull` (ones that contain types instead of va
 
 ### The GADT Junction
 
-```perl6
+```perl
 # Data declaration
 sub IsNullable(Any:U $t) { ourNull($t) ^ ourFull($t) }
 ```
@@ -168,7 +168,7 @@ So, this junction doesn't represent an actual type, it represents something we'r
 
 ### Usage
 
-```perl6
+```perl
 my $fill-it-up where IsNullable(Str) = ourFull('perl 6 rocks!');
 my @possibly-list where IsNullable(Int) = ourNull(Int), ourFull(3), ourFull(5);
 

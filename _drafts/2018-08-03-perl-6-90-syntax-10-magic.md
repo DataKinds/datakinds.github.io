@@ -13,7 +13,7 @@ Perl 6 has [a type system](https://docs.perl6.org/language/typesystem). Perl 6 h
 
 ## The Inevitable Monad
 
-```perl6
+```perl
 role Monad[::A] { 
     only method bind((&f where (.signature.elems ~~ 1 and .returns ~~ :(::A))) --> ::A) { ... }
     only method wrap(::T --> Monad[::A]) { ... }
@@ -39,7 +39,7 @@ This back and forth of writing something I'm used to then being corrected by the
 
 Before anything else, here's the code that I wrote:
 
-```perl6
+```perl
 sub f(Complex $z, Complex $c --> Complex) {
     $z ** 2 + $c;
 }
