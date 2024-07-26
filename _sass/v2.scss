@@ -71,6 +71,17 @@ a:visited {
     white-space: nowrap;
 }
 
+.handwritten-small {
+    font-family: "Playwrite US Trad", cursive;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    white-space: nowrap;
+    font-size: 10px;
+    color: rgb(204, 204, 204);
+}
+
+
 .site-title {
     text-decoration: none;
     color: white !important;
@@ -148,6 +159,9 @@ a:visited {
     margin: 0 10px;
 }
 
+.footer-meta {
+    margin-left: 2em;
+}
 @counter-style sparkles {
     system: cyclic;
     suffix: "  ";
