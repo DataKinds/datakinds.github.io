@@ -7,16 +7,16 @@ Today, I wrote a little program to download and view entries off the SCP website
 
 For the uninitiated, the SCP website is comprised of a community of horror writers who write stories centered around a cohesive fictional universe where the "SCP Foundation" exists to protect the public from anomalous and reality-bending objects. 
 
-Reading all of these stories is an absolute blast (it counts as cardio!), but their website is unfortunately rather cluttered. [Here's a link to a random SCP if you want to check it out yourself](http://www.scp-wiki.net/random:random-scp). I wanted an easier way to browse -- so I wrote a Perl 6 script.
+Reading all of these stories is an absolute blast (it counts as cardio!), but their website is unfortunately rather cluttered. [Here's a link to a random SCP if you want to check it out yourself](http://www.scp-wiki.net/random:random-scp). I wanted an easier way to browse -- so I wrote a Raku script.
 
 ![Before/after image of SCP-173](/assets/imgs/the-beauty-of-brevity/before-after.png)
 
 <div style="width: 100%; text-align: center;"><i>Before/after image of SCP-173</i></div>
 
-Without further ado, here's the entirety of the source code for the Perl 6 SCP viewer:
+Without further ado, here's the entirety of the source code for the Raku SCP viewer:
 
 {% highlight perl %}
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
 
 use WWW;
 use DOM::Tiny;
@@ -73,7 +73,7 @@ Code that just works is the bare minimum. The code above is a shoddy rope swing 
 Without fiddling with too much of the program itself, we can immediately make this code more elegant by condensing sequential statements into method chains and removing redundant variables.
 
 ```perl
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
 
 use WWW;
 use DOM::Tiny;
@@ -114,7 +114,7 @@ sub MAIN($scp-number) {
 We have no use for keeping flavor text in its own function.
 
 ```perl
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
 
 use WWW;
 use DOM::Tiny;
@@ -151,7 +151,7 @@ sub MAIN($scp-number) {
 And we should keep formatting consistent.
 
 ```perl
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
 
 use WWW;
 use DOM::Tiny;
@@ -183,7 +183,7 @@ sub MAIN($scp-number) {
 We could even get rid of the `$tmp-filename` variable.
 
 ```perl
-#!/usr/bin/env perl6
+#!/usr/bin/env raku
 
 use WWW;
 use DOM::Tiny;

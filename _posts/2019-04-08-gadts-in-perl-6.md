@@ -1,31 +1,31 @@
 ---
 layout: post
-title: GADTs and Superpositions in Perl 6
+title: GADTs and Superpositions in Raku
 date: 2019-04-08 14:16 -0700
 tags: raku
 ---
 
-![Of course, this implies that comprehensibility and nonsense are equally likely, which is not true in the general case. Especially when working with Perl 6.](/assets/imgs/gadts-in-perl6/comic.png "Of course, this implies that comprehensibility and nonsense are equally likely, which is not true in the general case. Especially when working with Perl 6.")
+![Of course, this implies that comprehensibility and nonsense are equally likely, which is not true in the general case. Especially when working with Raku.](/assets/imgs/gadts-in-perl6/comic.png "Of course, this implies that comprehensibility and nonsense are equally likely, which is not true in the general case. Especially when working with Raku.")
 
 <div style="width: 100%; text-align: center"><i>(comics made by the wonderful <a href="https://twitter.com/TristanBomb/">@TristanBomb</a>)</i></div>
 
 ---
 
-In my [last post](https://aearnus.github.io/2019/04/05/perl6-is-the-world-s-worst-ml "Perl 6 is the World's Worst ML"), I talked about this bit of code for implementing a [Maybe ADT](https://en.wikibooks.org/wiki/Haskell/Understanding_monads/Maybe "Maybe monad") in Perl 6:
+In my [last post](https://aearnus.github.io/2019/04/05/perl6-is-the-world-s-worst-ml "Raku is the World's Worst ML"), I talked about this bit of code for implementing a [Maybe ADT](https://en.wikibooks.org/wiki/Haskell/Understanding_monads/Maybe "Maybe monad") in Raku:
 
-```perl6
+```perl
 role Maybe[::A] { }
 sub just(::A $x --> Maybe[::A]) { class Just does Maybe[::A] { has $.V = $x; }.new }
 sub nothing(Any:U $t --> Maybe[$t]) { class Nothing does Maybe[$t] { }.new }
 ```
 
-I knew this code was bad but at the time I couldn't figure out how to improve upon it. Rest easy, though, as Perl 6 has us covered. Enter the [junction](https://docs.perl6.org/type/Junction "Junctions in Perl 6")....
+I knew this code was bad but at the time I couldn't figure out how to improve upon it. Rest easy, though, as Raku has us covered. Enter the [junction](https://docs.perl6.org/type/Junction "Junctions in Raku")....
 
 A junction is a special type that represents a _superposition of eigenstates that collapse down to a single value in a boolean context_. In English, it's a type that is hand-crafted to match against values in special ways. Consider this simple conditional:
 
-```perl6
+```perl
 if 2 + 2 == 4 or 2 + 2 == 6 {
-    say 'perl6 can do math!'
+    say 'raku can do math!'
 }
 ```
 
@@ -33,15 +33,15 @@ if 2 + 2 == 4 or 2 + 2 == 6 {
 
 This conditional can be rewritten using a junction as:
 
-```perl6
+```perl
 if 2 + 2 == 4|6 {
-    say 'perl6 can do math /and/ collapse superpositions!'
+    say 'raku can do math /and/ collapse superpositions!'
 }
 ```
 
 In this case, the `==` operator _autothreads_ over the junction, effectively mapping each value to whether or not it equals `2 + 2`. We can see this by looking at this session:
 
-```perl6
+```perl
 trepl> 4|6             # This is simply the junction of values `4` and `6`.
 ==> any(4, 6)
 
@@ -86,14 +86,14 @@ data OurNullable t where
     OurFull :: t -> OurNullable t
 ```
 
-That's all you'll need to know about GADTs in order to appreciate the Perl 6 heading your way.
+That's all you'll need to know about GADTs in order to appreciate the Raku heading your way.
 
 # Putting it all together 
 ### Alternatively, _collapsing the eigenstates_
 
 Now we're ready to represent `Maybe[::T]` as a GADT instead of a hacky role as we did at the top. For clarity's sake, we'll discard with this notion of `Maybe` and instead redefine `OurNullable`. Let me show you the whole thing before we break it down into pieces.
 
-```perl6
+```perl
 # Helper function
 sub prefix:«>»($x) { $x.v; }
 
@@ -112,7 +112,7 @@ sub ourFull($v) { OurFull.new: v => $v }
 sub IsNullable(Any:U $t) { ourNull($t) ^ ourFull($t) }
 
 # Usage:
-my $fill-it-up where IsNullable(Str) = ourFull('perl 6 rocks!');
+my $fill-it-up where IsNullable(Str) = ourFull('Raku rocks!');
 my @possibly-list where IsNullable(Int) = ourNull(Int), ourFull(3), ourFull(5);
 
 proto print-our-nullable($ where IsNullable(Any)) {*}
@@ -126,7 +126,7 @@ First, we define a helper function `prefix:«>»($x)` at the top of the file. Th
 
 ### Constructor 1: OurNull
 
-```perl6
+```perl
 class OurNull { has $.t is required;
                 method ACCEPTS($other) { $other.WHAT eqv OurNull and $other.t ~~ $!t } }
 sub ourNull(Any:U $t) { OurNull.new: t => $t }
@@ -138,7 +138,7 @@ The `ACCEPTS` function is used during typechecking -- we only succeed in typeche
 
 ### Constructor 2: OurFull
 
-```perl6
+```perl
 # Constructor 2
 class OurFull { has $.v is required;
                 method ACCEPTS($other) {
@@ -153,7 +153,7 @@ We use "undefined" instances of `OurFull` (ones that contain types instead of va
 
 ### The GADT Junction
 
-```perl6
+```perl
 # Data declaration
 sub IsNullable(Any:U $t) { ourNull($t) ^ ourFull($t) }
 ```
@@ -168,8 +168,8 @@ So, this junction doesn't represent an actual type, it represents something we'r
 
 ### Usage
 
-```perl6
-my $fill-it-up where IsNullable(Str) = ourFull('perl 6 rocks!');
+```perl
+my $fill-it-up where IsNullable(Str) = ourFull('Raku rocks!');
 my @possibly-list where IsNullable(Int) = ourNull(Int), ourFull(3), ourFull(5);
 
 proto print-our-nullable($ where IsNullable(Any)) {*}
@@ -179,7 +179,7 @@ multi print-our-nullable(OurNull $)  { 'null'.say }
 @possibly-list.map: &print-our-nullable;
 ```
 
-The usage of `IsNullable` ends up being very similar to the usage of `Maybe[::T]`. The only caveat is that the `where` clause forces the typechecking of `IsNullable` types into runtime. This incurs a non-negligible overhead. For more on this, check out the previous article [Perl 6 is the World's Worst ML](https://aearnus.github.io/2019/04/05/perl6-is-the-world-s-worst-ml "Perl 6 is the World's Worst ML").
+The usage of `IsNullable` ends up being very similar to the usage of `Maybe[::T]`. The only caveat is that the `where` clause forces the typechecking of `IsNullable` types into runtime. This incurs a non-negligible overhead. For more on this, check out the previous article [Raku is the World's Worst ML](https://aearnus.github.io/2019/04/05/perl6-is-the-world-s-worst-ml "Raku is the World's Worst ML").
 
 # Drawbacks
 

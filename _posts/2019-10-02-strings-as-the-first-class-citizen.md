@@ -10,11 +10,11 @@ If you've never used Redis, it is an in memory database designed to speed up wha
 
 # Stringy contexts
 
-Out of every idea that people have had over the years, I think that the idea of the "stringy context" has caught on the most. I'll be talking specifically about Perl 6 (it is explicit about its stringy contexts), but note that this applies to most every language that uses interpolation/coercion extensively (think Ruby, for example).
+Out of every idea that people have had over the years, I think that the idea of the "stringy context" has caught on the most. I'll be talking specifically about Raku (it is explicit about its stringy contexts), but note that this applies to most every language that uses interpolation/coercion extensively (think Ruby, for example).
 
-What I mean by "stringy context" is the idea that there are certain situations in which the language likes coercing things into strings. In Perl 6, you can create a stringy context by appending values with `~`:
+What I mean by "stringy context" is the idea that there are certain situations in which the language likes coercing things into strings. In Raku, you can create a stringy context by appending values with `~`:
 
-```perl6
+```perl
 ~(1, 2, 3, 4) # this list of numbers becomes `1 2 3 4` in a stringy context
 ~[] # an empty array becomes `` in a stringy context
 ```
@@ -23,15 +23,15 @@ Sure, coercing things to strings isn't the most exciting thing in the world. But
 
 Stringy contexts can be created in other ways, such as by interpolating things into double quoted strings:
 
-```perl6
+```perl
 my $favorite-number = 10;
 "my favorite number is $favorite-number";
 > 'my favorite number is 10'
 ```
 
-This is _slick_, but it's not groundbreaking. The groundbreaking-ness comes from blurring the lines between what constitutes as a string and what constitutes as any other datatype. JavaScript was among the first real languages that tried this, but fell victim to its strange coercion rules and bad defaults. Let's take a look at how it works in Perl 6, through [the `Cool` class](https://docs.perl6.org/type/Cool):
+This is _slick_, but it's not groundbreaking. The groundbreaking-ness comes from blurring the lines between what constitutes as a string and what constitutes as any other datatype. JavaScript was among the first real languages that tried this, but fell victim to its strange coercion rules and bad defaults. Let's take a look at how it works in Raku, through [the `Cool` class](https://docs.perl6.org/type/Cool):
 
-```perl6
+```perl
 # angle brackets create a list of strings
 <1 2 3 3003 6006 9009> 
 > (1 2 3 3003 6006 9009)
@@ -51,9 +51,9 @@ This comes in extremely handy.
 
 Antirez already said most of what there is to say about Tcl's manipulation of strings-as-code. It's sweet.
 
-There's also a string-to-code isomorpism in Perl 6:
+There's also a string-to-code isomorpism in Raku:
 
-```perl6
+```perl
 # some complicated type
 my $c = Collation.new
 > collation-level => 85, Country => International, Language => None, primary => 1, secondary => 1, tertiary => 1, quaternary => 1
@@ -115,10 +115,10 @@ Boom. Strings as code. For better or for worse -- but if nothing else, as a usef
 
 # Other things like strings
 
-* Perl 6's Plain Old Documentation is a very cool thing that is both a string and not a string.
+* Raku's Plain Old Documentation is a very cool thing that is both a string and not a string.
 
 * Lisp and the idea of lists as the first class object have been waxed poetic since time itself. I don't want to talk about that more -- everything that could have been said on that topic has been said.
 
-* Arrays/matricies as the first class object are just as cool as strings, and I'd be happy to write another post on J/APL/A+/Perl6/... in that regard.
+* Arrays/matricies as the first class object are just as cool as strings, and I'd be happy to write another post on J/APL/A+/Raku/... in that regard.
 
 * I don't know enough about Bash to have talked about it here. Perhaps a comment could fill in the gaps?

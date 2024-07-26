@@ -22,7 +22,7 @@ All of these examples will be presented as plain old [subroutines](https://docs.
 
 To define this function, let's start by defining a sub `count`:
 
-```raku
+```perl
 sub count($start, $end = *) { ??? }
 ```
 
@@ -32,7 +32,7 @@ First off, we give `$end` a default value of `*`. Default arguments work the sam
 
 The default value of `$end` here is where things get exciting. A bare `*` creates a [Whatever object](https://docs.raku.org/type/Whatever), which is a special value that many operators choose to interpret differently than other values. Let's finish the function and we'll see how it comes into play.
 
-```raku
+```perl
 sub count($start, $end = *) {
     $start ... $end 
 }
@@ -50,7 +50,7 @@ In this situation, we use `...` to do two things: in the case that `$end` is pro
 
 While `count()` took a scalar argument, `cycle()` takes a list which thusly must be wrapped using the [positional sigil `@`](https://docs.raku.org/language/variables#index-entry-sigil_@). It repeats this list infinitely. So, our subroutine definition will look like this:
 
-```raku
+```perl
 sub cycle(@p) { ??? }
 ```
 
@@ -60,7 +60,7 @@ I've got two different ways of writing this subroutine: an explicit method and a
 
 We're going to use Raku's [`gather / take` control flow structures](https://docs.raku.org/language/control#gather/take) to do this explicitly. `gather` tells Raku that the following block is going to generate a [sequence](https://docs.raku.org/type/Seq), and `take` yields a value in the sequence -- just like Python's `yield`.
 
-```raku
+```perl
 sub cycle(@p) { 
     gather loop { 
         for @p -> $p {
@@ -78,7 +78,7 @@ This definition should be rather readable to a Python programmer. A few things t
 
 Here's where things get fun:
 
-```raku
+```perl
 sub cycle(@p) { 
     |@p xx * 
 }
@@ -96,7 +96,7 @@ Once we've created the [Slip](https://docs.raku.org/type/Slip) from `@p`, we con
 
 We've actually already seen everything we need to create `repeat()`, so let's just do it!
 
-```raku
+```perl
 sub repeat($elem, $n = *) {
     $elem xx $n
 }
@@ -110,17 +110,17 @@ Here are some links if you need a refresher: [Whatever object (`*`)](https://doc
 
 Accumulate is the first function that we've seen that takes a predicate function instead of a scalar or list-like value. To pass in a predicate function, we can use the [callable sigil `&`](https://docs.raku.org/language/variables#index-entry-sigil_&) to tell Raku that the argument we're passing in can be executed. Our subroutine signature's now going to look like this:
 
-```raku
+```perl
 sub accumulate(@p, &func = * + *) { ??? }
 ```
 
 This time, we're setting the default argument of `&func` to `* + *`. If you look at [Python's default argument for accumulate](https://docs.python.org/3/library/itertools.html#itertools.accumulate), you'll see that they're using a default argument of `operator.add`: a function which adds two values which are passed to it. 
 
-If you've made the jump and guessed that somehow `* + *` is a function which takes two arguments and adds them together, you'd be 100% correct. Using whatever (`*`) in a statement actually coerces the entire statement to a [`WhateverCode` object](https://docs.raku.org/type/WhateverCode) and allows it to act as a function in its own right. If all these stars are making you see stars, the Perl 6 Advent Calendar blog has a [good post disambiguating all of them](https://perl6advent.wordpress.com/2017/12/11/all-the-stars-of-perl-6/).
+If you've made the jump and guessed that somehow `* + *` is a function which takes two arguments and adds them together, you'd be 100% correct. Using whatever (`*`) in a statement actually coerces the entire statement to a [`WhateverCode` object](https://docs.raku.org/type/WhateverCode) and allows it to act as a function in its own right. If all these stars are making you see stars, the Raku Advent Calendar blog has a [good post disambiguating all of them](https://perl6advent.wordpress.com/2017/12/11/all-the-stars-of-perl-6/).
 
 Now that we understand `accumulate`'s signature, let's move on to the body of the function:
 
-```raku
+```perl
 sub accumulate(@p, &func = * + *) {
     [\[&func]] @p
 }
@@ -134,7 +134,7 @@ If you're an APL programmer, using `\` in an accumulator should be ringing a bel
 
 This is the default behavior of [slurpy arguments](https://docs.raku.org/type/Signature#Types_of_slurpy_array_parameters).
 
-```raku
+```perl
 sub chain(*@p) {
     @p
 }
@@ -146,7 +146,7 @@ sub chain(*@p) {
 
 This one might take a little bit to build up to, so let's take it step by step until we've built the whole function. The final product looks like this:
 
-```raku
+```perl
 sub compress(@d, @s) {
     flat @d Zxx (+<<?<<@s)
 }
@@ -156,7 +156,7 @@ Its operation is easy enough to explain in English. For every element in `@d`, w
 
 Raku has the [prefix `?` operator](https://docs.raku.org/language/operators#prefix_?) which coerces its argument to a boolean. The only problem is that it coerces the _whole_ argument, meaning it coerces lists to a single value:
 
-```raku
+```perl
 > (0,1,2,3).WHAT
 (List)
 > ?(0,1,2,3)
@@ -165,7 +165,7 @@ True
 
 In other words, we want to be able to coerce every element individually to a bool, not the whole thing. There are a couple ways to do this. We could use a classic for loop, we could use `map`, or we could use [hyper operators](https://docs.raku.org/language/operators#Hyper_operators). Just like [the reduction metaoperator `[ ]`](https://docs.raku.org/language/operators#Reduction_metaoperators) from before, you can make any operator into a hyper operator by using `<<` and `>>`. Let's see how this changes things:
 
-```raku
+```perl
 > (0,1,2,3).WHAT
 (List)
 > ?<<(0,1,2,3)
@@ -174,28 +174,28 @@ In other words, we want to be able to coerce every element individually to a boo
 
 Aha! It's exactly what we want. Let's use the same trick to coerce them back to numbers, using the numeric context operator [prefix `+`](https://docs.raku.org/language/operators#prefix_+):
 
-```raku
+```perl
 > +<<?<<(0,1,2,3)
 (0 1 1 1)
 ```
 
 Again, an APL programmer will see exactly where I'm going with this. Using the list we've created to replicate elements in `@s` will give us exactly what we want from `compress`. To do this, we can use the [zip metaoperator `Z`](https://docs.raku.org/language/operators#Zip_metaoperator) to pair off corresponding elements in each list automatically. Combining this with the list repetition operator [infix `xx`](https://docs.raku.org/language/operators#infix_xx) that we learned about earlier gets us very close to what we need:
 
-```raku
+```perl
 > (0,1,2,3) Zxx (0,2,4,6)
 (() (1 1) (2 2 2 2) (3 3 3 3 3 3))
 ```
 
 Now we just have to flatten the final list with [`flat`](https://docs.raku.org/routine/flat):
 
-```raku
+```perl
 > flat (0,1,2,3) Zxx (0,2,4,6)
 (1 1 2 2 2 2 3 3 3 3 3 3)
 ```
 
 And once we put the rest of the pieces together, we're done!
 
-```raku
+```perl
 > flat (0,1,2,3) Zxx +<<?<<(0,2,4,6)
 (1 2 3)
 ```
@@ -206,7 +206,7 @@ And once we put the rest of the pieces together, we're done!
 
 [`dropwhile()` docs](https://docs.python.org/3/library/itertools.html#itertools.dropwhile).
 
-```raku
+```perl
 sub dropwhile(&pred, @seq) {
     gather for @seq {
         take $_ if (none &pred) ff *
@@ -252,7 +252,7 @@ This is a builtin: basic [positional list slices](https://docs.raku.org/type/Lis
 
 [`starmap()` docs](https://docs.python.org/3/library/itertools.html#itertools.starmap).
 
-```raku
+```perl
 sub starmap(&func, @seq) {
     @seq>>.&{ func(|$_) }
 }
@@ -265,7 +265,7 @@ You've seen almost everything here except for the [methodop `.&` operator](https
 [`takewhile()` docs](https://docs.python.org/3/library/itertools.html#itertools.takewhile).
 
 
-```raku
+```perl
 sub takewhile(&pred, @seq) {
     |@seq ...^ { !pred($_) }
 }
@@ -291,7 +291,7 @@ For that matter, `Seq` does provide a builtin, the [`cache` method](https://docs
 
 [`product()` docs](https://docs.python.org/3/library/itertools.html#itertools.product).
 
-```raku
+```perl
 sub product(+p) {
     [X] p
 }
@@ -315,7 +315,7 @@ This is a builtin: the [`combinations` method](https://docs.raku.org/routine/com
 
 [`combinations_with_replacement()` docs](https://docs.python.org/3/library/itertools.html#itertools.combinations).
 
-```raku
+```perl
 sub combinations_with_replacement(@p, $r) {
     |@p.combinations($r), |([Z] @p xx $r)
 }
@@ -337,7 +337,7 @@ If you found this useful, why not [toss me a few bucks to support my blogging ha
 
 [/u/raiph from the Raku subreddit](https://www.reddit.com/r/rakulang/comments/heycja/pythons_itertools_in_pure_raku/fvxzre6/?context=3) mentioned the `Inline::Python` library: 
 
-```raku
+```perl
 use itertools:from<Python> ;
 say count(10) ; # 10 11 12 13 14 ...
 say cycle('ABCD') ; # A B C D A B C D ...

@@ -12,31 +12,31 @@ It always irked me that Python needed an entire package to do things that I felt
 To answer this question, I'm just going to go through every function in the [`itertools`](https://docs.python.org/3/library/itertools.html) and provide a one liner Raku equivalent. These will all work with normal iterables as well as infinite lists and sequences. Let's begin:
 
 [`count()`](https://docs.python.org/3/library/itertools.html#itertools.count):
-```raku
+```perl
 -> $start, $end = * { $start ... $end }
 ```
 ---
 
 [`cycle()`](https://docs.python.org/3/library/itertools.html#itertools.cycle):
-```raku
+```perl
 -> @p { lazy gather { loop { for @p -> $p { take $p } } } }
 ```
 From CIAvash on the Raku IRC:
-```raku
+```perl
 -> @p { |@p xx * }
 ```
 
 ---
 
 [`repeat()`](https://docs.python.org/3/library/itertools.html#itertools.repeat):
-```raku
+```perl
 -> $elem, $n = * { $elem xx $n }
 ```
 
 ---
 
 [`accumulate()`](https://docs.python.org/3/library/itertools.html#itertools.accumulate):
-```raku
+```perl
 -> @p, &func = * + * { [\[&func]] @p }
 ```
 
@@ -45,7 +45,7 @@ From CIAvash on the Raku IRC:
 [`chain() / chain.from_iterable()`](https://docs.python.org/3/library/itertools.html#itertools.chain):
 
 This is the default behavior of [slurpy arguments](https://docs.raku.org/type/Signature#Types_of_slurpy_array_parameters).
-```raku
+```perl
 -> *@p { @p }
 ```
 
@@ -53,7 +53,7 @@ This is the default behavior of [slurpy arguments](https://docs.raku.org/type/Si
 
 [`compress()`](https://docs.python.org/3/library/itertools.html#itertools.compress):
 
-```raku
+```perl
 -> @d, @s { flat @d Zxx @s }
 ```
 
@@ -61,7 +61,7 @@ This is the default behavior of [slurpy arguments](https://docs.raku.org/type/Si
 
 [`dropwhile()`](https://docs.python.org/3/library/itertools.html#itertools.dropwhile):
 
-```raku
+```perl
 -> &pred, @seq { lazy gather for @seq { take $_ if &pred ff * } }
 ```
 
@@ -87,7 +87,7 @@ This is a builtin: basic [positional list slices](https://docs.raku.org/type/Lis
 
 [`starmap()`](https://docs.python.org/3/library/itertools.html#itertools.starmap):
 
-```raku
+```perl
 -> &func, @seq { @seq>>.&{ func(|$_) } }
 ```
 
@@ -96,7 +96,7 @@ This is a builtin: basic [positional list slices](https://docs.raku.org/type/Lis
 [`takewhile()`](https://docs.python.org/3/library/itertools.html#itertools.takewhile):
 
 I could write this the same as `dropwhile()` but just break out of the `for` loop early, but I'm gonna take full advantage of the [sequence operator](https://docs.raku.org/language/operators#infix_...) here instead.
-```raku
+```perl
 -> &pred, @seq { |@seq ...^ { !pred($_) } }
 ```
 
@@ -113,7 +113,7 @@ For that matter, `Seq` does provide a builtin, the [`cache` method](https://docs
 [`zip_longest()`](https://docs.python.org/3/library/itertools.html#itertools.zip_longest):
 
 Probably the hardest one to implement. Nothing in Raku really naturally does this operation. Without accounting for length, and stopping at the shortest list, it would simply be:
-```raku
+```perl
 -> **@p { [Z] @p }
 ```
 Going to think about this one overnight, actually. I feel like there's an elegant way to do this really quickly but I can't put my finger on it. Pester me using the links down below if I haven't filled this one in yet.
@@ -122,7 +122,7 @@ Going to think about this one overnight, actually. I feel like there's an elegan
 
 [`product()`](https://docs.python.org/3/library/itertools.html#itertools.product):
 
-```raku
+```perl
 -> +p { [X] p }
 ```
 
@@ -142,7 +142,7 @@ This is a builtin: the [`combinations` method](https://docs.raku.org/routine/com
 
 [`combinations_with_replacement()`](https://docs.python.org/3/library/itertools.html#itertools.combinations):
 
-```raku
+```perl
 -> @p, $r { |@p.combinations($r), |([Z] @p xx $r) }
 ```
 

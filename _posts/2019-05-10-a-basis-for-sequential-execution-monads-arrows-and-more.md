@@ -2,12 +2,7 @@
 layout: post
 title: 'A Basis For Sequential Execution: Monads, Arrows, and More'
 date: 2019-05-10 02:14 -0700
----
-
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
-
-(allergy notice: this page contains latex. If you have your Javascript disabled, please enable it for the best possible experience reading this blog post. I promise that's the only script on this site!)
-
+warning_banner: "allergy notice: this page contains \\(\\LaTeX\\). If you have your Javascript disabled, please enable it for the best possible experience reading this blog post. I promise that's the only script on this site!"
 ---
 
 On the first day, there was light.
