@@ -13,21 +13,18 @@
 # you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
-title: DataKind's Blog
+title: DK'S ABODE
 nimi: nasin pi jan Tala 
 # email: <no email listed, if possible please message me on Twitter>
 description: >- # this means to ignore newlines until "baseurl:"
-  This is DataKinds' personal blog.
+  "; DROP TABLE *;
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://datakinds.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
 permalink: /:year/:month/:day/:title
-twitter_username: 'DataKinds'
-github_username: DataKinds
-discord_username: at#0754
 
 # Build settings
 markdown: kramdown
-theme: minima
+theme: v2
 plugins:
   - jekyll-feed
 

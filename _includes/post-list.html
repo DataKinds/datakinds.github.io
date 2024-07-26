@@ -1,5 +1,10 @@
 <ul class="post-list">
   {%- for post in site.posts -%}
+  {% if include.tag %}
+    {% unless post.tags contains include.tag %}
+      {% continue %}
+    {% endunless %}
+  {% endif %}
   <li>
     {%- assign date_format = site.date_format | default: "%b %d %Y" -%}
     <h4 style="margin:0 0;margin-left:0;" class="inline-block">
