@@ -2,6 +2,7 @@
 layout: post
 title: launching blog v2
 date: 2024-07-26 22:37 -0700
+tags: 100-blog-posts v2-site
 ---
 
 Hello all
