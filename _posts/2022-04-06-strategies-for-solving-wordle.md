@@ -13,7 +13,7 @@ If you haven't seen 3b1b's excellent video series on Wordle and information theo
 
 Ok. You need a 2022 version of Rakudo Star to run it. (And you don't have to be so rude!)
 
-```
+```perl
 #!/usr/bin/env raku
 
 subset Guess of Str where * ~~ / ^ \w**5 \, <[012]>**5 $ /;
@@ -70,7 +70,7 @@ As mentioned in the 3b1b video, each guess in a missing information game like th
 
 When my program starts, it loads your system wordlist and filters out any words that Wordle will definitely not use (namely: proper nouns, contractions, and possessives). 
 
-```
+```perl
 sub MAIN(
   Str :wl(:$wordlist) where *.IO.f = '/usr/share/dict/words', #= The wordlist
   *@guess where .all ~~ Guess #= Wordle guesses, given as space-delimited command line arguments. Each guess is of the form <word>,<feedback> where <word> is the guessed word and <feedback> is 0, 1, or 2 depending on whether Wordle returned grey, yellow, or green for each particular letter.
@@ -97,7 +97,7 @@ In the case that a letter in your Wordle guess is grey, you know that letter won
 
 We may represent this by removing any word containing this particular letter from our possible guesses.
 
-```
+```perl
 given @words.grep({ !.contains($char) }) {
   say "  Rejecting {@words.elems - $_.elems} words containing {$char.uc}";
   @words = $_
@@ -112,7 +112,7 @@ In reality, we may filter these possible guesses out (and not just because they'
 
 So we must filter the wordlist twice if we see a yellow letter. The first time removing any words that don't contain the yellow letter,
 
-```
+```perl
 given @words.grep({ .contains($char) }) {
   say "  Rejecting {@words.elems - $_.elems} words not containing {$char.uc}";
   @words = $_;
@@ -122,7 +122,7 @@ given @words.grep({ .contains($char) }) {
 and the second time removing any words that do contain the yellow letter at the exact position it appeared in the guess.
 
 
-```
+```perl
 given @words.grep({ .comb[$idx] !eq $char }) {
   say "  Rejecting {@words.elems - $_.elems} words containing {$char.uc} at position $idx";
   @words = $_;
@@ -134,7 +134,7 @@ given @words.grep({ .comb[$idx] !eq $char }) {
 
 In the case that a letter in your guess is green, I think that the intuition for how to play aligns pretty well with what the code must do. We remove every word except for the ones that contain the green letter in the correct position.
 
-```
+```perl
 given @words.grep({ .comb[$idx] eq $char }) {
   say "  Rejecting {@words.elems - $_.elems} words not containing {$char.uc} at position $idx";
   @words = $_;
