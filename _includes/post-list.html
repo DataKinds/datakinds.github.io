@@ -17,7 +17,7 @@
         <span class="post-meta post-tags"> no tags</span>
     {%- endif -%}
     <br>
-    <div class="post-meta post-preview">{{ post.content | markdownify | strip_html | truncatewords: 50  }}</div>
+    <div class="post-meta post-preview">{{ post.content | markdownify | strip_html | truncatewords: 40  }}</div>
   </li>
   {%- endfor -%}
 </ul>
