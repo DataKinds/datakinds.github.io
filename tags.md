@@ -1,6 +1,7 @@
 ---
 layout: home
 title: browse by tag
+permalink: /tags/
 ---
 
 <div class="tags-expo">
