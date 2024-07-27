@@ -8,23 +8,21 @@ date: 2019-04-30 00:15 -0700
 	box-sizing: border-box;
 }
 
-.hvrer::before {
-	content: "Hover to reveal.";
+.hvr {
+	position: relative;
 }
 
-.hvrer {
+.cover {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 	background-color: black;
 	transition: all .5s;
-	color: white;
-	width: 100%;
-	height: 3em;
-	margin: 0;
-	margin-top: -3.5em;
-	margin-bottom: 0.5em;
-	padding: 0.5em;
 }
 
-.hvrer:hover {
+.cover:hover {
 	opacity: 0;
 }
 
@@ -49,161 +47,210 @@ This space was intentionally left blank.
 <br/><br/><br/><br/>
 <br/><br/><br/><br/>
 
-### Dyalog APL
-<div class="hvrer"></div>
+
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Dyalog APL</h3>
+</div>
 ```apl
 8 {⍺+⍵} 7
 ```
 
-### J
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>J</h3>
+</div>
 ```j
 8 (+) 7
 ```
 
-### Idris
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Idris</h3>
+</div>
 ```idris
 (\ x y => x + y ) 8 7
 (+) 8 7
 ```
 
-### Coq
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Coq</h3>
+</div>
 ```
 (fun x y => x + y) 8 7
 (fun (x y : Int) => x + y) 8 7
 ```
 
-### Haskell
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Haskell</h3>
+</div>
 ```hs
 (\x y -> x + y) 8 7
 (+) 8 7
 ```
 
-### OCaml
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>OCaml</h3>
+</div>
 ```ocaml
 (fun x y -> x + y) 8 7
 ```
 
-### Emacs Lisp (Closure)
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Emacs Lisp (Closure)</h3>
+</div>
 ```elisp
 (let ((lexical-binding t)) ((lambda (x y) (+ x y)) 8 7))
 ```
 
-### Emacs Lisp (Lambda)
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Emacs Lisp (Lambda)</h3>
+</div>
 ```elisp
 (let ((x 8) (y 7)) ((lambda () (+ x y))))
 ```
 
-### Joy
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Joy</h3>
+</div>
 ```joy
 8 7 [+] i.
 ```
 
 
-### ATS
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>ATS</h3>
+</div>
 ```ats
 (lam (x : int) (y : int) => x + y) 3 4
 ```
 
-### Scala
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Scala</h3>
+</div>
 ```scala
 (( _ :Int ) + ( _ :Int ))(8, 7)
 ((x:Int, y:Int) => x + y)(8, 7)
 ```
 
-### Java 8
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Java 8</h3>
+</div>
 ```java
 ((int x, int y) ->  x + y;)(8, 7);
 ```
 
-### C++ (Lambda)
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>C++ (Lambda)</h3>
+</div>
 ```cpp
 ([](auto x, auto y) -> auto { return x + y; })(8, 7);
 ([](int x, int y) { return x + y; })(8, 7);
 ```
 
-### C++ (Closure)
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>C++ (Closure)</h3>
+</div>
 ```cpp
 int x = 8; int y = 7; ([=]() { return x + y; })();
 ```
 
-### Rust
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Rust</h3>
+</div>
 ```rust
 (|x, y| { x + y })(8, 7)
 ```
 
-### Raku
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Raku</h3>
+</div>
 ```p6
 { $^x + $^y }(8, 7);
 ( * + * )(8, 7);
 (sub ($x,$y) { return $x + $y })(8,7)
 ```
 
-### Javascript
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Javascript</h3>
+</div>
 ```js
 ((x, y) => x + y)(8, 7);
 (function(x, y) { return x + y })(8, 7)
 ```
 
-### Crystal
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Crystal</h3>
+</div>
 ```crystal
 (->(x, y){ x + y }).call(8, 7)
 (->(x : Int32, y : Int32){ x + y }).call(8, 7)
 (Proc(Int32, Int32, Int32).new { |x, y| x + y}).call(8, 7)
 ```
 
-### Nim
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Nim</h3>
+</div>
 ```nim
 (proc (x: int, y: int): int = x + y)(8, 7)
 (proc (x: int, y: int) = x + y)(8, 7)
 import sugar; ((x: int, y: int) => x + y)(8, 7)
 ```
 
-### Python
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Python</h3>
+</div>
 ```py
 (lambda x, y: x + y)(8, 7)
 ```
 
-### Erlang
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Erlang</h3>
+</div>
 ```erlang
 (fun(X, Y) -> X + Y end)(8, 7).
 ```
 
-### Ruby (Lambda)
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Ruby (Lambda)</h3>
+</div>
 ```ruby
 ->(x,y){ x + y }[8, 7]
 (Proc.new { |x, y| x + y })[8, 7]
 (Kernel.lambda { |x, y| x + y })[8, 7]
 ```
 
-### Ruby (Closure)
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Ruby (Closure)</h3>
+</div>
 ```ruby
 method(def _(x, y) x + y end)[8, 7] # not a true anonymous function, yet worth including
 ```
 
-### Elixir
-<div class="hvrer"></div>
+<div class="hvr">
+	<div class="cover">Hover to reveal.</div>
+	<h3>Elixir</h3>
+</div>
 ```elixir
 (fn (x, y) -> x + y end).(8, 7)
 (&(&1 + &2)).(8, 7)
