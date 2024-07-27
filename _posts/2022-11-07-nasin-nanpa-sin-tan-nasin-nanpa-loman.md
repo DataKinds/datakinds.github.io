@@ -2,8 +2,7 @@
 layout: post
 title: nasin nanpa sin tan nasin nanpa Loman
 date: 2022-11-07 19:14 -0700
-tags: toki-pona
-info_banner: "This post isn't tagged [100 blog posts](https://datakinds.github.io/2022/06/17/100-blog-posts) because I would like to link to it in unrelated contexts."
+tags: toki-pona 100-blog-posts
 ---
 
 toki! mi wile e nasin pona pi toki nanpa lon toki pona. mi kepeken nimi pu taso. ni la mi ken ala toki e nimi san (3), e nimi likujo (7), e ante. mi pilin pona tawa nanpa ni taso: 

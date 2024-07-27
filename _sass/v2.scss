@@ -13,6 +13,7 @@ html {
     background-color: rgb(21, 21, 32);
     color: rgb(246, 247, 238);
     font-family: "Neuton", serif;
+    font-size: large;
 }
 
 body {
@@ -34,6 +35,10 @@ a {
 a:visited {
     text-decoration: underline dashed;
     color:rgb(255, 133, 228)
+}
+
+p > img {
+    max-width: 100%;
 }
 
 .fancy {
