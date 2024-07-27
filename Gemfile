@@ -23,6 +23,7 @@ gem "minima"
 group :jekyll_plugins do
   gem "jekyll-feed"
   gem "jekyll-compose"
+  gem "jekyll-seo-tag"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

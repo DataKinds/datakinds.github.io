@@ -93,6 +93,7 @@ DEPENDENCIES
   jekyll
   jekyll-compose
   jekyll-feed
+  jekyll-seo-tag
   minima
   rexml
   tzinfo-data
