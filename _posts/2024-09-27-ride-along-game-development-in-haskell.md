@@ -1,8 +1,16 @@
 ---
 layout: post
-title: 'The Spirit of Play: Ride Along Game Development in Haskell'
-date: 2019-06-05 21:23 -0700
+title: '[old draft] Ride along wrapper-free game development in Haskell'
+date: 2024-09-27 15:00 -0700
 ---
+
+
+Hey all! I was going through my blog post backlog and found this draft from `2019-06-05`. Thought I'd just throw it up on the blog: there's some useful stuff about Haskell's FFI here, and I also wax poetic about software development a little bit. This was written before the whole [100 blog posts](https://datakinds.github.io/2022/06/17/100-blog-posts) thing so it doesn't count. 
+
+The original title of this was to be "From Context to Cptr: Bare Bones Game Development in Haskell". I will let 2019 me take it from here.
+
+---
+
 I got into programming when I was 8 because I wanted to make games. I guess, deep down, I was never truly able to satiate that desire. I've never released a game, I've never completed a game, and hell -- I've never gotten far enough to even draw up assets for a game.
 
 But I ran into a library yesterday called Raylib that kind of rekindled the playful fire that lived deep down under my pragmaticism. Raylib lives at [https://www.raylib.com/](https://www.raylib.com/). I immediately fired up VS Code and hammered out some C for the first time in two or three years. Suffice to say, I had _fun_. Not fun like "wow, this code is elegant," or fun like "wow I'm making a lot of money doing this," but fun like "I'm giggling at the screen because I made a circle bounce back and forth."
