@@ -10,10 +10,10 @@ h1 {
 }
 
 html {
-    background-color: rgb(21, 21, 32);
+    background-color: rgb(17, 17, 21);
     color: rgb(246, 247, 238);
     font-family: "Neuton", serif;
-    font-size: large;
+    font-size: larger;
 }
 
 body {
@@ -110,15 +110,15 @@ p > img {
     text-decoration: none;
     color: rgb(252, 255, 180);
     font-weight: 700;
-    font-size: large;
-    filter: drop-shadow(0 0 0.1rem rgba(255, 255, 225, 0.696));
+    font-size: larger;
+    filter: drop-shadow(0 0 0.05rem rgb(255, 255, 225));
 }
 
 .post-title {
     text-decoration: none;
     color: unset;
     font-weight: 700;
-    filter: drop-shadow(0 0 0.1rem rgb(255, 118, 244));
+    filter: drop-shadow(0 0 0.2rem rgb(255, 118, 244));
     margin-bottom: 5px;
     font-size: 40px;
 }
@@ -182,7 +182,7 @@ ul.post-list {
 }
 
 .post-preview {
-    font-size: small;
+    font-size: medium;
     margin: 0 1em;
 }
 
