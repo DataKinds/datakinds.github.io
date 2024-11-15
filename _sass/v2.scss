@@ -11,7 +11,7 @@ h1 {
 
 html {
     background-color: rgb(17, 17, 21);
-    color: rgb(246, 247, 238);
+    color: rgb(229, 232, 239);
     font-family: "Neuton", serif;
     font-size: larger;
 }
@@ -90,13 +90,13 @@ p > img {
 .site-title {
     text-decoration: none;
     color: white !important;
-    filter: drop-shadow(0 0 0.75rem rgb(255, 88, 122));
+    filter: drop-shadow(0 0 0.15rem rgb(255, 88, 122));
 }
 
 .site-subtitle {
     text-decoration: none;
     color: white !important;
-    filter: drop-shadow(0 0 0.75rem rgb(133, 245, 255));
+    filter: drop-shadow(0 0 0.15rem rgb(133, 245, 255));
     white-space: nowrap;
     margin: 0 10px;
 }
@@ -118,7 +118,7 @@ p > img {
     text-decoration: none;
     color: unset;
     font-weight: 700;
-    filter: drop-shadow(0 0 0.2rem rgb(255, 118, 244));
+    filter: drop-shadow(0 0 0.5rem rgb(255, 118, 244));
     margin-bottom: 5px;
     font-size: 40px;
 }
@@ -159,7 +159,7 @@ p > img {
 
 .footer-title {
     color: unset;
-    filter: drop-shadow(0 0 0.75rem rgb(171, 23, 197));
+    filter: drop-shadow(0 0 0.15rem rgb(171, 23, 197));
     margin: 0 10px;
 }
 
