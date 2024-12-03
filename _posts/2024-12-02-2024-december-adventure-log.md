@@ -35,4 +35,8 @@ hello |ready|~|done| world
 ||\|ready|
 ```
 
-DAY 2 UPDATE: I ended up finishing a pretty good majority of the refactor that was required to flesh out pattern variables in Rosin! Check out the big ol' git diff [here](https://github.com/DataKinds/tree-rewriter/pull/1/files).
+DAY 2 UPDATE 1: I ended up finishing a pretty good majority of the refactor that was required to flesh out pattern variables in Rosin! Check out the big ol' git diff [here](https://github.com/DataKinds/tree-rewriter/pull/1/files).
+
+DAY 2 UPDATE 2: I'm passing all my regression tests on the new pattern variable branch!! Tomorrow I should write some more regression tests, for the pack/unpack accumulators and for the universal eagerness switch. 
+
+![A snippet of my regression suite](/assets/imgs/december-adventure/2-regressionsuite.png){: width="400" } ![My passing regression tests!](/assets/imgs/december-adventure/2-regressionpass.png){: width="700" }
