@@ -34,3 +34,5 @@ hello |ready|~|done| world
 \|ready|
 ||\|ready|
 ```
+
+DAY 2 UPDATE: I ended up finishing a pretty good majority of the refactor that was required to flesh out pattern variables in Rosin! Check out the big ol' git diff [here](https://github.com/DataKinds/tree-rewriter/pull/1/files).
