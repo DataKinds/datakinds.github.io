@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&family=Playwrite+US+Trad:wght@100..400&display=swap');
 @import 'prism-highlighter.scss';
 
+:root {
+    --background: #412d39;
+    --backdrop: #1d141e;
+    --accent: #f364ff;
+}
+
 pre {
     font-family: unset;
 }
@@ -10,7 +16,7 @@ h1 {
 }
 
 html {
-    background-color: rgb(17, 17, 21);
+    background-color: var(--backdrop);
     color: rgb(229, 232, 239);
     font-family: "Neuton", serif;
     font-size: larger;
@@ -25,7 +31,7 @@ blockquote {
     margin: 0 0;
     margin-left: 10px;
     padding-left: 10px;
-    border-left: 8px double #54023d;
+    border-left: 8px double var(--accent);
 }
 
 a {
@@ -86,24 +92,44 @@ p > img {
     color: rgb(204, 204, 204);
 }
 
+.site-titlebox {
+    position: relative;
+}
 
 .site-title {
     text-decoration: none;
     color: white !important;
-    filter: drop-shadow(0 0 0.15rem rgb(255, 88, 122));
+}
+
+.site-title > .handwritten {
+    position: absolute;
+    top: -1em;
+}
+
+.site-title > h1 {
+    font-size: 44px;
+    margin: 0;
+    white-space: nowrap;
+    transform: translateX(25%) scale(1.5, 1) 
+}
+
+.sitemap {
+    list-style-type: none;
+    text-align: right;
+    line-height: 0.9;
+    margin-top: 1.5em;
 }
 
 .site-subtitle {
     text-decoration: none;
-    color: white !important;
-    filter: drop-shadow(0 0 0.15rem rgb(133, 245, 255));
+    color: #ece1e0 !important;
     white-space: nowrap;
-    margin: 0 10px;
+    margin: 0 4px;
 }
 
 .site-subtitle > h2 {
-    margin-top: 6px;
-    margin-bottom: 12px;
+    margin: 0;
+    font-weight: normal;
 }
 
 .post-link {
@@ -111,15 +137,16 @@ p > img {
     color: rgb(252, 255, 180);
     font-weight: 700;
     font-size: larger;
-    filter: drop-shadow(0 0 0.05rem rgb(255, 255, 225));
+    filter: drop-shadow(0 0 0.05rem var(--accent));
 }
 
 .post-title {
     text-decoration: none;
     color: unset;
     font-weight: 700;
-    filter: drop-shadow(0 0 0.5rem rgb(255, 118, 244));
+    filter: drop-shadow(0 0 0.2rem var(--accent));
     margin-bottom: 5px;
+    margin-top: 5px;
     font-size: 40px;
 }
 
@@ -145,7 +172,7 @@ p > img {
     max-width: 60em;
     padding: 15px 40px;
     border-radius: 10px;
-    background-color: rgb(11, 11, 18);
+    background-color: var(--background);
 }
 
 .post-content > p:first-of-type::first-letter {
