@@ -224,6 +224,23 @@ p > img {
     background-color: var(--background);
 }
 
+h1 > .post-header-anchor {
+    display: none;
+}
+
+h1:hover > .post-header-anchor {
+    display: unset;
+}
+
+:is(h1, h2, h3, h4, h5, h6):target {
+    padding: 0 10px;
+    padding-top: 2px;
+    padding-bottom: 5px;
+    border-radius: 3px;
+    background-color: var(--accent);
+    color: var(--backdrop) !important;
+}
+
 .post-content > p:first-of-type::first-letter {
     font-family: "Playwrite US Trad", cursive;
     font-optical-sizing: auto;

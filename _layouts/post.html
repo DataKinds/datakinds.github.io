@@ -71,7 +71,7 @@ layout: default
     </div>
   </div>
 
-  <div class="post-content e-content" itemprop="articleBody">{{ content }}</div>
+  <div class="post-content e-content" itemprop="articleBody">{% include anchor_headings.html html=content anchorBody="#" anchorClass="post-header-anchor" %}</div>
 
   {%- if site.disqus.shortname -%} {%- include disqus_comments.html -%} {%-
   endif -%}
