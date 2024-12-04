@@ -2,35 +2,36 @@
   {%- assign default_paths = site.pages | map: "path" -%}
   {%- assign page_paths = site.header_pages | default: default_paths -%}
 
-  <div class="flex justify-around">
-    <div class="inline-block site-titlebox">
-      <a class="site-title" rel="author" href="/"> 
-        <span class="handwritten">hello traveler, you've stumbled upon</span>
-        <h1 class="inline-block">DK'S ABODE</h1>
-      </a>
-    </div>
-
-    <div class="fancy" style="margin-left:7.5em;margin-right:2em;"></div>
-
-    <div class="inline-block" style="position:relative;padding-top:4px;align-self:top;">
-      <span style="position:absolute;top:5px;right:0px;" class="handwritten">other places you may visit include...</span>
-      <ul class="sitemap">
-        <li>
-          <a class="site-subtitle" rel="author" href="/toki-pona/">
-            <h2 class="inline-block">{{ site.nimi }}</h2>
-          </a>
-        </li>
-        <li>
-          <a class="site-subtitle" rel="author" href="/tags/">
-            <h2 class="inline-block">browse by tag</h2>
-          </a>
-        </li>
-        <li>
-          <a class="site-subtitle" rel="author" target="__blank" href="https://scp-wiki.wikidot.com/random:random-scp">
-            <h2 class="inline-block">random scp</h2>
-          </a>
-        </li>
-      </ul>
-    </div>
+  <div class="inline-block site-titlebox">
+    <a class="site-title" rel="author" href="/"> 
+      <span class="handwritten">hello traveler, you've stumbled upon</span>
+      <h1 class="inline-block">DK'S ABODE</h1>
+    </a>
   </div>
+
+  <div class="fancy" style="margin-left:7.5em;margin-right:2em;"></div>
+
+  <div class="inline-block sitemap-box">
+    <span style="position:absolute;top:5px;right:0px;" class="handwritten">other places you may visit include...</span>
+    <ul class="sitemap">
+      <li>
+        <a class="site-subtitle" rel="author" href="/toki-pona/">
+          <h2 class="inline-block">{{ site.nimi }}</h2>
+        </a>
+      </li>
+      <li>
+        <a class="site-subtitle" rel="author" href="/tags/">
+          <h2 class="inline-block">browse by tag</h2>
+        </a>
+      </li>
+      <li>
+        <a class="site-subtitle" rel="author" target="__blank" href="https://scp-wiki.wikidot.com/random:random-scp">
+          <h2 class="inline-block">random scp</h2>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="bottom fancy"></div>
+
 </header>
