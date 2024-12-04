@@ -16,6 +16,7 @@ layout: default
     <div class="post-meta">
       <time
         class="handwritten dt-published"
+        style="white-space:wrap"
         datetime="{{ page.date | date_to_xmlschema }}"
         itemprop="datePublished"
       >
@@ -25,7 +26,7 @@ layout: default
     </div>
 
     {%- if page.tags.size > 0 -%}
-      <div class="post-meta handwritten">... tagged&nbsp;
+      <div class="post-meta handwritten" style="white-space:wrap">... tagged&nbsp;
         {%- for tag in page.tags -%}
           <a style="text-decoration:none" href="/tags/#{{ tag | slugify }}"><strong>{{ tag }}</strong></a>
           {%- unless forloop.last -%},&nbsp;{%- endunless -%}
