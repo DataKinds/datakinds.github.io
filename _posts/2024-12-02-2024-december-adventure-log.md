@@ -46,3 +46,5 @@ On the left, some of my regression tests. On the right, my passing test dashboar
 ![A snippet of my regression suite](/assets/imgs/december-adventure/2-regressionsuite.png){: width="400" } ![My passing regression tests!](/assets/imgs/december-adventure/2-regressionpass.png){: width="700" }
 
 UPDATE 1: it's 10:18pm, I just finished up a minor redesign of my site. Hopefully this color scheme is easier to read, and the header is no longer the size of the screen + it's no longer begging for your attention. The mobile version of the site was also improved, so it should no longer be impossibly narrow on narrow screens. Let me know how it works!!
+
+Update 2: Merged in my pattern variable refactor in Rosin and that simplified things nicely. I also [split apart the regression tests to make them stop sharing state](https://github.com/DataKinds/tree-rewriter/tree/main/sample/regression) and updated the readme to reflect the new syntax.
