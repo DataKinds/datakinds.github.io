@@ -48,3 +48,34 @@ On the left, some of my regression tests. On the right, my passing test dashboar
 UPDATE 1: it's 10:18pm, I just finished up a minor redesign of my site. Hopefully this color scheme is easier to read, and the header is no longer the size of the screen + it's no longer begging for your attention. The mobile version of the site was also improved, so it should no longer be impossibly narrow on narrow screens. Let me know how it works!!
 
 Update 2: Merged in my pattern variable refactor in Rosin and that simplified things nicely. I also [split apart the regression tests to make them stop sharing state](https://github.com/DataKinds/tree-rewriter/tree/main/sample/regression) and updated the readme to reflect the new syntax.
+
+# Day 4 
+
+You know, I really don't have to put the dates on the headings of each of these entries.
+
+Today I worked a bit more on souping up the tests in Rosin. I made tests be [printed to standard out](https://github.com/DataKinds/tree-rewriter/commit/7a8da5a748d455e11f78e04ef16417323614cfdf#diff-0a88c502e6b2fded6c22871f555f64a0da4a9fc0213e4b7b067f15f51f2780be) instead of requiring the compiler to output the final state. I also separated all the [test files into multiple different files](https://github.com/DataKinds/tree-rewriter/tree/main/sample/regression) so they run in their own contexts.
+
+All of this makes running tests quite nice. The Makefile lets me run specific sets of tests too.
+
+![Makefile running just one set of tests](/assets/imgs/december-adventure/4-tests1.png)
+![Makefile running all my tests](/assets/imgs/december-adventure/4-tests2.png)
+
+I also fixed some (but not all) bugs with the accumulators I uncovered while writing extra tests. For example, the Pack and Unpack accumulators don't work quite how I want them to. They don't quite walk the s-expression fully and it's quite buggy.
+
+```
+((pack ?@) ~> ?@)
+(pack (this (is a (strangely) nested) list)) 
+ --- became --- 
+(this is a) 
+```
+
+I'll have to deal with that soon. For something I fixed... turns out if you matched multiple values against the negate accumulator, they'd all come back backwards.
+
+```
+((negate ?- ?- ?-) ~> ?-)
+(negate 1 2 3) 
+ --- became ---
+(-3 -2 -1)
+```
+
+That's fixed now. Progress!
