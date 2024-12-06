@@ -87,3 +87,7 @@ Didn't do a lot of coding today. Between moving, work, and having a house guest 
 I got about an hour to myself. I started thinking a bit about setting up a runtime state abstraction in Rosin. This will let me add a multiset bag, support one time lambda rules, and set up a better more explicit ordering for how rules are ingested and then applied.
 
 My changes are still very preliminary, [I posted them up onto a separate branch](https://github.com/DataKinds/tree-rewriter/pull/2/files). 
+
+For background entertainment, I was watching this today: 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/GlPREQ55kzc?si=_2kTb6gSJyVrsogX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> 
