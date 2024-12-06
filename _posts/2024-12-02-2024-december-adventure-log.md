@@ -79,3 +79,11 @@ I'll have to deal with that soon. For something I fixed... turns out if you matc
 ```
 
 That's fixed now. Progress!
+
+# Day 5
+
+Didn't do a lot of coding today. Between moving, work, and having a house guest over tonight I simply wasn't sitting at the computer for very long. 
+
+I got about an hour to myself. I started thinking a bit about setting up a runtime state abstraction in Rosin. This will let me add a multiset bag, support one time lambda rules, and set up a better more explicit ordering for how rules are ingested and then applied.
+
+My changes are still very preliminary, [I posted them up onto a separate branch](https://github.com/DataKinds/tree-rewriter/pull/2/files). 
