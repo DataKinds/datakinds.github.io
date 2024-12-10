@@ -91,3 +91,15 @@ My changes are still very preliminary, [I posted them up onto a separate branch]
 For background entertainment, I was watching this today: 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/GlPREQ55kzc?si=_2kTb6gSJyVrsogX" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> 
+
+# Day 9
+
+Whew. I am sorry for the lack of updates, but the last couple of days flew by. On the 6th and the 7th, my partner and I were going back and forth to the house we're moving into. On the 7th and 8th our power was out. To be more specific: the power was out in exactly half of our unit -- and my computer's outlet was unfortunately affected. All the while I have work and other shenanigans that get in the way. Le sigh... we cringe on...
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NmACjr4mAIY?si=DdYx7fkfBZh3H7mf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+I worked on Rosin a little bit tonight. I fixed a bug in the new [tree zipper](https://wiki.haskell.org/Zipper) datatype [where moving the zipper down to the first child](https://github.com/DataKinds/tree-rewriter/blob/main/src/Zipper.hs#L81-L90) would [reverse the right hand side of the context](https://github.com/DataKinds/tree-rewriter/commit/9aebbc03a45af3b47bc615feac96be6e9368a0ca#diff-37b5a1b9dce90ec661a8a9b74adc0b64c58e8c2c62b9717cbcacefff2b45074eL51). I suppose it made sense at the time but hindsight is 50-50 and I cursed my past self. So the zipper works correctly now which is pretty cool. It worked well enough [so I merged the zipper into main :3](https://github.com/DataKinds/tree-rewriter/commit/5285ea99ed5b5acc8dbd584e12eef09563c3d0f0)
+
+I have been listening to a lot of Remi Wolf.
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1Wi1XpdZzGVIdRTzlTrIEF?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
