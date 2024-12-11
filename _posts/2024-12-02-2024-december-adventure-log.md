@@ -103,3 +103,68 @@ I worked on Rosin a little bit tonight. I fixed a bug in the new [tree zipper](h
 I have been listening to a lot of Remi Wolf.
 
 <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1Wi1XpdZzGVIdRTzlTrIEF?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+# Day 10
+
+Rosin progresses little by little. You can now define single use rules with `~`, like so:
+
+```
+$ rosin -p
+(/evil/ ~ "$<good$>") "the evil wizard" "the evil tower"
+
+
++-----------------+
+| Final transform |
++-----------------+
+"the good wizard"
+"the evil tower"
+```
+
+So that will definitely allow for some fun stuff. 
+
+I want to start writing more interesting programs in Rosin, but I keep going down development rabbitholes. The final rabbithole is nearing its conclusion: I have hashed out how I want multiset state rules to look. You will be able to interact with the multiset bag on the rewrite head with the `(:needs | :gives)` pattern. The same function that matched `~>` rules WILL SOON know how to match all variations of these `|` rules... [but it's not quite there yet](https://github.com/DataKinds/tree-rewriter/blob/main/src/Runtime.hs#L105).
+
+```        
+$ rosin-can't-do-this-quite-yet -p
+
+(|(apple pear orange peach)) puts an apple, pear, orange, and peach into the bag
+(apple |) takes an apple out of the bag
+(apple |) doesn't match a second time 
+
++-----------------+
+| Final transform |
++-----------------+
+puts an apple, pear, orange, and peach into the bag
+takes an apple out of the bag
+(apple |) doesn't match a second time
+```
+
+Both sides do not need to be specified. `|` indicates a multiset matching rule that will only run once, and `|>` rules will run ad infinitum.
+
+```
+( (pear apple grape peach) |> ((fruit salad)) )
+now the combination of pear, apple, grape, and peach will always become (fruit salad)
+```
+
+Wait, I heard you say: `(fruit salad)`? Like, you put an S-expression into the multiset? Heck yeah I did! [The full range of Rosin values can go into the multiset](https://github.com/DataKinds/tree-rewriter/blob/main/src/Runtime.hs#L45) and this means we'll be able to hijack the pattern variable machinery to do some very cute things:
+
+```
+( (sword (stone :name)) | ((sword :name)) )
+
+( | (stone "King's stone"))
+( | sword)
+will produce one thing in the bag: (sword "King's stone")
+a sword's strength is derived from its legendary name
+```
+
+Last but not least -- you'll be able to devise a rule that only matches the S-expression tree when something is in the multiset bag. Or a tree rewrite rule that adds something into the bag. The `&` symbol will be able to combine a multiset rewriting rule with a tree rewriting rule, such that the combined rule only matches when both conditions are satisfied. This has some crazy potential imo, and I just nailed down the syntax tonight:
+
+```
+(| n & hello ~> world) 
+produces an n to the bag every time it matches `hello`
+
+(n n | m & (; :comment) ~>) 
+limits the amount of comments you can write to half the `hello`s you write... better be polite!
+```
+
+Some of this is implemented, some of it isn't... but I feel good having this all theorycrafted and the way forward from here seems clear to me.
