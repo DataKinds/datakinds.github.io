@@ -168,3 +168,50 @@ limits the amount of comments you can write to half the `hello`s you write... be
 ```
 
 Some of this is implemented, some of it isn't... but I feel good having this all theorycrafted and the way forward from here seems clear to me.
+
+# Day 11
+
+Only posting a quick update today because I want to head to sleep early!!
+
+A few new Rosin updates for ya....
+
+I added a new regression test for the multiset state:
+
+```
+(Test a "Plain terms can be parsed and consumed"
+    Given (
+        ((pomme pomegranate) |> weird-fruit-salad)
+        (|pomme)
+        (|pomegranate)
+        (|(pomme pomegranate))
+        (weird-fruit-salad|)
+        (weird-fruit-salad |)
+    )
+    We expect ())
+```
+
+I finished setting up [the consumption of rules with multiset action](https://github.com/DataKinds/tree-rewriter/blob/main/src/Runtime.hs#L135), see `recognizeDef`. So Rosin will now really recognize and consume all these forms of rules:
+
+```
+(pattern ~> template) a tree rewriting rule
+(pattern ~ template) a one time tree rewriting rule
+((things i want) |> (things i will get)) a multiset rewriting rule
+((things i want) | (things i will get)) a one time multiset rewriting rule
+(want | get & pattern ~ template) a one time combined tree+multiset rewriting rule
+(want | get & pattern ~> template) a combined tree+multiset rewriting rule
+```
+
+Note that the shortened forms from the regression test (like `(weird-fruit-salad |)`) won't currently work.
+
+Very soon Rosin will be able to apply tree rewrite rules conditionally based on the state of the multiset, [but for now I left a hole in the function](https://github.com/DataKinds/tree-rewriter/blob/main/src/Runtime.hs#L180) where it will be filled with dedicated `Multiset` methods. Soon. I'm so close to having this working.
+
+```hs
+-- Filters a list of defs down to only those which are satisfied by the current state of the multiset
+filterByMultiset :: Monad m => [EatenDef] -> RuntimeTV m [EatenDef]
+filterByMultiset defs = do
+    pocket <- gets runtimeMultiset 
+    pure $ filter (ok pocket) defs
+    where ok ms = undefined
+```
+
+For anyone still reading, thanks for sticking with me on this journey. I have really been looking forward to writing these entries every night. 
