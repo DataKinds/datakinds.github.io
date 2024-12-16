@@ -215,3 +215,116 @@ filterByMultiset defs = do
 ```
 
 For anyone still reading, thanks for sticking with me on this journey. I have really been looking forward to writing these entries every night. 
+
+# Day 15
+
+I spent the day today on the phone with banks and electricians making preparations for the new house. A few days ago my partner and I hosted a packing party. All of our friends came over, ate pizza, and put our belongings into boxes. Progress on my blog or projects has taken a bit of a backseat to moving.
+
+All that being said, I worked on Rosin a bit more tonight!
+
+There is a full fledged `Multiset` type now. All I've got implemented is reading things out of the multiset but putting things in will come soon enough. 
+
+```hs
+module Multiset where
+import qualified Data.Map as M
+import Control.Monad (foldM)
+
+
+newtype Ord a => Multiset a = Multiset { unmultiset :: M.Map a Int } deriving (Show)
+
+fromList :: Ord a => [(a, Int)] -> Multiset a
+fromList = Multiset . M.fromList
+
+toList :: Ord a => Multiset a -> [(a, Int)] 
+toList = M.toList . unmultiset
+
+empty :: Ord a => Multiset a
+empty = Multiset M.empty
+
+null :: Ord a => Multiset a -> Bool
+null = M.null . unmultiset
+
+-- Is this element inside the multiset in a sufficient quantity? 
+inside :: Ord a => (a, Int) -> Multiset a -> Bool
+inside (x, n) = maybe False (n <=) . M.lookup x . unmultiset 
+
+-- Are these elements inside the multiset in a sufficient quantity? 
+allInside :: Ord a => Multiset a -> Multiset a -> Bool
+allInside xns ms = all (`inside` ms) (toList xns)
+
+-- Take out this many copies of this element from our multiset, if we can!
+grab :: Ord a => (a, Int) -> Multiset a -> Maybe (Multiset a)
+grab xn@(x,n) ms = if inside xn ms then Just . Multiset . M.adjust (subtract n) x . unmultiset $ ms else Nothing
+
+-- Take out this many copies of these elements from our multiset, if we can!
+grabMany :: Ord a => Multiset a -> Multiset a -> Maybe (Multiset a)
+grabMany xns ms = Multiset <$> foldM (\m xn -> unmultiset <$> grab xn (Multiset m)) ms' xns'
+    where ms' = unmultiset ms; xns' = toList xns
+```
+
+The Rosin runtime now checks that the multiset is satisfactory for any given function before using it to rewrite. Check out that sick ass runtime:
+
+```hs
+-- Filters a list of defs down to only those which are satisfied by the current state of the multiset
+filterByMultiset :: Monad m => [EatenDef] -> RuntimeTV m [EatenDef]
+filterByMultiset defs = do
+    pocket <- gets runtimeMultiset 
+    pure $ filter (ok pocket) defs
+    where 
+        ok :: MS.Multiset (Tree RValue) -> EatenDef -> Bool
+        ok ms def = MS.allInside (defWantsFromBag def) ms
+
+-- Carry out one step of Rosin's execution. This essentially carries out the following:
+--   1) We check for a definition at the current rewrite head and ingest it if there's one there
+--   2) We try to apply our rewrite rules at the current rewrite head
+--   3) We move onto the next element in the tree in DFS order. If we're at the end, we loop back to the start
+-- Gives back (the amount of rules applied, whether we jumped back to the top of the tree). 
+runStep :: RuntimeTV IO (Int, Bool)
+runStep = do
+    verbose <- gets runtimeVerbose
+    -- Begin 1
+    eatDef 
+    -- Begin 2
+    -- Apply single use tree rewriting rules
+    -- !!! ===== We check the multiset here!!! Take a look....  ===== !!! --
+    defs <- gets runtimeSingleUseRules >>= filterByMultiset
+    maybeTreeRewrite <- applyTreeDefs defs
+    when (isJust maybeTreeRewrite) $ do -- A single use rule matched once, we gotta delete it!
+        let (Rewrite patternToDelete _) = fromJust maybeTreeRewrite
+        modifyRuntimeSingleUseRules (filter (patternDefEq patternToDelete))
+    -- Apply multi use tree rewriting rules
+    -- !!! ===== We check the multiset here again!!! Wow!!!!!  ===== !!! --
+    defs' <- gets runtimeRules >>= filterByMultiset
+    maybeTreeRewrite' <- applyTreeDefs defs'
+    -- Begin 3 (I Love Laziness)
+    newZipper <- gets (Z.nextDfs . runtimeZipper)
+    modifyRuntimeZipper (const newZipper)
+    when verbose (lift $ print newZipper)
+    -- Give back the value we use to assess termination
+    atTop <- gets ((== []) . Z._Ups . runtimeZipper)
+    pure (sum $ maybe 0 (const 1) <$> [maybeTreeRewrite, maybeTreeRewrite'], atTop)
+        where
+            -- True if the EatenDef has the same pattern as the tree
+            patternDefEq :: Tree RValue -> EatenDef -> Bool
+            patternDefEq pat1 def = case defToRewrite def of
+                Nothing -> True
+                Just (Rewrite pat2 _) -> pat1 /= pat2 
+```
+
+Sorry. Maybe it's rude to throw a huge block of code at you at once. I ought to be more polite.
+
+Anyways, Rosin will now refuse to match a rule if the multiset state is insufficient. Look!
+
+```
+$ cat sample/small.tree; rosin -p sample/small.tree 
+(fruit-salad | () & hello ~> world)
+(1 2 3 hello 4 5 6)
+
++-----------------+
+| Final transform |
++-----------------+
+(defined "Multiset {unmultiset = fromList [(fruit-salad,1)]}| & hello ~> world")
+(1 2 3 hello 4 5 6)
+```
+
+So that's that. Hope you enjoyed! Next time maybe we'll go less heavy on the Haskell and heavier on the Rosin. Talk to you soon!
