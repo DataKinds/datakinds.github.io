@@ -328,3 +328,70 @@ $ cat sample/small.tree; rosin -p sample/small.tree
 ```
 
 So that's that. Hope you enjoyed! Next time maybe we'll go less heavy on the Haskell and heavier on the Rosin. Talk to you soon!
+
+# Day 16
+
+Tonight cost me a lot of my sanity and I will inevitably be gluing back together the pieces of my sleep-deprived codebase later.
+
+That being said... [Rosin now has full support for rules which interact with multiset state](https://github.com/DataKinds/tree-rewriter/commit/3a3e4fca7edae9fb754a0c312aeff2f4744cd50f). It's done oh my god it's done. Done enough to start writing tests for and to start making more informed decisions on structuring the codebase. They don't do anything fancy like match against regex but that can all happen soon. We have a foundation in place to build off of!
+
+```
+$ cat sample/poc.rosin; rosin -p sample/poc.rosin 
+(| pear)
+(| pear)
+(| pear)
+(| orange)
+
+(@ bag)
+
+((pear pear) | pear-salad)
+
+(@ bag)
+
++-----------------+
+| Final transform |
++-----------------+
+((orange 1) (pear 3))
+((orange 1) (pear 1) (pear-salad 1))
+```
+
+What's `(@ bag)`, you may ask? That's a builtin! This particular builtin writes out the current state of the multiset bag.
+
+There are a couple of builtins hanging around now. Most notably `(@ parse :str)` which parses a string into a Rosin tree, and `(@ cat :path)` which loads another file as a string. These together make my test files prettier.
+
+```
+((p ?>) ~> ?>)
+((t :desc :!got :wanted) ~> (p (❌ :desc got :got wanted :wanted)))
+((t :desc :!val :val) ~> (p (✅ :desc :val)))
+((Test a :desc Given :test We expect :val) ~> (t :desc :test :val))
+
+(Test a "Lambda rule"
+    Given (((fruit basket) ~ apples oranges pears dragonfruit) 
+           (fruit basket) 
+           (fruit basket)) 
+    We expect (apples oranges pears dragonfruit
+               (fruit basket)))
+
+(Test a "Confusing named rule"
+       Given ((once ~ once once) once) We expect (once once))
+```
+
+now becomes
+
+```
+(@ parse (@ cat "t.rosin"))
+
+(Test a "Lambda rule"
+    Given (((fruit basket) ~ apples oranges pears dragonfruit) 
+           (fruit basket) 
+           (fruit basket)) 
+    We expect (apples oranges pears dragonfruit
+               (fruit basket)))
+
+(Test a "Confusing named rule"
+       Given ((once ~ once once) once) We expect (once once))
+```
+
+which is way cuter if I do say so myself.
+
+More to come soon!
