@@ -395,3 +395,11 @@ now becomes
 which is way cuter if I do say so myself.
 
 More to come soon!
+
+# Day 17
+
+Nothing today. I played through a cute little game called [Digseum](https://store.steampowered.com/app/3361470/Digseum/) after work tonight.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/E19QiXv27I8?si=WuYzU35pfNAjIFGN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+It was absolutely adorable. Worth the $2 and quite satisfying to boot.
