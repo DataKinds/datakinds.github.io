@@ -41,8 +41,8 @@ The compiler's gone through a bunch of iterative improvements that have drastica
 
 A few functions I'm extra proud of:
 
-* The core pattern matching function: https://github.com/DataKinds/tree-rewriter/blob/main/src/Core.hs#L237-L276. I daresay this function almost reads like pseudocode.
-* The runtime stepping function: https://github.com/DataKinds/tree-rewriter/blob/main/src/Runtime.hs#L243-L287. Finally reaping that sweet, sweet monadic DSL glory.
+* The core pattern matching function: <https://github.com/DataKinds/tree-rewriter/blob/main/src/Core.hs#L237-L276>. I daresay this function almost reads like pseudocode.
+* The runtime stepping function: <https://github.com/DataKinds/tree-rewriter/blob/main/src/Runtime.hs#L243-L287>. Finally reaping that sweet, sweet monadic DSL glory.
 
 Next is support for subinterpreters and parallelism (think `Ruby::Box`). Maybe also finally using my Trie implementation to match patterns.
 
@@ -146,7 +146,7 @@ _1111111111_', actions => RunThue.new
 
 As always, my title does the language perfect justice >:)
 
-I've written way more about this in the readme for the language, you ought to just defer to that: https://github.com/DataKinds/apl.
+I've written way more about this in the readme for the language, you ought to just defer to that: <https://github.com/DataKinds/apl>.
 
 ### DRILL
 
@@ -160,8 +160,8 @@ I'm sorry to those who use screen readers, I am trading speed of writing this ar
 
 Here are the two links from the screenshot. Good stuff!
 
-* https://dl.acm.org/doi/pdf/10.1145/3290325
-* https://thunderseethe.dev/series/making-a-language/
+* <https://dl.acm.org/doi/pdf/10.1145/3290325>
+* <https://thunderseethe.dev/series/making-a-language/>
 
 ### Game Jams
 
@@ -171,11 +171,11 @@ I signed up for 3, produced 0 games. I need to set my sights lower next time. Bu
 
 ### Lil' Weirdo
 
-Crap, everyone's doing AI! **Good thing I did it first.** Predating character.AI, Sora, Meta's fake girlfriends, or that one other discord bot that got banned for endagering kids, I present Lil Weirdo: https://github.com/DataKinds/lilweirdo.
+Crap, everyone's doing AI! **Good thing I did it first.** Predating character.AI, Sora, Meta's fake girlfriends, or that one other discord bot that got banned for endagering kids, I present [Lil Weirdo](https://github.com/DataKinds/lilweirdo).
 
 Lil Weirdo will keep a configurable message log in its special little brain, and it'll use that message log in order to either insult or aggresively try to flirt with other users. Because it also remembers the messages that it previously sent, it usually ends up going all tsundere on you.
 
-It can do a handful of other things too, like generate random video game achievements or random crafting recipies. I think I honed in the prompts pretty well, check them out here: https://github.com/DataKinds/lilweirdo/blob/main/src/templater.py#L81-L508.
+It can do a handful of other things too, like generate random video game achievements or random crafting recipies. I think I honed in the prompts pretty well, check them out here: <https://github.com/DataKinds/lilweirdo/blob/main/src/templater.py#L81-L508>.
 
 It's also set up to only use locally run LLMs through Ollama (which I think is adware now, so I gotta find something else).
 
