@@ -34,7 +34,7 @@ Making doubly sure...
 
 Most visual novels -- at least, the ones I've played -- overwhelmingly rely on a single technology: [Ren'Py](https://www.renpy.org/). Ren'Py is a Python framework for creating, compiling, and shipping visual novel games. It doesn't act like a single Python library, it's a compiler for multiple bespoke scripting languages that it packages up with a bunch of Pygame code and can ship as an executable on a number of different platforms.
 
-Sounds confusing? It... desperately is. It's unapproachable for non-programmers without example scaffolded projects. It does include an example game that you can start building off of) I took a stab at setting it up today after work and spun my wheels for an hour and some change. You have to learn Ren'Py's own dialect of Python for pete's sake. Doing anything interactive or swapping out Ren'Py's default UI components in any capacity that isn't a direct reskin requires you to dip your feet into extending Renpy's underlying UI library. And that's how you get _so many_ games that have this exact menu:
+Sounds confusing? It... desperately is. It's unapproachable for non-programmers without example scaffolded projects. It does include an example game that you can start building off of) I took a stab at setting it up today after work and spun my wheels for an hour and some change. You have to learn Ren'Py's own dialect of Python for pete's sake. Doing anything interactive or swapping out Ren'Py's default UI components [in any capacity that isn't a direct reskin](https://www.renpy.org/doc/html/gui.html#total-gui-replacement) requires you to dip your feet into extending Renpy's underlying UI library. And that's how you get _so many_ games that have this exact menu:
 
 !["It gets so lonely here" by ebi-hime](/assets/imgs/2026-02-26-what-even-is-a-visual-novel/1772160100129.png)
 !["Love Sucks: Night Two" by Art Witch Studios](/assets/imgs/2026-02-26-what-even-is-a-visual-novel/1772160199397.png)
@@ -111,11 +111,11 @@ I'd like to brainstorm some ideas for what a new visual novel engine may look li
 
 ### A tooling experience good enough that non-programmers are able to start projects confidently themselves
 
-Let me get it out of the way up front: I intend on making a set of command line tools for VN authorship. This means that for users uncomfortable with the terminal, the tools will have a slightly steeper learning curve than they would if they were GUI based. The baggage carried by the terminal interface is unavoidable, but I believe that it presents the best opportunity to create a really nice unified interface for VN building. This is not 
+Let me get it out of the way up front: I intend on making a set of command line tools for VN authorship. This means that for users uncomfortable with the terminal, the tools will have a slightly steeper learning curve than they would if they were GUI based. The baggage carried by the terminal interface is unavoidable, but I believe that it presents the best opportunity to create a really nice unified interface for VN building. I think the demographic here is ripe for it, it's going to be users who are already familiar with other art creation software and that carries a high risk of "having played in the terminal before". Additionally, the best part about competent command line tools is that it's so much easier to make a GUI wrapper than it is to turn a GUI tool back into a TUI tool.
 
-I believe it is incredibly important for new users to be able to immediately experiment with a system and see live results. Let's look at the user experience 
+With any art creation workflow I believe it is incredibly important for new users to be able to immediately experiment with the system and see live results. The feedback cycle with Ren'Py seems to be quite tight, but the real issue that I have here is that the tooling does not hold your hand at all. There's no guidance from the software itself and it's incredibly easy for a newer user to get lost.
 
-Now, take a look at the [quickstart guide](https://www.renpy.org/doc/html/quickstart.html) consider the difficulty of starting a new Ren'Py project. So much copying files around and going through what feels like pointless modal popups...
+Take a look at the [quickstart guide](https://www.renpy.org/doc/html/quickstart.html) consider the difficulty of starting a new Ren'Py project. So much copying files around and going through what feels like pointless modal popups. The [main script of a Ren'Py game is pretty readable](https://www.renpy.org/doc/html/thequestion.html#thequestion), but the [discoverability of that file in even in the example game isn't great](https://github.com/renpy/renpy/tree/master/the_question).
 
 I know it's a stretch, but let's compare it to starting a new Rust game-dev project with Bevy:
 
@@ -128,11 +128,12 @@ I know it's a stretch, but let's compare it to starting a new Rust game-dev proj
 > Cool, I compiled it with `cargo run`
 >
 > Cool, the next page has me stubbing out a Bevy app -- I'm up and running, and I'm already vaguely familiar with Rust!
+> 
+> *(there are about three more pages of cool examples until the user hits a massive difficulty wall)*
 
+The engine is integrated with tooling that the user already understands -- Rust and Cargo, even if they only understand it very vaguely. It's hijacking *any* technique the user already had.
 
-I really like the simplicity of this process.
-
-So, how would you start a new visual novel project with the tool suite I'm brainstorming?
+So, how would you start a new visual novel project with the tool suite I'm brainstorming? I want to do the same kind of strategy and make the workflow exceedingly familiar to anyone who's used a terminal previously:
 
 > Okay, I've got `vn` installed, how do I do this?
 >
@@ -153,7 +154,6 @@ So, how would you start a new visual novel project with the tool suite I'm brain
 >     * 0 emotions registered, see `vn emotions` 
 >     * 0 sprites registered, see `vn sprites`
 >     * 0 animations registered, see `vn anim`
->     * 0 Live2D rigs registered, see `vn live2d`
 >     * 0 lines registered, see `vn dialogue`
 >     * Appears in 0 scenes, see `vn scenes`
 > ```
