@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+  {%- include head.html -%}
+
+  <body>
+
+    {%- include header.html -%}
+
+    <div class="header-to-page"></div>
+
+    <main class="page-content" aria-label="Content">
+      <div class="home">
+        {%- if page.title -%}
+          <h2 class="page-heading">{{ page.title }}</h2>
+        {%- endif -%}
+        
+        {{ content }}
+      </div>
+    </main>
+    
+  </body>
+
+</html>
