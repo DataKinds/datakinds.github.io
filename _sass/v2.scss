@@ -172,18 +172,56 @@ p > img {
     text-align: right;
     line-height: 0.9;
     margin-top: 1.5em;
-}
+    
+    dd {
+        margin-right: 1.5em;
+    }
 
-.site-subtitle {
-    text-decoration: none;
-    color: var(--whiite) !important;
-    white-space: nowrap;
-    margin: 0 4px;
-}
+    dt::after {
+        position: absolute;
+        right: 0;
+        z-index: -1;
+        white-space: pre;
+        content: "";
+        background-color: var(--backdrop);
+        padding: 0.9em;
+    }
 
-.site-subtitle > h2 {
-    margin: 0;
-    font-weight: normal;
+    .vertical-fancy {
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-image: url(/assets/cute-90deg.svg);
+        filter: invert(100%);
+        background-size: auto 20px;
+        background-repeat: repeat-y;
+        width: 1em;
+        z-index: -2;
+        margin-top: 2em;
+        margin-bottom: 0.55em;
+    }
+
+    .site-navlink {
+        text-decoration: none;
+        color: var(--whiite) !important;
+        white-space: nowrap;
+        h2 {
+            margin: 0;
+            font-weight: normal;
+        }
+
+    }
+
+    .site-sublink {
+        text-decoration: none;
+        color: var(--whiite) !important;
+        white-space: nowrap;
+        h2 {
+            margin: 0;
+            font-size: large;
+        }
+    }
 }
 
 .post-link {

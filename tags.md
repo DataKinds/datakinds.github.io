@@ -1,5 +1,5 @@
 ---
-layout: home
+layout: blog_home
 title: browse by tag
 permalink: /tags/
 ---

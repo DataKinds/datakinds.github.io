@@ -1,13 +1,11 @@
 ---
-layout: default
+layout: landing
 ---
 
 <div class="home">
   {%- if page.title -%}
     <h1 class="page-heading">{{ page.title }}</h1>
   {%- endif -%}
-
-  {% capture include_about %}{% include about_include.md %}{% endcapture %}
 
   {{ content }}
 
