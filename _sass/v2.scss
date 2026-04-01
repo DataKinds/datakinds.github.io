@@ -184,7 +184,7 @@ p > img {
         white-space: pre;
         content: "";
         background-color: var(--backdrop);
-        padding: 0.9em;
+        padding: 1em;
     }
 
     .vertical-fancy {
@@ -199,7 +199,7 @@ p > img {
         width: 1em;
         z-index: -2;
         margin-top: 2em;
-        margin-bottom: 0.55em;
+        margin-bottom: 0.65em;
     }
 
     .site-navlink {
@@ -207,7 +207,7 @@ p > img {
         color: var(--whiite) !important;
         white-space: nowrap;
         h2 {
-            margin: 0;
+            margin: 0.1em 0;
             font-weight: normal;
         }
 
@@ -292,9 +292,12 @@ h1:hover > .post-header-anchor {
     margin: 0 10px;
 }
 
+.funny {
+    filter: drop-shadow(2px 2px 0px var(--accent)) drop-shadow(-3px -2px 0px var(--muted));
+}
+
 .footer-title > .funny {
     font-size: larger;
-    filter: drop-shadow(2px 2px 0px var(--accent)) drop-shadow(-3px -2px 0px var(--muted));
 }
 
 .footer-meta {

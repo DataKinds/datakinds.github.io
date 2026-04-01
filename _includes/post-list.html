@@ -1,5 +1,5 @@
 <ul class="post-list">
-  {%- for post in site.posts -%}
+  {%- for post in site.posts limit:include.postcount -%}
   {% if include.tag %}
     {% unless post.tags contains include.tag %}
       {% continue %}
