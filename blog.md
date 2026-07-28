@@ -10,11 +10,11 @@ want to link to this page from your blog? you can embed one of my shiny new 88x3
 <div class="flex" style="justify-content: space-around; flex-wrap: wrap">
     <div style="text-align: center">
         <a href="https://datakinds.github.io/blog"><img src="/assets/88x31_light.png"></a>
-        <pre style="max-width: 40vw" class="highlight language-">&lt;a href="https://datakinds.github.io/blog">&lt;img src="https://datakinds.github.io/assets/88x31_light.png"&lt;/a></pre>
+        <pre style="max-width: 40vw" class="highlight language-">&lt;a href="https://datakinds.github.io/blog">&lt;img src="https://datakinds.github.io/assets/88x31_light.png">&lt;/a></pre>
     </div>
     <div style="text-align: center">
         <img src="/assets/88x31_dark.png">
-        <pre style="max-width: 40vw" class="highlight language-">&lt;a href="https://datakinds.github.io/blog">&lt;img src="/assets/88x31_light.png"&lt;/a></pre>
+        <pre style="max-width: 40vw" class="highlight language-">&lt;a href="https://datakinds.github.io/blog">&lt;img src="/assets/88x31_light.png">&lt;/a></pre>
     </div>
 </div>
 
