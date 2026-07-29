@@ -25,6 +25,7 @@ want your badge here? shoot me a message!
     <a href="https://webring.catlang.social/"><img src="https://webring.catlang.social/catweb-88x31.png"></a>
     <a href="https://quiltro.org/"><img src="https://quiltro.org/88x31/quiltro.png"></a>
     <a href="https://casuallyblue.dev/"><img src="https://casuallyblue.dev/images/casually-blue.gif"></a>
+    <a href="https://www.sheeeeeeeep.art/"><img src="https://www.sheeeeeeeep.art/imgs/art/button.png"></a>
 </div>
 
 ### rings of the blog
