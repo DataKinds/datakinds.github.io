@@ -18,6 +18,23 @@ want to link to this page from your blog? you can embed one of my shiny new 88x3
     </div>
 </div>
 
+### friends of the blog
+want your badge here? shoot me a message!
+
+<a href="https://webring.catlang.social/"><img src="https://webring.catlang.social/catweb-88x31.png"></a>
+
+### rings of the blog
+
+this blog participates in a number of webrings. explore the active ones below:
+
+<div class="webring-line">
+    <a href="https://webring.catlang.social/previous/at/">&lt;&lt;&lt; previous page &lt;&lt;&lt;</a> 
+    <a href="https://webring.catlang.social/"><img src="https://webring.catlang.social/catweb-88x31.png"></a>
+    <a href="https://webring.catlang.social/next/at/">&gt;&gt;&gt; next page &gt;&gt;&gt;</a> 
+</div>
+
+### without further ado, the blog posts
+
 <div>
     {% if site.posts.size > 0 %}
         {% include post-list.html %}
