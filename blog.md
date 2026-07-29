@@ -23,8 +23,8 @@ want your badge here? shoot me a message!
 
 <div class="badge-line">
     <a href="https://webring.catlang.social/"><img src="https://webring.catlang.social/catweb-88x31.png"></a>
-    <a href="https://quiltro.org/"><img src="https://quiltro.org/88x31/quiltro.png
-    "></a>
+    <a href="https://quiltro.org/"><img src="https://quiltro.org/88x31/quiltro.png"></a>
+    <a href="https://casuallyblue.dev/"><img src="https://casuallyblue.dev/images/casually-blue.gif"></a>
 </div>
 
 ### rings of the blog
