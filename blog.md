@@ -21,7 +21,11 @@ want to link to this page from your blog? you can embed one of my shiny new 88x3
 ### friends of the blog
 want your badge here? shoot me a message!
 
-<a href="https://webring.catlang.social/"><img src="https://webring.catlang.social/catweb-88x31.png"></a>
+<div class="badge-line">
+    <a href="https://webring.catlang.social/"><img src="https://webring.catlang.social/catweb-88x31.png"></a>
+    <a href="https://quiltro.org/"><img src="https://quiltro.org/88x31/quiltro.png
+    "></a>
+</div>
 
 ### rings of the blog
 

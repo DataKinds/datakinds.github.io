@@ -364,3 +364,9 @@ ul.post-list {
         text-decoration: none;
     }
 }
+
+.badge-line {
+    display: flex;
+    justify-content: start;
+    gap: 0.5em;
+}
