@@ -12,11 +12,11 @@ quick note: i'll put a dagger symbol (†) next to any jargon i've made up, and 
 
 let me tell you about 
 
-## modules
+# modules
 
 a module is a way to organize lots of behaviors under one scope. there are a few kinds of modules, and i want to suggest that these interpretations form a hierarchy. we're going to start with the narrowest end of the hierarchy and work our way up. and it'll be more relevant as we get to the ocaml section but we're discussing modules strictly as they exist dynamically, at runtime. no types here, sorry!
 
-### static modules†
+## static modules†
 
 this is like what Haskell calls a module, or what many languages (Python, Kotlin, etc) will call a _package_.
 
@@ -40,7 +40,7 @@ these modules do nothing beside providing a scope and disambiguating names. so i
 * compilation unit separation
     * if a module hasn't changed, it doesn't need to be recompiled. this comes for free because of the scope boundary
 
-### closure modules†
+## closure modules†
 
 there is a middle-ground for how dynamic a module can be. instead of all data specified in a module being completely static, you can also have modules which close over some data explicitly and work with that data as state. 
 
@@ -55,7 +55,7 @@ let's take a note of this capability:
 * explicit closure
     * you can choose to store data within the module, and you can choose to come back and mutate that data
 
-### polymorphic modules†
+## polymorphic modules†
 
 we've made the singleton class comparison, so let's extend that a little more. what if we could have N singleton classes, where each one was parameterized over a set of types and values?
 
@@ -79,7 +79,7 @@ in the jargon of the hierarchy we've built, `SingletonValue` IS a polymorphic mo
 * multiplicity
     * specifically, you may have 1 instance of a polymorphic module per unique parameter. so if you've got some sort of countable type, you've got infinite modules.
 
-### functatorial polymorphic modules
+## functatorial (first-class) polymorphic modules
 
 let's again expand the breadth of things a module can do---we now allow a closure module to take input. the only place i've ever seen this explicitly is in the SML family of languages. specifically, let's look at ocaml's [functors](https://ocaml.org/docs/functors):
 
@@ -109,6 +109,155 @@ note that this immediately gives us a few new capabilities to think about:
 * nesting
     * modules can consume other modules as variables. passing in an anonymous module is identical to defining a module within another module in the effect it has on the environment
 
-## quantifying ways to interact dynamically with modules 
+# who's janna?
 
-(TODO, actions in janna)
+[janna (she/her) is a VM for working with modules](https://github.com/DataKinds/continuation-playground). [in the tradition of naming my compilers after my OCs](https://github.com/DataKinds/tree-rewriter), so too is she named. she supports a number of actions on modules, and i'd like to take the time to quantify this set of actions so we can get a full idea of how to interact with a module.
+
+janna is a fully dynamic VM and does not have an initial pass for things like type/effect checking. janna is built in the forth tradition of parsing words, so janna's not even statically decidable. this lets us do fun things with continuations without having to come up with a static managed runtime. if you want all these goodies with a type system on top of it, for Serious Work, go check out ocaml. 
+
+the intention is that janna will support first-class polymorphic modules. she will be able to create these modules on the fly and do all the composing you'd like. so let's start walking up the hierarchy and look at the syntax and semantic of janna.
+
+note that ALL the syntax and spellings here are subject to change, but it's valid as of 8/10/2026.
+
+## quick sidenotes before we begin
+
+### janna's output
+
+i'll use double boxes for code input vs code output
+```
+this is input
+```
+```
+and this is output
+```
+
+note that janna has a little debug printer that does its best to dump the VM state. this is what it looks like in a fresh VM, you'll see it again soon:
+
+```
+?
+```
+```
+janna v0 knows 4 modules: io, debug, main, core
+open scopes (active scope first): main
+
+within main, there are 0 definitions:
+
+within main, the resolution chain is: debug, io, core
+
+within main, open stacks (active first): hole
+
+within main, there are 1 stacks:
+hole[]
+```
+
+### janna's datatypes
+
+janna's [for a gamejam](https://itch.io/jam/catjam-2026) so she's only getting features on an as-needed basis. janna currently only has two types---terms, which are bare words; 
+```
+\ i'm-a-term .
+```
+```
+i'm-a-term
+```
+
+and quotes, which are effectively sequences of words but stored internally as strings:
+```
+[ Hark! O'er the five seas, land emerges! ] .s
+```
+```
+Hark! O'er the five seas, land emerges!
+```
+
+if i need something else i'll add that something else. integers are a good candidate. but without loops or conditionals i haven't seen the need yet!
+
+
+## static modules
+
+`enter:` is a syntax word that consumes one name term and enters the scope of the module given by the name. if the module doesn't exist, we create it. `leave` is its inverse, `:` is word definition. we call `?` twice so you, dear reader, can get Maximum Info, and see how janna is treating each scope here.
+
+```
+enter: foo
+: bar [ hello world ] . ;
+?
+leave
+[ -------- ] .s
+?
+```
+```
+janna v0 knows 5 modules: debug, main, core, foo, io
+open scopes (active scope first): foo, main
+
+within foo, there are 1 definitions:
+bar
+
+within foo, the resolution chain is: 
+
+within foo, open stacks (active first): hole
+
+within foo, there are 1 stacks:
+hole[]
+
+--------
+
+janna v0 knows 5 modules: debug, main, core, foo, io
+open scopes (active scope first): main
+
+within main, there are 0 definitions:
+
+within main, the resolution chain is: debug, io, core
+
+within main, open stacks (active first): hole
+
+within main, there are 1 stacks:
+hole[]
+```
+
+### scoping, privitization, disambiguation
+
+modules can hold named stacks and named definitions. this does a few things for us: firstly, disambiguation and scoping! watch us distinguish between two different definitions of `bar`:
+
+```
+enter: foo1
+: bar [ hello world ] .s ;
+leave
+enter: foo2
+: bar [ goodbye world ] .s ;
+leave
+
+enter: foo1 bar leave
+enter: foo2 bar leave
+bar
+```
+```
+hello world
+
+goodbye world
+
+Unknown word bar in modules ["main"]
+```
+
+### dependency demand
+
+### compilation unit separation
+
+... is nonapplicable because we don't statically compile.
+
+## closure modules
+
+at initialization time, you're free to pull data from other names
+
+## polymorphic modules
+
+`enter` (not `enter:`) can take a quote as the name of the module. the first word from the quote is taken as the module name, all subsequent terms in the quote are taken as the parameter to the module.
+
+TODO: maybe the subsequent words should be "the name of teh stack that we push the parameters to".... much to think about?
+
+TODO alternate: this parameter is automatically populated onto a named stack within the module, `M.T`.
+
+## first-class modules
+
+TODO: there should be an anonymous version of `enter`, and `leave` should push the name of the module to the stack.
+
+# janna's bag of tricks
+
+special modules (like the parameterized module that holds continuations)

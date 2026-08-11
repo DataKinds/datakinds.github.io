@@ -2,6 +2,7 @@
 layout: post
 title: Jamq Thinkbox
 date: 2019-06-29 20:24 -0700
+tags: thinkbox
 ---
 
 Jamq (**J**ust **A**synchronous **M**essages and **Q**ueues) is a language I've been tossing back and forth in my mind. Here's what I'm thinking about:
